@@ -7,164 +7,281 @@
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
-  <header class="app-header">
-    <h1>RoscoIntegra</h1>
-  </header>
-
-  <main class="layout">
-    <aside class="panel config-panel">
-      <h2>Configuracion</h2>
-
-      <label for="assetBankSelect">Banco en assets</label>
-      <select id="assetBankSelect">
-        <option value="">Cargando bancos...</option>
-      </select>
-      <button id="btnLoadAssetBank" class="btn">Cargar banco</button>
-
-      <label for="jsonInput">Banco JSON</label>
-      <textarea id="jsonInput" rows="8" placeholder='Pega aqui el JSON de preguntas'></textarea>
-
-      <label for="jsonFile">Cargar archivo JSON</label>
-      <input id="jsonFile" type="file" accept="application/json,.json" />
-
-      <button id="btnLoadJson" class="btn">Validar y cargar</button>
-
-      <div class="select-grid">
-        <div>
-          <label for="filterCycle">Ciclo</label>
-          <select id="filterCycle">
-            <option value="">Seleccionar...</option>
-          </select>
+  <svg class="icon-sprite" aria-hidden="true">
+    <symbol id="i-play" viewBox="0 0 24 24"><path fill="currentColor" d="M8 5v14l11-7z"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path fill="currentColor" d="M7 5h4v14H7zm6 0h4v14h-4z"/></symbol>
+    <symbol id="i-stop" viewBox="0 0 24 24"><path fill="currentColor" d="M6 6h12v12H6z"/></symbol>
+    <symbol id="i-reset" viewBox="0 0 24 24"><path fill="currentColor" d="M12 5a7 7 0 1 1-6.3 4H3l3.5-3.5L10 9H7.8A5 5 0 1 0 12 7V5z"/></symbol>
+    <symbol id="i-full" viewBox="0 0 24 24"><path fill="currentColor" d="M4 9V4h5v2H6v3H4zm14 0V6h-3V4h5v5h-2zM6 15v3h3v2H4v-5h2zm12 0h2v5h-5v-2h3v-3z"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path fill="currentColor" d="M11 5h2v6h6v2h-6v6h-2v-6H5v-2h6z"/></symbol>
+    <symbol id="i-exit" viewBox="0 0 24 24"><path fill="currentColor" d="M10 17l1.4-1.4L9.8 14H20v-2H9.8l1.6-1.6L10 9l-4 4l4 4zM4 5h8V3H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8v-2H4V5z"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path fill="currentColor" d="M12 5c-5.2 0-9.4 3.2-11 7c1.6 3.8 5.8 7 11 7s9.4-3.2 11-7c-1.6-3.8-5.8-7-11-7zm0 11a4 4 0 1 1 0-8a4 4 0 0 1 0 8z"/></symbol>
+    <symbol id="i-pass" viewBox="0 0 24 24"><path fill="currentColor" d="M5 5h2v14H5zm4 7l10-7v14z"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path fill="currentColor" d="m9 16.2l-3.5-3.5L4 14.2l5 5l11-11l-1.5-1.5z"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path fill="currentColor" d="m19 6.4l-1.4-1.4L12 10.6L6.4 5L5 6.4L10.6 12L5 17.6L6.4 19l5.6-5.6l5.6 5.6l1.4-1.4L13.4 12z"/></symbol>
+    <symbol id="i-sound" viewBox="0 0 24 24"><path fill="currentColor" d="M3 10v4h4l5 4V6L7 10H3zm12.5 2a3.5 3.5 0 0 0-2-3.1v6.2a3.5 3.5 0 0 0 2-3.1z"/></symbol>
+  </svg>
+  <main id="appRoot" class="app-root">
+    <section id="viewLanding" class="view landing-view">
+      <div class="landing-card">
+        <img class="landing-logo" src="assets/img/logo.png" alt="Logo RoscoIntegra" />
+        <p class="subtitle">Autor: Javier Feijóo</p>
+        <div class="actions-stack">
+          <button id="btnGoConfig" class="btn btn-primary btn-xl">Configurar partida</button>
+          <button id="btnLandingStart" class="btn btn-xl" disabled>Iniciar partida</button>
         </div>
-        <div>
-          <label for="filterModule">Modulo</label>
-          <select id="filterModule">
-            <option value="">Seleccionar...</option>
-          </select>
-        </div>
-        <div>
-          <label for="filterDifficulty">Dificultad</label>
-          <select id="filterDifficulty">
-            <option value="">Seleccionar...</option>
-          </select>
+        <p id="landingStartHint" class="hint"></p>
+        <div class="status-box">
+          <p><strong>Banco actual:</strong> <span id="landingBankOrigin">-</span></p>
+          <p><strong>Archivo:</strong> <span id="landingBankFile">-</span></p>
+          <p><strong>Preguntas:</strong> <span id="landingBankCount">0</span></p>
         </div>
       </div>
-
-      <label class="inline-control" for="cfgShuffle">
-        <input id="cfgShuffle" type="checkbox" checked />
-        Shuffle (elige 1 al azar por letra al iniciar)
-      </label>
-
-      <div class="two-cols">
-        <div>
-          <label for="cfgTime">Tiempo total</label>
-          <input id="cfgTime" type="number" min="1" step="1" value="180" />
-        </div>
-        <div>
-          <label for="cfgTimeUnit">Unidad</label>
-          <select id="cfgTimeUnit">
-            <option value="seconds">Segundos</option>
-            <option value="minutes">Minutos</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="two-cols">
-        <div>
-          <label for="cfgPoints">Puntos por acierto</label>
-          <input id="cfgPoints" type="number" min="0" value="10" />
-        </div>
-      </div>
-
-      <div>
-        <label for="cfgPenalty">Penalizacion por fallo (opcional)</label>
-        <input id="cfgPenalty" type="number" min="0" value="0" />
-      </div>
-
-      <button id="btnStart" class="btn btn-primary" disabled>Empezar partida</button>
-
-      <div class="load-state">
-        <p id="loadStatus" class="status">Carga un banco de preguntas valido para habilitar la partida.</p>
-        <p class="status"><strong>Total:</strong> <span id="loadTotal">0</span></p>
-        <p class="status"><strong>Duplicadas:</strong> <span id="loadDuplicates">-</span></p>
-        <p class="status"><strong>Ausentes:</strong> <span id="loadMissing">-</span></p>
-        <p class="status"><strong>Origen:</strong> <span id="loadSource">-</span></p>
-      </div>
-    </aside>
-
-    <section class="panel game-panel">
-      <div class="hud">
-        <div class="hud-item">
-          <span>Temporizador</span>
-          <strong id="timerDisplay" class="timer-big">00:00</strong>
-        </div>
-        <div class="hud-item">
-          <span>Puntos</span>
-          <strong id="scoreDisplay">0</strong>
-        </div>
-      </div>
-
-      <div class="actions">
-        <button id="btnTimerPause" class="btn">Pausar</button>
-        <button id="btnTimerResume" class="btn">Reanudar</button>
-        <button id="btnTimerReset" class="btn">Reiniciar tiempo</button>
-        <button id="btnNewGame" class="btn">Nueva partida</button>
-      </div>
-
-      <div class="rosco-wrap">
-        <ul id="rosco" class="rosco" aria-label="Rosco"></ul>
-      </div>
-
-      <article class="center-panel" aria-live="polite" aria-atomic="true">
-        <h2>Letra activa: <span id="activeLetter">-</span></h2>
-        <p id="questionText">Pulsa "Empezar partida" para iniciar.</p>
-
-        <div id="answerBlock" class="answer hidden">
-          <strong>Respuesta:</strong>
-          <span id="answerText"></span>
-        </div>
-
-        <div class="actions">
-          <button id="btnReveal" class="btn btn-big">Mostrar respuesta</button>
-          <button id="btnPass" class="btn btn-big btn-warn">PASA</button>
-          <button id="btnReadAnswer" class="btn hidden">Leer respuesta</button>
-          <button id="btnCorrect" class="btn btn-success hidden">Acertada</button>
-          <button id="btnWrong" class="btn btn-danger hidden">Fallada</button>
-        </div>
-      </article>
     </section>
 
-    <aside class="panel tts-panel">
-      <h2>TTS</h2>
-      <div class="actions-column">
-        <button id="btnTtsRead" class="btn">Leer pregunta</button>
-        <label class="inline-control" for="ttsAuto">
-          <input id="ttsAuto" type="checkbox" checked />
-          Auto lectura
-        </label>
-        <label for="ttsVoice">Voz</label>
-        <select id="ttsVoice">
-          <option value="">Cargando voces...</option>
-        </select>
-        <label for="ttsRate">Rate</label>
-        <input id="ttsRate" type="number" step="0.1" min="0.5" max="2" value="1" />
-        <label for="ttsPitch">Pitch</label>
-        <input id="ttsPitch" type="number" step="0.1" min="0" max="2" value="1" />
-        <div class="actions">
-          <button id="btnTtsStop" class="btn">Stop</button>
-          <button id="btnTtsPause" class="btn">Pause</button>
-          <button id="btnTtsResume" class="btn">Resume</button>
+    <section id="viewConfig" class="view config-view hidden">
+      <header class="section-header">
+        <h2>Configurar partida</h2>
+        <div class="actions-inline">
+          <button id="btnBackToLanding" class="btn">Volver a inicio</button>
         </div>
+      </header>
+
+      <div class="config-grid">
+        <aside class="panel">
+          <h3>Banco de preguntas</h3>
+
+          <label for="assetBankSelect">Banco en /assets</label>
+          <select id="assetBankSelect">
+            <option value="">Cargando bancos...</option>
+          </select>
+          <button id="btnLoadAssetBank" class="btn">Cargar banco</button>
+
+          <label for="jsonInput">Pegar JSON</label>
+          <textarea id="jsonInput" rows="8" placeholder='Pega aqui tu JSON con "preguntas"'></textarea>
+          <button id="btnLoadJson" class="btn">Validar y cargar pegado</button>
+
+          <label for="jsonFile">Importar archivo .json</label>
+          <input id="jsonFile" type="file" accept="application/json,.json" />
+
+          <div class="status-box compact">
+            <p><strong>Origen:</strong> <span id="loadSource">-</span></p>
+            <p><strong>Archivo:</strong> <span id="loadFile">-</span></p>
+            <p><strong>Total:</strong> <span id="loadTotal">0</span></p>
+            <p><strong>Duplicadas:</strong> <span id="loadDuplicates">No</span></p>
+            <p><strong>Ausentes:</strong> <span id="loadMissing">-</span></p>
+          </div>
+
+          <p id="loadStatus" class="status-text">Carga un banco para habilitar el juego.</p>
+        </aside>
+
+        <aside class="panel">
+          <h3>Parametros</h3>
+
+          <div class="two-cols">
+            <div>
+              <label for="cfgTime">Tiempo total</label>
+              <input id="cfgTime" type="number" min="1" step="1" value="180" />
+            </div>
+            <div>
+              <label for="cfgTimeUnit">Unidad</label>
+              <select id="cfgTimeUnit">
+                <option value="seconds">Segundos</option>
+                <option value="minutes">Minutos</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="two-cols">
+            <div>
+              <label for="cfgPoints">Puntos por acierto</label>
+              <input id="cfgPoints" type="number" min="0" value="10" />
+            </div>
+            <div>
+              <label for="cfgPenalty">Penalizacion por fallo</label>
+              <input id="cfgPenalty" type="number" min="0" value="0" />
+            </div>
+          </div>
+
+          <label class="inline-control" for="cfgShuffle">
+            <input id="cfgShuffle" type="checkbox" checked />
+            Shuffle por letra
+          </label>
+
+          <label class="inline-control" for="cfgAudioEnabled">
+            <input id="cfgAudioEnabled" type="checkbox" checked />
+            Audio habilitado (TTS/fallback local)
+          </label>
+
+          <div class="three-cols">
+            <div>
+              <label for="filterCycle">Ciclo</label>
+              <select id="filterCycle"><option value="">Todos</option></select>
+            </div>
+            <div>
+              <label for="filterModule">Modulo</label>
+              <select id="filterModule"><option value="">Todos</option></select>
+            </div>
+            <div>
+              <label for="filterDifficulty">Dificultad</label>
+              <select id="filterDifficulty"><option value="">Todos</option></select>
+            </div>
+          </div>
+
+          <h3>TTS</h3>
+          <p id="ttsStatus" class="status-text">Comprobando TTS...</p>
+          <label for="ttsVoice">Voz</label>
+          <select id="ttsVoice"><option value="">Preferida (espanol)</option></select>
+          <div class="two-cols">
+            <div>
+              <label for="ttsRate">Rate</label>
+              <input id="ttsRate" type="number" step="0.1" min="0.5" max="2" value="1" />
+            </div>
+            <div>
+              <label for="ttsPitch">Pitch</label>
+              <input id="ttsPitch" type="number" step="0.1" min="0" max="2" value="1" />
+            </div>
+          </div>
+
+          <label class="inline-control" for="cfgTeacherMode">
+            <input id="cfgTeacherMode" type="checkbox" />
+            Modo docente (depuracion)
+          </label>
+
+          <div class="actions-stack">
+            <button id="btnSaveConfig" class="btn">Guardar configuracion</button>
+            <button id="btnStartFromConfig" class="btn btn-primary">Empezar partida</button>
+            <button id="btnResetConfig" class="btn">Restablecer configuracion</button>
+          </div>
+          <p id="configStatus" class="status-text"></p>
+        </aside>
+
+        <aside class="panel">
+          <h3>Diagnostico de carga</h3>
+          <p class="status-text">Si abres la app con file:// algunos navegadores bloquean fetch a /assets.</p>
+          <pre id="diagnosticLog" class="diagnostic-log"></pre>
+        </aside>
       </div>
-    </aside>
+    </section>
+
+    <section id="viewGame" class="view game-view hidden">
+      <div id="gameContainer" class="game-container">
+        <header class="game-header">
+          <div class="hud-box hud-left">
+            <span>Temporizador</span>
+            <strong id="timerDisplay">00:00</strong>
+          </div>
+          <div class="game-top-actions">
+            <button id="btnTimerPause" class="btn btn-top btn-tone-time" title="Pausar tiempo"><svg class="icon"><use href="#i-pause"/></svg><span>Pausar</span></button>
+            <button id="btnTimerResume" class="btn btn-top btn-tone-time" title="Reanudar tiempo"><svg class="icon"><use href="#i-play"/></svg><span>Reanudar</span></button>
+            <button id="btnTimerReset" class="btn btn-top btn-tone-time" title="Reiniciar tiempo"><svg class="icon"><use href="#i-reset"/></svg><span>Reiniciar</span></button>
+            <button id="btnFullscreen" class="btn btn-top btn-tone-view" title="Pantalla completa"><svg class="icon"><use href="#i-full"/></svg><span>Pantalla</span></button>
+            <button id="btnNewGame" class="btn btn-top btn-tone-game" title="Nueva partida"><svg class="icon"><use href="#i-plus"/></svg><span>Nueva</span></button>
+            <button id="btnExitToLanding" class="btn btn-danger btn-top" title="Salir a inicio"><svg class="icon"><use href="#i-exit"/></svg><span>Salir</span></button>
+          </div>
+          <div class="hud-box hud-right">
+            <span>Puntos</span>
+            <strong id="scoreDisplay">0</strong>
+          </div>
+        </header>
+
+        <section class="game-middle">
+          <aside class="side-panel side-left">
+            <p class="control-title">Control de partida</p>
+            <div class="left-controls-stack">
+              <button id="btnReveal" class="btn btn-xl btn-tone-game">Ver respuesta</button>
+
+              <div id="answerBlock" class="answer answer-side hidden">
+                <strong>Respuesta:</strong>
+                <span id="answerText"></span>
+              </div>
+
+              <div class="actions-grid game-actions judge-controls">
+                <button id="btnCorrect" class="btn btn-success hidden"><svg class="icon"><use href="#i-check"/></svg><span>Acertada</span></button>
+                <button id="btnWrong" class="btn btn-danger hidden"><svg class="icon"><use href="#i-x"/></svg><span>Fallada</span></button>
+              </div>
+
+              <div class="active-letter-zone" aria-live="polite" aria-atomic="true">
+                <p class="active-letter-label">Letra en juego</p>
+                <strong id="activeLetter" class="active-letter-big">-</strong>
+              </div>
+
+              <button id="btnPass" class="btn btn-warn btn-xl left-pass-btn">PASA</button>
+            </div>
+          </aside>
+
+          <div class="rosco-stage">
+            <div class="rosco-shell">
+              <ul id="rosco" class="rosco" aria-label="Rosco de letras"></ul>
+            </div>
+          </div>
+
+          <aside class="side-panel side-right">
+            <p class="control-title">Audio de pregunta y respuesta</p>
+            <div class="actions-grid game-actions secondary-controls">
+              <button id="btnReadQuestion" class="btn btn-tone-audio"><svg class="icon"><use href="#i-sound"/></svg><span>Repetir pregunta</span></button>
+              <button id="btnReadAnswer" class="btn btn-tone-audio hidden"><svg class="icon"><use href="#i-sound"/></svg><span>Leer respuesta</span></button>
+            </div>
+            <div class="actions-grid game-actions audio-controls">
+              <button id="btnTtsStop" class="btn btn-tone-audio btn-icon-only" aria-label="Stop audio" title="Stop audio"><svg class="icon"><use href="#i-stop"/></svg></button>
+              <button id="btnTtsPause" class="btn btn-tone-audio btn-icon-only" aria-label="Pausar audio" title="Pausar audio"><svg class="icon"><use href="#i-pause"/></svg></button>
+              <button id="btnTtsResume" class="btn btn-tone-audio btn-icon-only" aria-label="Reanudar audio" title="Reanudar audio"><svg class="icon"><use href="#i-play"/></svg></button>
+            </div>
+          </aside>
+        </section>
+
+        <article class="center-panel" aria-live="polite" aria-atomic="true">
+          <p id="questionText" class="question-main">Pulsa iniciar para comenzar.</p>
+
+          <section id="teacherPanel" class="teacher-panel hidden" aria-live="polite">
+            <h3>Modo docente</h3>
+            <pre id="teacherStateText" class="teacher-state"></pre>
+          </section>
+        </article>
+      </div>
+    </section>
   </main>
 
-  <div id="timeOverlay" class="time-overlay hidden" role="dialog" aria-modal="true" aria-label="Tiempo agotado">
-    <div class="time-overlay-card">
-      <h2>TIEMPO</h2>
-      <div class="actions">
+  <div id="summaryOverlay" class="overlay hidden" role="dialog" aria-modal="true" aria-label="Resumen final">
+    <div class="overlay-card">
+      <h2 id="summaryTitle">RESUMEN PARTIDA</h2>
+      <p id="summaryReason" class="summary-reason">Finalizada</p>
+
+      <div class="summary-dashboard">
+        <article class="summary-stat">
+          <span class="summary-label">Puntuacion</span>
+          <strong id="summaryScore">0</strong>
+        </article>
+        <article class="summary-stat">
+          <span class="summary-label">Porcentaje</span>
+          <strong id="summaryPercent">0%</strong>
+        </article>
+        <article class="summary-stat">
+          <span class="summary-label">Correctas</span>
+          <strong id="summaryCorrect">0</strong>
+        </article>
+        <article class="summary-stat">
+          <span class="summary-label">Falladas</span>
+          <strong id="summaryWrong">0</strong>
+        </article>
+        <article class="summary-stat">
+          <span class="summary-label">Pasadas</span>
+          <strong id="summaryPassed">0</strong>
+        </article>
+        <article class="summary-stat">
+          <span class="summary-label">Tiempo restante</span>
+          <strong id="summaryTimeLeft">00:00</strong>
+        </article>
+        <article class="summary-stat">
+          <span class="summary-label">Tiempo consumido</span>
+          <strong id="summaryTimeUsed">00:00</strong>
+        </article>
+      </div>
+
+      <div class="actions-grid">
+        <button id="btnExportResults" class="btn">Exportar resultados</button>
         <button id="btnOverlayNewGame" class="btn btn-primary">Nueva partida</button>
-        <button id="btnOverlayResetTime" class="btn">Reiniciar tiempo</button>
+        <button id="btnOverlayExit" class="btn">Salir a inicio</button>
       </div>
     </div>
   </div>

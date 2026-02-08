@@ -13,3 +13,7 @@ export function loadJSON(key, fallback = null) {
     return fallback;
   }
 }
+
+export function removeItem(key) {
+  localStorage.removeItem(key);
+}

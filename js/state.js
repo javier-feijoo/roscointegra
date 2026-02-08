@@ -1,19 +1,21 @@
-﻿export const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V"];
-
-export const state = {
+﻿export const state = {
+  ui: {
+    view: "landing"
+  },
   game: {
     letters: [],
-    activeIndex: -1,
     selectedByLetter: {},
     poolByLetter: {},
+    activeIndex: -1,
     activeLetter: null,
+    answerRevealed: false,
+    running: false,
+    blockedByTime: false,
+    timerPaused: false,
     score: 0,
     timeLeft: 0,
-    running: false,
     pointsPerCorrect: 10,
-    answerRevealed: false,
-    blockedByTime: false,
-    timerPaused: false
+    penaltyWrong: 0
   },
   config: {
     shuffle: true,
@@ -21,27 +23,43 @@ export const state = {
     timeUnit: "seconds",
     pointsCorrect: 10,
     penaltyWrong: 0,
+    audioEnabled: true,
+    filters: {
+      cycle: "",
+      module: "",
+      difficulty: ""
+    },
+    ui: {
+      teacherMode: false
+    },
     tts: {
-      auto: true,
       voice: "",
       rate: 1,
       pitch: 1
     }
   },
-  questionBank: null
+  questionBank: null,
+  bankMeta: {
+    source: "-",
+    file: "-",
+    totalQuestions: 0
+  }
 };
 
-export function initializeGameLetters() {
-  state.game.letters = LETTERS.map((letra) => ({
+export function initializeGameLetters(letterOrder = []) {
+  const order = Array.isArray(letterOrder) ? letterOrder : [];
+
+  state.game.letters = order.map((letra) => ({
     letra,
     status: "disabled",
     questionData: null
   }));
-  state.game.activeIndex = -1;
   state.game.selectedByLetter = {};
-  state.game.poolByLetter = Object.fromEntries(LETTERS.map((letra) => [letra, []]));
+  state.game.poolByLetter = Object.fromEntries(order.map((letra) => [letra, []]));
+  state.game.activeIndex = -1;
   state.game.activeLetter = null;
   state.game.answerRevealed = false;
+  state.game.running = false;
   state.game.blockedByTime = false;
   state.game.timerPaused = false;
 }

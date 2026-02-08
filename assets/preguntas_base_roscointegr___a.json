@@ -1,0 +1,977 @@
+{
+  "titulo": "Banco base RoscoIntegra – FP Informática + Transversales",
+  "version": "3.0",
+  "fecha_generacion": "2026-02-08",
+  "descripcion": "Banco base con 5 preguntas por letra para selección aleatoria en cada partida. Letras incluidas: A–V (sin Ñ ni letras poco habituales). Incluye informática (SMR/DAW/ASIR/FPB) y transversales (Inglés, Sostenibilidad, Empresa e iniciativa emprendedora).",
+  "letras_incluidas": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F",
+    "G",
+    "H",
+    "I",
+    "J",
+    "L",
+    "M",
+    "N",
+    "O",
+    "P",
+    "Q",
+    "R",
+    "S",
+    "T",
+    "U",
+    "V"
+  ],
+  "preguntas_por_letra": 5,
+  "preguntas": [
+    {
+      "letra": "A",
+      "tipo": "empieza",
+      "pregunta": "Con la A: paso finito y ordenado para resolver un problema.",
+      "respuesta": "Algoritmo",
+      "ciclo": "DAW",
+      "modulo": "Programación",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "A",
+      "tipo": "empieza",
+      "pregunta": "Con la A: servicio de directorio de Microsoft para gestionar usuarios y equipos en dominio.",
+      "respuesta": "Active Directory",
+      "ciclo": "ASIR",
+      "modulo": "Servicios de red e Internet",
+      "dificultad": "media"
+    },
+    {
+      "letra": "A",
+      "tipo": "empieza",
+      "pregunta": "Con la A: interfaz que expone recursos para que otros programas consuman servicios.",
+      "respuesta": "API",
+      "ciclo": "DAW",
+      "modulo": "Desarrollo web en entorno servidor",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "A",
+      "tipo": "empieza",
+      "pregunta": "Con la A: en sostenibilidad, medida para reducir consumo energético en el aula TIC.",
+      "respuesta": "Ahorro energético",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "Sostenibilidad",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "A",
+      "tipo": "empieza",
+      "pregunta": "Con la A: en emprendimiento, documento breve que resume una idea antes del plan de empresa.",
+      "respuesta": "Anteproyecto",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "Empresa e iniciativa emprendedora",
+      "dificultad": "media"
+    },
+    {
+      "letra": "B",
+      "tipo": "empieza",
+      "pregunta": "Con la B: conjunto organizado de datos relacionado entre sí.",
+      "respuesta": "Base de datos",
+      "ciclo": "DAW",
+      "modulo": "Bases de datos",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "B",
+      "tipo": "empieza",
+      "pregunta": "Con la B: copia de seguridad de datos o sistema.",
+      "respuesta": "Backup",
+      "ciclo": "ASIR",
+      "modulo": "Seguridad y alta disponibilidad",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "B",
+      "tipo": "empieza",
+      "pregunta": "Con la B: firmware tradicional que inicia el arranque del equipo.",
+      "respuesta": "BIOS",
+      "ciclo": "SMR",
+      "modulo": "Sistemas operativos monopuesto",
+      "dificultad": "media"
+    },
+    {
+      "letra": "B",
+      "tipo": "empieza",
+      "pregunta": "Con la B: en inglés técnico, término para 'ancho de banda'.",
+      "respuesta": "Bandwidth",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "Inglés profesional",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "B",
+      "tipo": "empieza",
+      "pregunta": "Con la B: registro cronológico de incidencias y tareas en un servicio técnico.",
+      "respuesta": "Bitácora",
+      "ciclo": "FPB",
+      "modulo": "Operaciones auxiliares para la configuración y la explotación",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "C",
+      "tipo": "empieza",
+      "pregunta": "Con la C: unidad central de proceso del ordenador.",
+      "respuesta": "CPU",
+      "ciclo": "SMR",
+      "modulo": "Montaje y mantenimiento de equipos",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "C",
+      "tipo": "empieza",
+      "pregunta": "Con la C: lenguaje de estilos para dar formato a páginas web.",
+      "respuesta": "CSS",
+      "ciclo": "DAW",
+      "modulo": "Lenguajes de marcas y sistemas de gestión de información",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "C",
+      "tipo": "empieza",
+      "pregunta": "Con la C: técnica de seguridad que transforma datos usando una clave.",
+      "respuesta": "Cifrado",
+      "ciclo": "ASIR",
+      "modulo": "Seguridad y alta disponibilidad",
+      "dificultad": "media"
+    },
+    {
+      "letra": "C",
+      "tipo": "empieza",
+      "pregunta": "Con la C: en sostenibilidad, modelo de producción que busca reutilizar y reciclar.",
+      "respuesta": "Circularidad",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "Sostenibilidad",
+      "dificultad": "media"
+    },
+    {
+      "letra": "C",
+      "tipo": "empieza",
+      "pregunta": "Con la C: en emprendimiento, acuerdo formal con condiciones entre partes.",
+      "respuesta": "Contrato",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "Empresa e iniciativa emprendedora",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "D",
+      "tipo": "empieza",
+      "pregunta": "Con la D: protocolo que asigna direcciones IP automáticamente.",
+      "respuesta": "DHCP",
+      "ciclo": "ASIR",
+      "modulo": "Planificación y administración de redes",
+      "dificultad": "media"
+    },
+    {
+      "letra": "D",
+      "tipo": "empieza",
+      "pregunta": "Con la D: sistema que traduce nombres de dominio a direcciones IP.",
+      "respuesta": "DNS",
+      "ciclo": "ASIR",
+      "modulo": "Servicios de red e Internet",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "D",
+      "tipo": "empieza",
+      "pregunta": "Con la D: unidad de almacenamiento masivo tradicional.",
+      "respuesta": "Disco duro",
+      "ciclo": "SMR",
+      "modulo": "Montaje y mantenimiento de equipos",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "D",
+      "tipo": "empieza",
+      "pregunta": "Con la D: análisis de Debilidades, Amenazas, Fortalezas y Oportunidades.",
+      "respuesta": "DAFO",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "Empresa e iniciativa emprendedora",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "D",
+      "tipo": "empieza",
+      "pregunta": "Con la D: en inglés técnico, 'despliegue' de una aplicación en producción.",
+      "respuesta": "Deployment",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "Inglés profesional",
+      "dificultad": "media"
+    },
+    {
+      "letra": "E",
+      "tipo": "empieza",
+      "pregunta": "Con la E: conjunto de herramientas para programar, compilar y depurar.",
+      "respuesta": "Entorno de desarrollo",
+      "ciclo": "DAW",
+      "modulo": "Entornos de desarrollo",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "E",
+      "tipo": "empieza",
+      "pregunta": "Con la E: túnel seguro para conectar redes/sedes a través de Internet.",
+      "respuesta": "Enlace VPN",
+      "ciclo": "ASIR",
+      "modulo": "Servicios de red e Internet",
+      "dificultad": "media"
+    },
+    {
+      "letra": "E",
+      "tipo": "empieza",
+      "pregunta": "Con la E: acto de escribir cambios en una base de datos (insert/update/delete).",
+      "respuesta": "Escritura",
+      "ciclo": "DAW",
+      "modulo": "Bases de datos",
+      "dificultad": "media"
+    },
+    {
+      "letra": "E",
+      "tipo": "empieza",
+      "pregunta": "Con la E: medida para reducir consumo eléctrico en equipos y aulas TIC.",
+      "respuesta": "Eficiencia energética",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "Sostenibilidad",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "E",
+      "tipo": "empieza",
+      "pregunta": "Con la E: aplicación de hoja de cálculo muy común en ofimática.",
+      "respuesta": "Excel",
+      "ciclo": "FPB",
+      "modulo": "Ofimática y archivo de archivo de documentos",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "F",
+      "tipo": "empieza",
+      "pregunta": "Con la F: dispositivo o software que filtra tráfico de red según reglas.",
+      "respuesta": "Firewall",
+      "ciclo": "ASIR",
+      "modulo": "Seguridad y alta disponibilidad",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "F",
+      "tipo": "empieza",
+      "pregunta": "Con la F: sistema de archivos común en memorias USB (siglas).",
+      "respuesta": "FAT32",
+      "ciclo": "SMR",
+      "modulo": "Sistemas operativos monopuesto",
+      "dificultad": "media"
+    },
+    {
+      "letra": "F",
+      "tipo": "empieza",
+      "pregunta": "Con la F: conjunto de librerías que facilita desarrollar una aplicación.",
+      "respuesta": "Framework",
+      "ciclo": "DAW",
+      "modulo": "Desarrollo web en entorno servidor",
+      "dificultad": "media"
+    },
+    {
+      "letra": "F",
+      "tipo": "empieza",
+      "pregunta": "Con la F: protocolo clásico para transferencia de archivos.",
+      "respuesta": "FTP",
+      "ciclo": "ASIR",
+      "modulo": "Servicios de red e Internet",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "F",
+      "tipo": "empieza",
+      "pregunta": "Con la F: en emprendimiento, documento que estima ingresos, costes y beneficios.",
+      "respuesta": "Financiación",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "Empresa e iniciativa emprendedora",
+      "dificultad": "media"
+    },
+    {
+      "letra": "G",
+      "tipo": "empieza",
+      "pregunta": "Con la G: sistema de control de versiones distribuido muy usado.",
+      "respuesta": "Git",
+      "ciclo": "DAW",
+      "modulo": "Entornos de desarrollo",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "G",
+      "tipo": "empieza",
+      "pregunta": "Con la G: interfaz gráfica de usuario.",
+      "respuesta": "GUI",
+      "ciclo": "SMR",
+      "modulo": "Sistemas operativos monopuesto",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "G",
+      "tipo": "empieza",
+      "pregunta": "Con la G: componente que procesa gráficos y acelera vídeo.",
+      "respuesta": "GPU",
+      "ciclo": "SMR",
+      "modulo": "Montaje y mantenimiento de equipos",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "G",
+      "tipo": "empieza",
+      "pregunta": "Con la G: dispositivo o dirección que actúa como puerta de enlace a otra red.",
+      "respuesta": "Gateway",
+      "ciclo": "ASIR",
+      "modulo": "Planificación y administración de redes",
+      "dificultad": "media"
+    },
+    {
+      "letra": "G",
+      "tipo": "empieza",
+      "pregunta": "Con la G: en sostenibilidad, prácticas de TI para reducir impacto ambiental.",
+      "respuesta": "Green IT",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "Sostenibilidad",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "H",
+      "tipo": "empieza",
+      "pregunta": "Con la H: protocolo para transferir páginas web.",
+      "respuesta": "HTTP",
+      "ciclo": "DAW",
+      "modulo": "Despliegue de aplicaciones web",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "H",
+      "tipo": "empieza",
+      "pregunta": "Con la H: versión segura de HTTP con cifrado TLS.",
+      "respuesta": "HTTPS",
+      "ciclo": "DAW",
+      "modulo": "Despliegue de aplicaciones web",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "H",
+      "tipo": "empieza",
+      "pregunta": "Con la H: capa/software que permite virtualizar y ejecutar máquinas virtuales.",
+      "respuesta": "Hypervisor",
+      "ciclo": "ASIR",
+      "modulo": "Implantación de sistemas operativos",
+      "dificultad": "media"
+    },
+    {
+      "letra": "H",
+      "tipo": "empieza",
+      "pregunta": "Con la H: función criptográfica usada para verificar integridad.",
+      "respuesta": "Hash",
+      "ciclo": "ASIR",
+      "modulo": "Seguridad y alta disponibilidad",
+      "dificultad": "media"
+    },
+    {
+      "letra": "H",
+      "tipo": "empieza",
+      "pregunta": "Con la H: en inglés técnico, palabra para 'hardware'.",
+      "respuesta": "Hardware",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "Inglés profesional",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "I",
+      "tipo": "empieza",
+      "pregunta": "Con la I: identificador numérico de un host en una red (siglas).",
+      "respuesta": "IP",
+      "ciclo": "ASIR",
+      "modulo": "Planificación y administración de redes",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "I",
+      "tipo": "empieza",
+      "pregunta": "Con la I: proceso de colocar un programa en un equipo para su uso.",
+      "respuesta": "Instalación",
+      "ciclo": "SMR",
+      "modulo": "Aplicaciones ofimáticas",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "I",
+      "tipo": "empieza",
+      "pregunta": "Con la I: capacidad de distintos sistemas para intercambiar datos correctamente.",
+      "respuesta": "Interoperabilidad",
+      "ciclo": "DAW",
+      "modulo": "Sistemas informáticos",
+      "dificultad": "media"
+    },
+    {
+      "letra": "I",
+      "tipo": "empieza",
+      "pregunta": "Con la I: en sostenibilidad, medida para alargar vida útil de equipos mediante reparación.",
+      "respuesta": "Intervención",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "Sostenibilidad",
+      "dificultad": "media"
+    },
+    {
+      "letra": "I",
+      "tipo": "empieza",
+      "pregunta": "Con la I: en emprendimiento, acción de analizar clientes, competencia y mercado.",
+      "respuesta": "Investigación",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "Empresa e iniciativa emprendedora",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "J",
+      "tipo": "empieza",
+      "pregunta": "Con la J: lenguaje de programación orientado a objetos muy usado en backend.",
+      "respuesta": "Java",
+      "ciclo": "DAW",
+      "modulo": "Programación",
+      "dificultad": "media"
+    },
+    {
+      "letra": "J",
+      "tipo": "empieza",
+      "pregunta": "Con la J: formato ligero de intercambio de datos muy común en APIs.",
+      "respuesta": "JSON",
+      "ciclo": "DAW",
+      "modulo": "Lenguajes de marcas y sistemas de gestión de información",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "J",
+      "tipo": "empieza",
+      "pregunta": "Con la J: kit de desarrollo para compilar y ejecutar programas Java (siglas).",
+      "respuesta": "JDK",
+      "ciclo": "DAW",
+      "modulo": "Entornos de desarrollo",
+      "dificultad": "media"
+    },
+    {
+      "letra": "J",
+      "tipo": "empieza",
+      "pregunta": "Con la J: librería típica para hacer pruebas unitarias en Java.",
+      "respuesta": "JUnit",
+      "ciclo": "DAW",
+      "modulo": "Entornos de desarrollo",
+      "dificultad": "media"
+    },
+    {
+      "letra": "J",
+      "tipo": "empieza",
+      "pregunta": "Con la J: en inglés técnico, palabra para 'trabajo' o 'tarea programada'.",
+      "respuesta": "Job",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "Inglés profesional",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "L",
+      "tipo": "empieza",
+      "pregunta": "Con la L: sistema operativo libre muy usado en servidores.",
+      "respuesta": "Linux",
+      "ciclo": "ASIR",
+      "modulo": "Administración de sistemas operativos",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "L",
+      "tipo": "empieza",
+      "pregunta": "Con la L: red de área local (siglas).",
+      "respuesta": "LAN",
+      "ciclo": "ASIR",
+      "modulo": "Planificación y administración de redes",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "L",
+      "tipo": "empieza",
+      "pregunta": "Con la L: etiqueta HTML que define un enlace en una página.",
+      "respuesta": "Link",
+      "ciclo": "DAW",
+      "modulo": "Lenguajes de marcas y sistemas de gestión de información",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "L",
+      "tipo": "empieza",
+      "pregunta": "Con la L: impresora que utiliza tóner y tecnología láser.",
+      "respuesta": "Láser",
+      "ciclo": "FPB",
+      "modulo": "Ofimática y archivo de documentos",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "L",
+      "tipo": "empieza",
+      "pregunta": "Con la L: evaluación del ciclo de vida (siglas en inglés) para medir impacto ambiental.",
+      "respuesta": "LCA",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "Sostenibilidad",
+      "dificultad": "alta"
+    },
+    {
+      "letra": "M",
+      "tipo": "empieza",
+      "pregunta": "Con la M: software malicioso.",
+      "respuesta": "Malware",
+      "ciclo": "ASIR",
+      "modulo": "Seguridad y alta disponibilidad",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "M",
+      "tipo": "empieza",
+      "pregunta": "Con la M: placa principal donde se conectan CPU, RAM y otros componentes.",
+      "respuesta": "Motherboard",
+      "ciclo": "SMR",
+      "modulo": "Montaje y mantenimiento de equipos",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "M",
+      "tipo": "empieza",
+      "pregunta": "Con la M: sistema gestor de bases de datos muy usado en entornos web.",
+      "respuesta": "MySQL",
+      "ciclo": "DAW",
+      "modulo": "Bases de datos",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "M",
+      "tipo": "empieza",
+      "pregunta": "Con la M: detección y respuesta gestionada ante amenazas (siglas).",
+      "respuesta": "MDR",
+      "ciclo": "ASIR",
+      "modulo": "Seguridad y alta disponibilidad",
+      "dificultad": "alta"
+    },
+    {
+      "letra": "M",
+      "tipo": "empieza",
+      "pregunta": "Con la M: acciones para promocionar y vender un producto o servicio.",
+      "respuesta": "Marketing",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "Empresa e iniciativa emprendedora",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "N",
+      "tipo": "empieza",
+      "pregunta": "Con la N: almacenamiento conectado a red para compartir ficheros.",
+      "respuesta": "NAS",
+      "ciclo": "ASIR",
+      "modulo": "Servicios de red e Internet",
+      "dificultad": "media"
+    },
+    {
+      "letra": "N",
+      "tipo": "empieza",
+      "pregunta": "Con la N: traducción de direcciones privadas a pública en un router (siglas).",
+      "respuesta": "NAT",
+      "ciclo": "ASIR",
+      "modulo": "Planificación y administración de redes",
+      "dificultad": "media"
+    },
+    {
+      "letra": "N",
+      "tipo": "empieza",
+      "pregunta": "Con la N: en programación, espacio lógico donde se agrupan clases o funciones.",
+      "respuesta": "Namespace",
+      "ciclo": "DAW",
+      "modulo": "Programación",
+      "dificultad": "media"
+    },
+    {
+      "letra": "N",
+      "tipo": "empieza",
+      "pregunta": "Con la N: en inglés técnico, palabra para 'red'.",
+      "respuesta": "Network",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "Inglés profesional",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "N",
+      "tipo": "empieza",
+      "pregunta": "Con la N: reducción de consumo evitando demanda innecesaria (término).",
+      "respuesta": "Negawatt",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "Sostenibilidad",
+      "dificultad": "alta"
+    },
+    {
+      "letra": "O",
+      "tipo": "empieza",
+      "pregunta": "Con la O: conjunto de programas que gestionan el hardware y recursos del equipo (inglés).",
+      "respuesta": "Operating System",
+      "ciclo": "SMR",
+      "modulo": "Sistemas operativos monopuesto",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "O",
+      "tipo": "empieza",
+      "pregunta": "Con la O: paradigma de programación basado en clases y objetos.",
+      "respuesta": "Orientación a objetos",
+      "ciclo": "DAW",
+      "modulo": "Programación",
+      "dificultad": "media"
+    },
+    {
+      "letra": "O",
+      "tipo": "empieza",
+      "pregunta": "Con la O: suite ofimática libre muy utilizada.",
+      "respuesta": "OpenOffice",
+      "ciclo": "FPB",
+      "modulo": "Ofimática y archivo de documentos",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "O",
+      "tipo": "empieza",
+      "pregunta": "Con la O: capacidad de observar un sistema mediante logs, métricas y trazas.",
+      "respuesta": "Observabilidad",
+      "ciclo": "ASIR",
+      "modulo": "Servicios de red e Internet",
+      "dificultad": "alta"
+    },
+    {
+      "letra": "O",
+      "tipo": "empieza",
+      "pregunta": "Con la O: posibilidad detectada en el mercado para crear valor.",
+      "respuesta": "Oportunidad",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "Empresa e iniciativa emprendedora",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "P",
+      "tipo": "empieza",
+      "pregunta": "Con la P: lenguaje muy usado en backend web clásico.",
+      "respuesta": "PHP",
+      "ciclo": "DAW",
+      "modulo": "Desarrollo web en entorno servidor",
+      "dificultad": "media"
+    },
+    {
+      "letra": "P",
+      "tipo": "empieza",
+      "pregunta": "Con la P: servidor intermedio que reenvía peticiones y puede filtrar tráfico.",
+      "respuesta": "Proxy",
+      "ciclo": "ASIR",
+      "modulo": "Servicios de red e Internet",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "P",
+      "tipo": "empieza",
+      "pregunta": "Con la P: número lógico que identifica un servicio en TCP/UDP.",
+      "respuesta": "Puerto",
+      "ciclo": "ASIR",
+      "modulo": "Planificación y administración de redes",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "P",
+      "tipo": "empieza",
+      "pregunta": "Con la P: propiedad ACID que asegura que los datos quedan guardados tras confirmar.",
+      "respuesta": "Persistencia",
+      "ciclo": "DAW",
+      "modulo": "Bases de datos",
+      "dificultad": "alta"
+    },
+    {
+      "letra": "P",
+      "tipo": "empieza",
+      "pregunta": "Con la P: estimación de costes, ingresos e inversión necesaria en un proyecto.",
+      "respuesta": "Presupuesto",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "Empresa e iniciativa emprendedora",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "Q",
+      "tipo": "empieza",
+      "pregunta": "Con la Q: framework multiplataforma para interfaces gráficas (muy usado en C++/Python).",
+      "respuesta": "Qt",
+      "ciclo": "DAW",
+      "modulo": "Diseño de interfaces WEB",
+      "dificultad": "media"
+    },
+    {
+      "letra": "Q",
+      "tipo": "empieza",
+      "pregunta": "Con la Q: en calidad, actividades para asegurar que se cumplen requisitos (inglés).",
+      "respuesta": "Quality assurance",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "Empresa e iniciativa emprendedora",
+      "dificultad": "media"
+    },
+    {
+      "letra": "Q",
+      "tipo": "empieza",
+      "pregunta": "Con la Q: consulta a una base de datos (término en inglés).",
+      "respuesta": "Query",
+      "ciclo": "DAW",
+      "modulo": "Bases de datos",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "Q",
+      "tipo": "empieza",
+      "pregunta": "Con la Q: en redes, calidad de servicio (siglas).",
+      "respuesta": "QoS",
+      "ciclo": "ASIR",
+      "modulo": "Planificación y administración de redes",
+      "dificultad": "media"
+    },
+    {
+      "letra": "Q",
+      "tipo": "empieza",
+      "pregunta": "Con la Q: en sostenibilidad, etiqueta para medir calidad/impacto en un proceso (uso docente).",
+      "respuesta": "Quality label",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "Sostenibilidad",
+      "dificultad": "media"
+    },
+    {
+      "letra": "R",
+      "tipo": "empieza",
+      "pregunta": "Con la R: memoria de acceso aleatorio (siglas).",
+      "respuesta": "RAM",
+      "ciclo": "SMR",
+      "modulo": "Montaje y mantenimiento de equipos",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "R",
+      "tipo": "empieza",
+      "pregunta": "Con la R: equipo que enruta tráfico entre redes distintas.",
+      "respuesta": "Router",
+      "ciclo": "ASIR",
+      "modulo": "Planificación y administración de redes",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "R",
+      "tipo": "empieza",
+      "pregunta": "Con la R: repositorio donde se almacena y versiona código.",
+      "respuesta": "Repositorio",
+      "ciclo": "DAW",
+      "modulo": "Entornos de desarrollo",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "R",
+      "tipo": "empieza",
+      "pregunta": "Con la R: acción de recuperar un sistema a partir de una copia de seguridad.",
+      "respuesta": "Restauración",
+      "ciclo": "ASIR",
+      "modulo": "Seguridad y alta disponibilidad",
+      "dificultad": "media"
+    },
+    {
+      "letra": "R",
+      "tipo": "empieza",
+      "pregunta": "Con la R: en emprendimiento, proceso de registrar una marca o empresa.",
+      "respuesta": "Registro",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "Empresa e iniciativa emprendedora",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "S",
+      "tipo": "empieza",
+      "pregunta": "Con la S: sistema gestor de bases de datos (siglas en español).",
+      "respuesta": "SGBD",
+      "ciclo": "DAW",
+      "modulo": "Bases de datos",
+      "dificultad": "media"
+    },
+    {
+      "letra": "S",
+      "tipo": "empieza",
+      "pregunta": "Con la S: mecanismo de inicio de sesión único (siglas).",
+      "respuesta": "SSO",
+      "ciclo": "ASIR",
+      "modulo": "Seguridad y alta disponibilidad",
+      "dificultad": "alta"
+    },
+    {
+      "letra": "S",
+      "tipo": "empieza",
+      "pregunta": "Con la S: dispositivo que conmuta tramas en una LAN.",
+      "respuesta": "Switch",
+      "ciclo": "ASIR",
+      "modulo": "Planificación y administración de redes",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "S",
+      "tipo": "empieza",
+      "pregunta": "Con la S: software malicioso que engaña al usuario haciéndose pasar por legítimo.",
+      "respuesta": "Spyware",
+      "ciclo": "ASIR",
+      "modulo": "Seguridad y alta disponibilidad",
+      "dificultad": "media"
+    },
+    {
+      "letra": "S",
+      "tipo": "empieza",
+      "pregunta": "Con la S: en sostenibilidad, adquisición responsable considerando impacto ambiental.",
+      "respuesta": "Sostenibilidad",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "Sostenibilidad",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "T",
+      "tipo": "empieza",
+      "pregunta": "Con la T: técnica de probar una unidad concreta de código.",
+      "respuesta": "Test unitario",
+      "ciclo": "DAW",
+      "modulo": "Entornos de desarrollo",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "T",
+      "tipo": "empieza",
+      "pregunta": "Con la T: protocolo seguro de transporte para cifrar comunicaciones (siglas).",
+      "respuesta": "TLS",
+      "ciclo": "ASIR",
+      "modulo": "Seguridad y alta disponibilidad",
+      "dificultad": "media"
+    },
+    {
+      "letra": "T",
+      "tipo": "empieza",
+      "pregunta": "Con la T: topología de red donde todos los equipos se conectan a un punto central.",
+      "respuesta": "Topología estrella",
+      "ciclo": "ASIR",
+      "modulo": "Redes locales",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "T",
+      "tipo": "empieza",
+      "pregunta": "Con la T: en ofimática, tabla con filas y columnas en un documento.",
+      "respuesta": "Tabla",
+      "ciclo": "FPB",
+      "modulo": "Ofimática y archivo de documentos",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "T",
+      "tipo": "empieza",
+      "pregunta": "Con la T: en inglés técnico, palabra para 'herramienta'.",
+      "respuesta": "Tool",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "Inglés profesional",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "U",
+      "tipo": "empieza",
+      "pregunta": "Con la U: elemento que identifica de forma única un recurso (siglas).",
+      "respuesta": "URL",
+      "ciclo": "DAW",
+      "modulo": "Desarrollo web en entorno cliente",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "U",
+      "tipo": "empieza",
+      "pregunta": "Con la U: interfaz de usuario (siglas).",
+      "respuesta": "UI",
+      "ciclo": "DAW",
+      "modulo": "Diseño de interfaces WEB",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "U",
+      "tipo": "empieza",
+      "pregunta": "Con la U: usuario con permisos elevados en Linux/Unix (término).",
+      "respuesta": "User root",
+      "ciclo": "ASIR",
+      "modulo": "Administración de sistemas operativos",
+      "dificultad": "media"
+    },
+    {
+      "letra": "U",
+      "tipo": "empieza",
+      "pregunta": "Con la U: en emprendimiento, propuesta que explica por qué tu producto aporta valor.",
+      "respuesta": "Unique value proposition",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "Empresa e iniciativa emprendedora",
+      "dificultad": "media"
+    },
+    {
+      "letra": "U",
+      "tipo": "empieza",
+      "pregunta": "Con la U: en sostenibilidad, acción de dar nuevo uso a un equipo antes de reciclarlo.",
+      "respuesta": "Upcycling",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "Sostenibilidad",
+      "dificultad": "media"
+    },
+    {
+      "letra": "V",
+      "tipo": "empieza",
+      "pregunta": "Con la V: tecnología que permite ejecutar varios sistemas sobre un mismo hardware.",
+      "respuesta": "Virtualización",
+      "ciclo": "ASIR",
+      "modulo": "Implantación de sistemas operativos",
+      "dificultad": "media"
+    },
+    {
+      "letra": "V",
+      "tipo": "empieza",
+      "pregunta": "Con la V: red privada virtual (siglas).",
+      "respuesta": "VPN",
+      "ciclo": "ASIR",
+      "modulo": "Servicios de red e Internet",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "V",
+      "tipo": "empieza",
+      "pregunta": "Con la V: proceso de comprobar que los datos introducidos cumplen reglas antes de guardarlos.",
+      "respuesta": "Validación",
+      "ciclo": "DAW",
+      "modulo": "Desarrollo web en entorno servidor",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "V",
+      "tipo": "empieza",
+      "pregunta": "Con la V: fallo de seguridad o debilidad explotable en un sistema.",
+      "respuesta": "Vulnerabilidad",
+      "ciclo": "ASIR",
+      "modulo": "Seguridad y alta disponibilidad",
+      "dificultad": "basica"
+    },
+    {
+      "letra": "V",
+      "tipo": "empieza",
+      "pregunta": "Con la V: en sostenibilidad, principio de priorizar reparaciones antes de sustituir equipos.",
+      "respuesta": "Vida útil",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "Sostenibilidad",
+      "dificultad": "media"
+    }
+  ]
+}

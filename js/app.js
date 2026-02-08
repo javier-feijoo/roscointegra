@@ -1,4 +1,5 @@
-﻿import { LETTERS, state, initializeGameLetters } from "./state.js";
+﻿
+import { state, initializeGameLetters } from "./state.js";
 import {
   startTimer,
   pauseTimer,
@@ -10,197 +11,354 @@ import {
   timerIsPaused,
   formatMMSS
 } from "./timer.js";
-import { listVoices, speak, stopSpeak, pauseSpeak, resumeSpeak } from "./tts.js";
-import { saveJSON, loadJSON } from "./storage.js";
+import { listVoices, speak, stopSpeak, pauseSpeak, resumeSpeak, onVoicesChanged, getTtsStatus } from "./tts.js";
+import { saveJSON, loadJSON, removeItem } from "./storage.js";
+import { validateAndNormalizeBank, buildGameSetByLetter } from "./bank.js";
+import { renderRoscoCircle } from "./rosco.js";
+import { playCorrectSfx, playWrongSfx, playCountdownTickSfx, playTimeUpSfx } from "./sfx.js";
 
-const STORAGE_KEY = "roscointegra.base.config";
-const LAST_BANK_KEY = "roscointegra.lastBank.v1";
-const MANIFEST_PATH = "./assets/manifest.json";
-const FALLBACK_BANK_FILE = "preguntas_base_roscointegra.json";
+const CONFIG_KEY = "roscointegra.config.v2";
+const BANK_CACHE_KEY = "roscointegra.bank.cache.v2";
+const MANIFEST_KEY = "roscointegra.assets.manifest.v1";
+const DEFAULT_BANK_FILE = "preguntas_base_roscointegra.json";
+const MANIFEST_CANDIDATES = ["./assets/manifest.json", "assets/manifest.json", "/assets/manifest.json"];
+
+const DEFAULT_CONFIG = {
+  shuffle: true,
+  totalTime: 180,
+  timeUnit: "seconds",
+  pointsCorrect: 10,
+  penaltyWrong: 0,
+  audioEnabled: true,
+  filters: { cycle: "", module: "", difficulty: "" },
+  ui: { teacherMode: false },
+  tts: { voice: "", rate: 1, pitch: 1 }
+};
 
 const refs = {
-  rosco: document.getElementById("rosco"),
+  viewLanding: document.getElementById("viewLanding"),
+  viewConfig: document.getElementById("viewConfig"),
+  viewGame: document.getElementById("viewGame"),
+  btnGoConfig: document.getElementById("btnGoConfig"),
+  btnLandingStart: document.getElementById("btnLandingStart"),
+  landingStartHint: document.getElementById("landingStartHint"),
+  landingBankOrigin: document.getElementById("landingBankOrigin"),
+  landingBankFile: document.getElementById("landingBankFile"),
+  landingBankCount: document.getElementById("landingBankCount"),
+  btnBackToLanding: document.getElementById("btnBackToLanding"),
   assetBankSelect: document.getElementById("assetBankSelect"),
   btnLoadAssetBank: document.getElementById("btnLoadAssetBank"),
   jsonInput: document.getElementById("jsonInput"),
-  jsonFile: document.getElementById("jsonFile"),
   btnLoadJson: document.getElementById("btnLoadJson"),
-  btnStart: document.getElementById("btnStart"),
-  btnNewGame: document.getElementById("btnNewGame"),
-  btnTimerPause: document.getElementById("btnTimerPause"),
-  btnTimerResume: document.getElementById("btnTimerResume"),
-  btnTimerReset: document.getElementById("btnTimerReset"),
-  btnOverlayNewGame: document.getElementById("btnOverlayNewGame"),
-  btnOverlayResetTime: document.getElementById("btnOverlayResetTime"),
-  timeOverlay: document.getElementById("timeOverlay"),
-  btnReveal: document.getElementById("btnReveal"),
-  btnPass: document.getElementById("btnPass"),
-  btnReadAnswer: document.getElementById("btnReadAnswer"),
-  btnCorrect: document.getElementById("btnCorrect"),
-  btnWrong: document.getElementById("btnWrong"),
-  loadStatus: document.getElementById("loadStatus"),
+  jsonFile: document.getElementById("jsonFile"),
+  loadSource: document.getElementById("loadSource"),
+  loadFile: document.getElementById("loadFile"),
   loadTotal: document.getElementById("loadTotal"),
   loadDuplicates: document.getElementById("loadDuplicates"),
   loadMissing: document.getElementById("loadMissing"),
-  loadSource: document.getElementById("loadSource"),
-  filterCycle: document.getElementById("filterCycle"),
-  filterModule: document.getElementById("filterModule"),
-  filterDifficulty: document.getElementById("filterDifficulty"),
-  timerDisplay: document.getElementById("timerDisplay"),
-  scoreDisplay: document.getElementById("scoreDisplay"),
-  activeLetter: document.getElementById("activeLetter"),
-  questionText: document.getElementById("questionText"),
-  answerBlock: document.getElementById("answerBlock"),
-  answerText: document.getElementById("answerText"),
-  cfgShuffle: document.getElementById("cfgShuffle"),
+  loadStatus: document.getElementById("loadStatus"),
+  diagnosticLog: document.getElementById("diagnosticLog"),
   cfgTime: document.getElementById("cfgTime"),
   cfgTimeUnit: document.getElementById("cfgTimeUnit"),
   cfgPoints: document.getElementById("cfgPoints"),
   cfgPenalty: document.getElementById("cfgPenalty"),
-  ttsAuto: document.getElementById("ttsAuto"),
+  cfgShuffle: document.getElementById("cfgShuffle"),
+  cfgAudioEnabled: document.getElementById("cfgAudioEnabled"),
+  filterCycle: document.getElementById("filterCycle"),
+  filterModule: document.getElementById("filterModule"),
+  filterDifficulty: document.getElementById("filterDifficulty"),
+  ttsStatus: document.getElementById("ttsStatus"),
   ttsVoice: document.getElementById("ttsVoice"),
   ttsRate: document.getElementById("ttsRate"),
   ttsPitch: document.getElementById("ttsPitch"),
-  btnTtsRead: document.getElementById("btnTtsRead"),
+  cfgTeacherMode: document.getElementById("cfgTeacherMode"),
+  btnSaveConfig: document.getElementById("btnSaveConfig"),
+  btnStartFromConfig: document.getElementById("btnStartFromConfig"),
+  btnResetConfig: document.getElementById("btnResetConfig"),
+  configStatus: document.getElementById("configStatus"),
+  gameContainer: document.getElementById("gameContainer"),
+  timerDisplay: document.getElementById("timerDisplay"),
+  scoreDisplay: document.getElementById("scoreDisplay"),
+  btnTimerPause: document.getElementById("btnTimerPause"),
+  btnTimerResume: document.getElementById("btnTimerResume"),
+  btnTimerReset: document.getElementById("btnTimerReset"),
+  btnFullscreen: document.getElementById("btnFullscreen"),
+  btnNewGame: document.getElementById("btnNewGame"),
+  btnExitToLanding: document.getElementById("btnExitToLanding"),
+  rosco: document.getElementById("rosco"),
+  activeLetter: document.getElementById("activeLetter"),
+  questionText: document.getElementById("questionText"),
+  answerBlock: document.getElementById("answerBlock"),
+  answerText: document.getElementById("answerText"),
+  btnReveal: document.getElementById("btnReveal"),
+  btnPass: document.getElementById("btnPass"),
+  btnReadQuestion: document.getElementById("btnReadQuestion"),
+  btnReadAnswer: document.getElementById("btnReadAnswer"),
+  btnCorrect: document.getElementById("btnCorrect"),
+  btnWrong: document.getElementById("btnWrong"),
   btnTtsStop: document.getElementById("btnTtsStop"),
   btnTtsPause: document.getElementById("btnTtsPause"),
-  btnTtsResume: document.getElementById("btnTtsResume")
+  btnTtsResume: document.getElementById("btnTtsResume"),
+  teacherPanel: document.getElementById("teacherPanel"),
+  teacherStateText: document.getElementById("teacherStateText"),
+  summaryOverlay: document.getElementById("summaryOverlay"),
+  summaryTitle: document.getElementById("summaryTitle"),
+  summaryReason: document.getElementById("summaryReason"),
+  summaryScore: document.getElementById("summaryScore"),
+  summaryPercent: document.getElementById("summaryPercent"),
+  summaryCorrect: document.getElementById("summaryCorrect"),
+  summaryWrong: document.getElementById("summaryWrong"),
+  summaryPassed: document.getElementById("summaryPassed"),
+  summaryTimeLeft: document.getElementById("summaryTimeLeft"),
+  summaryTimeUsed: document.getElementById("summaryTimeUsed"),
+  btnExportResults: document.getElementById("btnExportResults"),
+  btnOverlayNewGame: document.getElementById("btnOverlayNewGame"),
+  btnOverlayExit: document.getElementById("btnOverlayExit")
 };
 
-let assetsManifest = null;
+let assetsManifest = { default: DEFAULT_BANK_FILE, banks: [{ id: "base", label: "Banco base", file: DEFAULT_BANK_FILE }] };
+let latestSummary = null;
+let diagnosticLines = [];
+let lastCountdownTickSecond = null;
 
 async function init() {
+  bindEvents();
   hydrateConfig();
-  initializeGameLetters();
+  initializeGameLetters([]);
   renderRosco();
   renderHUD();
   renderVoices();
-  bindEvents();
-  hideAnswerAndJudgeButtons();
-  hideTimeOverlay();
+  syncAudioUi();
   syncActionButtons();
   syncTimerButtons();
-  await bootstrapAssetsManifest();
-  hydrateLastBankMeta();
+  syncTeacherModeUi();
+  updateTtsStatus();
+  await bootstrapAssetsAndBank();
+  updateBankInfoUI();
+  refreshLandingStartState();
+  switchView("landing");
 }
 
 function bindEvents() {
-  refs.btnLoadAssetBank.addEventListener("click", handleLoadAssetBank);
-  refs.btnLoadJson.addEventListener("click", handleValidateAndLoadFromTextarea);
-  refs.jsonFile.addEventListener("change", handleFileLoad);
-  refs.btnStart.addEventListener("click", handleStartGame);
-  refs.btnNewGame.addEventListener("click", handleNewGame);
-  refs.btnTimerPause.addEventListener("click", handlePauseTimer);
-  refs.btnTimerResume.addEventListener("click", handleResumeTimer);
-  refs.btnTimerReset.addEventListener("click", handleResetTimerButton);
-  refs.btnOverlayNewGame.addEventListener("click", handleNewGame);
-  refs.btnOverlayResetTime.addEventListener("click", handleResetTimerButton);
-
-  refs.btnReveal.addEventListener("click", () => {
-    const active = getActiveLetterState();
-    if (!state.game.running || !active || active.status !== "pending" || !active.questionData || state.game.blockedByTime) {
-      return;
-    }
-    state.game.answerRevealed = true;
-    refs.answerBlock.classList.remove("hidden");
-    refs.answerText.textContent = active.questionData.respuesta;
-    refs.btnReadAnswer.classList.remove("hidden");
-    refs.btnCorrect.classList.remove("hidden");
-    refs.btnWrong.classList.remove("hidden");
-    syncActionButtons();
+  refs.btnGoConfig.addEventListener("click", () => switchView("config"));
+  refs.btnBackToLanding.addEventListener("click", () => {
+    persistConfigFromForm();
+    switchView("landing");
   });
 
+  refs.btnLandingStart.addEventListener("click", async () => {
+    if (await ensureReadyForStart()) {
+      startGame();
+    } else {
+      refreshLandingStartState();
+    }
+  });
+
+  refs.btnLoadAssetBank.addEventListener("click", async () => { await handleLoadAssetBank(); });
+  refs.btnLoadJson.addEventListener("click", handleValidateAndLoadFromTextarea);
+  refs.jsonFile.addEventListener("change", handleFileLoad);
+
+  refs.btnSaveConfig.addEventListener("click", () => {
+    persistConfigFromForm();
+    refs.configStatus.textContent = "Configuracion guardada.";
+    refreshLandingStartState();
+    switchView("landing");
+  });
+
+  refs.btnStartFromConfig.addEventListener("click", async () => {
+    persistConfigFromForm();
+    if (await ensureReadyForStart()) {
+      startGame();
+    }
+  });
+
+  refs.btnResetConfig.addEventListener("click", handleResetConfig);
+  refs.btnReveal.addEventListener("click", handleReveal);
   refs.btnPass.addEventListener("click", onPass);
   refs.btnCorrect.addEventListener("click", onMarkCorrect);
   refs.btnWrong.addEventListener("click", onMarkWrong);
+  refs.btnReadQuestion.addEventListener("click", speakCurrentQuestion);
   refs.btnReadAnswer.addEventListener("click", speakCurrentAnswer);
+  refs.btnTtsStop.addEventListener("click", () => stopSpeak());
+  refs.btnTtsPause.addEventListener("click", () => { if (state.config.audioEnabled) pauseSpeak(); });
+  refs.btnTtsResume.addEventListener("click", () => { if (state.config.audioEnabled) resumeSpeak(); });
 
-  refs.btnTtsRead.addEventListener("click", speakCurrentQuestion);
-  refs.btnTtsStop.addEventListener("click", stopSpeak);
-  refs.btnTtsPause.addEventListener("click", pauseSpeak);
-  refs.btnTtsResume.addEventListener("click", resumeSpeak);
+  refs.btnTimerPause.addEventListener("click", handlePauseTimer);
+  refs.btnTimerResume.addEventListener("click", handleResumeTimer);
+  refs.btnTimerReset.addEventListener("click", handleResetTimer);
+  refs.btnFullscreen.addEventListener("click", handleFullscreen);
+  refs.btnNewGame.addEventListener("click", handleNewGame);
+  refs.btnExitToLanding.addEventListener("click", handleExitToLanding);
 
-  refs.cfgShuffle.addEventListener("change", persistConfigFromForm);
-  refs.cfgTime.addEventListener("change", persistConfigFromForm);
+  refs.btnExportResults.addEventListener("click", exportResultsJson);
+  refs.btnOverlayNewGame.addEventListener("click", handleNewGame);
+  refs.btnOverlayExit.addEventListener("click", handleExitToLanding);
+
+  refs.cfgTime.addEventListener("input", persistConfigFromForm);
   refs.cfgTimeUnit.addEventListener("change", persistConfigFromForm);
-  refs.cfgPoints.addEventListener("change", persistConfigFromForm);
-  refs.cfgPenalty.addEventListener("change", persistConfigFromForm);
-  refs.ttsAuto.addEventListener("change", persistConfigFromForm);
+  refs.cfgPoints.addEventListener("input", persistConfigFromForm);
+  refs.cfgPenalty.addEventListener("input", persistConfigFromForm);
+  refs.cfgShuffle.addEventListener("change", persistConfigFromForm);
+  refs.cfgAudioEnabled.addEventListener("change", persistConfigFromForm);
+  refs.filterCycle.addEventListener("change", persistConfigFromForm);
+  refs.filterModule.addEventListener("change", persistConfigFromForm);
+  refs.filterDifficulty.addEventListener("change", persistConfigFromForm);
   refs.ttsVoice.addEventListener("change", persistConfigFromForm);
-  refs.ttsRate.addEventListener("change", persistConfigFromForm);
-  refs.ttsPitch.addEventListener("change", persistConfigFromForm);
+  refs.ttsRate.addEventListener("input", persistConfigFromForm);
+  refs.ttsPitch.addEventListener("input", persistConfigFromForm);
+  refs.cfgTeacherMode.addEventListener("change", persistConfigFromForm);
 
-  if ("speechSynthesis" in window) {
-    window.speechSynthesis.onvoiceschanged = renderVoices;
+  onVoicesChanged(() => {
+    renderVoices();
+    updateTtsStatus();
+  });
+
+  document.addEventListener("keydown", handleShortcuts);
+  window.addEventListener("resize", () => {
+    renderRosco();
+  });
+}
+
+function switchView(view) {
+  state.ui.view = view;
+  document.body.classList.toggle("in-game", view === "game");
+  refs.viewLanding.classList.toggle("hidden", view !== "landing");
+  refs.viewConfig.classList.toggle("hidden", view !== "config");
+  refs.viewGame.classList.toggle("hidden", view !== "game");
+
+  if (view === "game") {
+    window.requestAnimationFrame(() => {
+      renderRosco();
+      window.requestAnimationFrame(() => {
+        renderRosco();
+      });
+    });
   }
 }
 
-async function bootstrapAssetsManifest() {
-  try {
-    const response = await fetch(MANIFEST_PATH, { cache: "no-store" });
-    if (!response.ok) {
-      throw new Error(`manifest no disponible (${response.status})`);
-    }
-    const parsed = await response.json();
-    assetsManifest = normalizeManifest(parsed);
-    renderAssetBankSelect(assetsManifest);
-    refs.loadStatus.textContent = "Manifest cargado. Selecciona banco en assets o usa pegado/archivo.";
-  } catch (_error) {
-    assetsManifest = {
-      default: FALLBACK_BANK_FILE,
-      banks: [{ id: "base", label: "Banco base (fallback)", file: FALLBACK_BANK_FILE }],
-      fallback: true
-    };
-    renderAssetBankSelect(assetsManifest);
-    refs.loadStatus.textContent = "No se pudo leer manifest.json. Se activo fallback a preguntas_base_roscointegra.json.";
+function addDiagnostic(message, level = "info", error = null) {
+  const ts = new Date().toLocaleTimeString("es-ES", { hour12: false });
+  const line = `[${ts}] [${level.toUpperCase()}] ${message}`;
+  diagnosticLines.unshift(line);
+  diagnosticLines = diagnosticLines.slice(0, 50);
+  refs.diagnosticLog.textContent = diagnosticLines.join("\n");
 
+  if (level === "error") {
+    console.error(`[RoscoIntegra] ${message}`, error || "");
+  } else {
+    console.log(`[RoscoIntegra] ${message}`);
+  }
+}
+
+async function bootstrapAssetsAndBank() {
+  addDiagnostic("Paso 1/5: Cargar manifest de /assets");
+  assetsManifest = await loadManifestWithFallback();
+  renderAssetBankSelect();
+
+  addDiagnostic("Paso 2/5: Intentar restaurar banco cacheado");
+  const cached = loadJSON(BANK_CACHE_KEY, null);
+  if (cached?.bank) {
     try {
-      const fallbackBank = await fetchBankFile(FALLBACK_BANK_FILE);
-      refs.jsonInput.value = JSON.stringify(fallbackBank, null, 2);
-      applyLoadedBank(fallbackBank, { source: "assets", file: FALLBACK_BANK_FILE });
-      refs.loadStatus.textContent = "Manifest no disponible. Banco base cargado por fallback.";
-    } catch (fallbackError) {
-      refs.loadStatus.textContent = `Manifest no disponible y fallback no utilizable: ${fallbackError.message}`;
-      refs.btnStart.disabled = true;
+      applyLoadedBank(cached.bank, {
+        source: cached.meta?.source || "cache",
+        file: cached.meta?.file || "(cache)",
+        totalQuestions: cached.meta?.totalQuestions || cached.bank.preguntas?.length || 0
+      }, { persist: false, statusMessage: "Banco restaurado desde cache local." });
+      refs.jsonInput.value = JSON.stringify(cached.bank, null, 2);
+      addDiagnostic("Banco restaurado desde localStorage.");
+      return;
+    } catch (error) {
+      addDiagnostic(`El banco cacheado no es valido: ${error.message}`, "error", error);
     }
+  }
+
+  addDiagnostic("Paso 3/5: Intentar cargar banco por defecto desde /assets");
+  try {
+    await loadBankFromAssetsFile(assetsManifest.default, { statusPrefix: "Banco por defecto cargado" });
+    addDiagnostic(`Banco por defecto cargado: ${assetsManifest.default}`);
+  } catch (error) {
+    const protocolHint = window.location.protocol === "file:"
+      ? "Para cargar desde /assets usa un servidor local (por ejemplo Live Server). Mientras tanto, usa Importar archivo."
+      : "Revisa rutas, manifest y formato JSON.";
+
+    refs.loadStatus.textContent = `No se pudo cargar banco por defecto. ${protocolHint}\nDetalle: ${error.message}`;
+    addDiagnostic(`Fallo al cargar banco por defecto: ${error.message}`, "error", error);
+  }
+}
+
+async function loadManifestWithFallback() {
+  try {
+    const manifest = await fetchJSONWithCandidates(MANIFEST_CANDIDATES, "manifest");
+    const normalized = normalizeManifest(manifest);
+    saveJSON(MANIFEST_KEY, normalized);
+    addDiagnostic(`Manifest cargado con ${normalized.banks.length} banco(s).`);
+    return normalized;
+  } catch (error) {
+    addDiagnostic(`No se pudo cargar manifest.json: ${error.message}`, "error", error);
+    const saved = loadJSON(MANIFEST_KEY, null);
+    if (saved?.banks?.length) {
+      addDiagnostic("Se usara manifest guardado en localStorage.", "warn");
+      return saved;
+    }
+    const fallback = { default: DEFAULT_BANK_FILE, banks: [{ id: "base", label: "Banco base (fallback)", file: DEFAULT_BANK_FILE }] };
+    addDiagnostic("Se aplico manifest fallback interno.", "warn");
+    return fallback;
   }
 }
 
 function normalizeManifest(manifest) {
   if (!manifest || typeof manifest !== "object" || !Array.isArray(manifest.banks) || manifest.banks.length === 0) {
-    throw new Error("manifest invalido");
+    throw new Error("manifest invalido: falta banks[]");
   }
 
   const banks = manifest.banks
-    .filter((bank) => bank && typeof bank === "object" && bank.file)
-    .map((bank) => ({
-      id: String(bank.id || bank.file),
-      label: String(bank.label || bank.file),
-      file: String(bank.file)
-    }));
+    .filter((item) => item && typeof item === "object" && item.file)
+    .map((item) => ({ id: String(item.id || item.file), label: String(item.label || item.file), file: String(item.file) }));
 
   if (banks.length === 0) {
-    throw new Error("manifest sin bancos validos");
+    throw new Error("manifest invalido: no hay bancos validos");
   }
 
-  const hasDefault = banks.some((bank) => bank.file === manifest.default);
-  return {
-    default: hasDefault ? manifest.default : banks[0].file,
-    banks,
-    fallback: false
-  };
+  const fallbackDefault = String(manifest.default || banks[0].file);
+  const defaultFile = banks.some((b) => b.file === fallbackDefault) ? fallbackDefault : banks[0].file;
+  return { default: defaultFile, banks };
 }
 
-function renderAssetBankSelect(manifest) {
+function renderAssetBankSelect() {
   refs.assetBankSelect.innerHTML = "";
-  manifest.banks.forEach((bank) => {
+  assetsManifest.banks.forEach((bank) => {
     const option = document.createElement("option");
     option.value = bank.file;
     option.textContent = bank.label;
     refs.assetBankSelect.appendChild(option);
   });
+  refs.assetBankSelect.value = assetsManifest.default;
+}
 
-  refs.assetBankSelect.value = manifest.default;
+function buildAssetFileCandidates(file) {
+  const clean = String(file || "").replace(/^\/+/, "");
+  return [`./assets/${clean}`, `assets/${clean}`, `/assets/${clean}`];
+}
+
+async function fetchJSONWithCandidates(urls, contextLabel) {
+  const attempts = [];
+  for (const url of urls) {
+    try {
+      const res = await fetch(url, { cache: "no-store" });
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status}`);
+      }
+      const parsed = await res.json();
+      addDiagnostic(`${contextLabel}: carga correcta desde ${url}`);
+      return parsed;
+    } catch (error) {
+      attempts.push(`${url} -> ${error.message}`);
+      addDiagnostic(`${contextLabel}: fallo en ${url}: ${error.message}`, "warn");
+    }
+  }
+
+  const hint = window.location.protocol === "file:" ? " Posible causa: acceso con file:// bloquea fetch a /assets." : "";
+  throw new Error(`No se pudo cargar ${contextLabel}. Intentos: ${attempts.join(" | ")}.${hint}`);
 }
 
 async function handleLoadAssetBank() {
@@ -211,27 +369,26 @@ async function handleLoadAssetBank() {
   }
 
   try {
-    const bank = await fetchBankFile(file);
-    refs.jsonInput.value = JSON.stringify(bank, null, 2);
-    applyLoadedBank(bank, { source: "assets", file });
+    await loadBankFromAssetsFile(file, { statusPrefix: "Banco cargado desde /assets" });
   } catch (error) {
-    refs.btnStart.disabled = true;
-    refs.loadStatus.textContent = `No se pudo cargar ./assets/${file}: ${error.message}`;
-
-    if (assetsManifest?.fallback) {
-      refs.loadStatus.textContent += " Si abres en file://, usa un servidor local o carga por pegado/archivo.";
-    }
+    refs.loadStatus.textContent = buildAssetFailureMessage(error);
+    addDiagnostic(`Error cargando banco de assets: ${error.message}`, "error", error);
   }
 }
 
-async function fetchBankFile(file) {
-  const response = await fetch(`./assets/${file}`, { cache: "no-store" });
-  if (!response.ok) {
-    throw new Error(`HTTP ${response.status}`);
-  }
-  return response.json();
+async function loadBankFromAssetsFile(file, opts = {}) {
+  const raw = await fetchJSONWithCandidates(buildAssetFileCandidates(file), `banco ${file}`);
+  refs.jsonInput.value = JSON.stringify(raw, null, 2);
+  applyLoadedBank(raw, { source: "assets", file }, { statusMessage: `${opts.statusPrefix || "Banco cargado"}: ${file}` });
 }
 
+function buildAssetFailureMessage(error) {
+  const base = `No se pudo cargar banco desde /assets. ${error.message}`;
+  if (window.location.protocol === "file:") {
+    return `${base}\nPara cargar desde /assets usa un servidor local (por ejemplo Live Server). Mientras tanto, usa Importar archivo.`;
+  }
+  return `${base}\nRevisa rutas, manifest y JSON.`;
+}
 function handleValidateAndLoadFromTextarea() {
   const text = refs.jsonInput.value.trim();
   if (!text) {
@@ -241,10 +398,10 @@ function handleValidateAndLoadFromTextarea() {
 
   try {
     const parsed = JSON.parse(text);
-    applyLoadedBank(parsed, { source: "pegado" });
+    applyLoadedBank(parsed, { source: "pegado", file: "(textarea)" }, { statusMessage: "Banco cargado desde texto pegado." });
   } catch (error) {
-    refs.btnStart.disabled = true;
-    refs.loadStatus.textContent = `Error: ${error.message}`;
+    refs.loadStatus.textContent = `JSON pegado invalido: ${error.message}`;
+    addDiagnostic(`JSON pegado invalido: ${error.message}`, "error", error);
   }
 }
 
@@ -258,10 +415,10 @@ async function handleFileLoad(event) {
     const text = await readFileAsText(file);
     refs.jsonInput.value = text;
     const parsed = JSON.parse(text);
-    applyLoadedBank(parsed, { source: "archivo", file: file.name });
+    applyLoadedBank(parsed, { source: "archivo", file: file.name }, { statusMessage: `Banco cargado desde archivo: ${file.name}` });
   } catch (error) {
-    refs.btnStart.disabled = true;
-    refs.loadStatus.textContent = `Error al leer archivo: ${error.message}`;
+    refs.loadStatus.textContent = `Error al importar archivo: ${error.message}`;
+    addDiagnostic(`Fallo importando archivo: ${error.message}`, "error", error);
   } finally {
     event.target.value = "";
   }
@@ -276,138 +433,69 @@ function readFileAsText(file) {
   });
 }
 
-function applyLoadedBank(rawBank, sourceMeta) {
+function applyLoadedBank(rawBank, sourceMeta, options = {}) {
   const { bank, summary } = validateAndNormalizeBank(rawBank);
+
   state.questionBank = bank;
-  refs.btnStart.disabled = false;
-
-  stopTimer();
-  state.game.running = false;
-  state.game.activeIndex = -1;
-  state.game.activeLetter = null;
-  state.game.answerRevealed = false;
-  state.game.blockedByTime = false;
-  state.game.timerPaused = false;
-
-  fillFilterSelects(bank.questions);
-  renderLoadState(summary, sourceMeta);
-  renderRosco();
-  renderActiveQuestionPanel();
-  hideAnswerAndJudgeButtons();
-  hideTimeOverlay();
-  state.game.timeLeft = getConfiguredTotalSeconds();
-  renderHUD();
-  syncActionButtons();
-  syncTimerButtons();
-
-  refs.loadStatus.textContent = summary.missingLetters.length > 0
-    ? `Banco valido con advertencias. Faltan letras: ${summary.missingLetters.join(", ")}`
-    : "Banco valido y cargado.";
-
-  saveJSON(LAST_BANK_KEY, {
+  initializeGameLetters(bank.letras_incluidas || []);
+  state.bankMeta = {
     source: sourceMeta.source,
     file: sourceMeta.file || "",
-    loadedAt: new Date().toISOString(),
     totalQuestions: summary.total
-  });
-}
+  };
 
-function validateAndNormalizeBank(rawBank) {
-  if (!rawBank || typeof rawBank !== "object" || !Array.isArray(rawBank.preguntas)) {
-    throw new Error("El JSON debe incluir preguntas[] (formato base RoscoIntegra)");
+  fillFilterSelects(bank.questions);
+  updateLoadPanel(summary, sourceMeta);
+  updateBankInfoUI();
+
+  if (options.persist !== false) {
+    saveJSON(BANK_CACHE_KEY, {
+      savedAt: new Date().toISOString(),
+      meta: state.bankMeta,
+      bank
+    });
   }
 
-  const normalized = [];
-  const seenLetters = new Set();
-  const seenQuestionKey = new Set();
-  const duplicateQuestionKeys = new Set();
+  refs.loadStatus.textContent = options.statusMessage
+    || (summary.missingLetters.length > 0
+      ? `Banco valido con advertencias. Faltan letras: ${summary.missingLetters.join(", ")}`
+      : "Banco valido y listo para jugar.");
 
-  rawBank.preguntas.forEach((item, index) => {
-    if (!item || typeof item !== "object") {
-      throw new Error(`preguntas[${index}] no es un objeto valido`);
-    }
+  if (Array.isArray(summary.logs) && summary.logs.length > 0) {
+    summary.logs.forEach((msg) => addDiagnostic(msg, summary.usedFallback ? "warn" : "info"));
+  }
 
-    const letra = String(item.letra || "").trim().toUpperCase();
-    const tipo = String(item.tipo || "").trim();
-    const pregunta = String(item.pregunta || "").trim();
-    const respuesta = String(item.respuesta || "").trim();
-
-    if (!LETTERS.includes(letra)) {
-      throw new Error(`preguntas[${index}].letra invalida: ${letra || "(vacia)"}`);
-    }
-    if (!tipo) {
-      throw new Error(`preguntas[${index}].tipo es obligatorio`);
-    }
-    if (!pregunta) {
-      throw new Error(`preguntas[${index}].pregunta es obligatoria`);
-    }
-    if (!respuesta) {
-      throw new Error(`preguntas[${index}].respuesta es obligatoria`);
-    }
-
-    seenLetters.add(letra);
-    const key = `${letra}|${pregunta.toLowerCase()}|${respuesta.toLowerCase()}`;
-    if (seenQuestionKey.has(key)) {
-      duplicateQuestionKeys.add(key);
-    }
-    seenQuestionKey.add(key);
-
-    normalized.push({
-      ...item,
-      letra,
-      tipo,
-      pregunta,
-      respuesta,
-      ciclo: String(item.ciclo || ""),
-      modulo: String(item.modulo || ""),
-      dificultad: String(item.dificultad || "")
-    });
-  });
-
-  const missingLetters = LETTERS.filter((letter) => !seenLetters.has(letter));
-
-  return {
-    bank: {
-      ...rawBank,
-      preguntas: normalized,
-      questions: normalized
-    },
-    summary: {
-      total: normalized.length,
-      duplicateLetters: duplicateQuestionKeys.size > 0 ? ["SI"] : [],
-      missingLetters
-    }
-  };
+  addDiagnostic(`Banco aplicado desde ${sourceMeta.source}:${sourceMeta.file || "(sin nombre)"} con ${summary.total} preguntas.`);
+  refreshLandingStartState();
 }
 
-function renderLoadState(summary, sourceMeta) {
+function updateLoadPanel(summary, sourceMeta) {
+  refs.loadSource.textContent = sourceMeta.source || "-";
+  refs.loadFile.textContent = sourceMeta.file || "-";
   refs.loadTotal.textContent = String(summary.total);
-  refs.loadDuplicates.textContent = summary.duplicateLetters.length > 0 ? "SI" : "No";
-  refs.loadMissing.textContent = summary.missingLetters.length > 0
-    ? summary.missingLetters.join(", ")
-    : "No";
+  refs.loadDuplicates.textContent = summary.duplicateCount > 0 ? `SI (${summary.duplicateCount})` : "No";
+  refs.loadMissing.textContent = summary.missingLetters.length > 0 ? summary.missingLetters.join(", ") : "No";
+}
 
-  refs.loadSource.textContent = sourceMeta.file
-    ? `${sourceMeta.source}:${sourceMeta.file}`
-    : sourceMeta.source;
+function updateBankInfoUI() {
+  refs.landingBankOrigin.textContent = state.bankMeta.source || "-";
+  refs.landingBankFile.textContent = state.bankMeta.file || "-";
+  refs.landingBankCount.textContent = String(state.bankMeta.totalQuestions || 0);
 }
 
 function fillFilterSelects(questions) {
-  const ciclos = uniqueSorted(questions.map((item) => item.ciclo));
-  const modulos = uniqueSorted(questions.map((item) => item.modulo));
-  const dificultades = uniqueSorted(questions.map((item) => item.dificultad));
-
-  fillSelect(refs.filterCycle, ciclos, "Todos los ciclos");
-  fillSelect(refs.filterModule, modulos, "Todos los modulos");
-  fillSelect(refs.filterDifficulty, dificultades, "Todas las dificultades");
+  fillSelect(refs.filterCycle, uniqueSorted(questions.map((q) => q.ciclo)), "Todos");
+  fillSelect(refs.filterModule, uniqueSorted(questions.map((q) => q.modulo)), "Todos");
+  fillSelect(refs.filterDifficulty, uniqueSorted(questions.map((q) => q.dificultad)), "Todos");
+  restoreFilterSelections();
 }
 
 function fillSelect(select, values, defaultLabel) {
   select.innerHTML = "";
-  const defaultOption = document.createElement("option");
-  defaultOption.value = "";
-  defaultOption.textContent = defaultLabel;
-  select.appendChild(defaultOption);
+  const def = document.createElement("option");
+  def.value = "";
+  def.textContent = defaultLabel;
+  select.appendChild(def);
 
   values.forEach((value) => {
     const option = document.createElement("option");
@@ -418,123 +506,142 @@ function fillSelect(select, values, defaultLabel) {
 }
 
 function uniqueSorted(values) {
-  return Array.from(new Set(values.map((value) => String(value || "").trim()).filter(Boolean)))
+  return Array.from(new Set(values.map((v) => String(v || "").trim()).filter(Boolean)))
     .sort((a, b) => a.localeCompare(b, "es", { sensitivity: "base" }));
 }
 
-function hydrateLastBankMeta() {
-  const lastBank = loadJSON(LAST_BANK_KEY, null);
-  if (!lastBank) {
-    return;
+function restoreFilterSelections() {
+  const cycle = state.config.filters.cycle || "";
+  const moduleValue = state.config.filters.module || "";
+  const difficulty = state.config.filters.difficulty || "";
+  refs.filterCycle.value = hasOption(refs.filterCycle, cycle) ? cycle : "";
+  refs.filterModule.value = hasOption(refs.filterModule, moduleValue) ? moduleValue : "";
+  refs.filterDifficulty.value = hasOption(refs.filterDifficulty, difficulty) ? difficulty : "";
+}
+
+function hasOption(select, value) {
+  return Array.from(select.options).some((opt) => opt.value === value);
+}
+
+async function ensureReadyForStart() {
+  if (!hasSavedConfig()) {
+    refs.configStatus.textContent = "Guarda configuracion antes de iniciar.";
+    return false;
   }
 
-  if (lastBank.source === "assets" && lastBank.file) {
-    const hasOption = Array.from(refs.assetBankSelect.options).some((opt) => opt.value === lastBank.file);
-    if (hasOption) {
-      refs.assetBankSelect.value = lastBank.file;
+  if (state.questionBank?.questions?.length) {
+    return true;
+  }
+
+  const cached = loadJSON(BANK_CACHE_KEY, null);
+  if (cached?.bank) {
+    try {
+      applyLoadedBank(cached.bank, {
+        source: cached.meta?.source || "cache",
+        file: cached.meta?.file || "(cache)"
+      }, { persist: false, statusMessage: "Banco recuperado desde cache." });
+      return true;
+    } catch (error) {
+      addDiagnostic(`Cache de banco invalida: ${error.message}`, "error", error);
     }
   }
 
-  if (lastBank.source && refs.loadSource.textContent === "-") {
-    refs.loadSource.textContent = lastBank.file ? `${lastBank.source}:${lastBank.file}` : lastBank.source;
+  try {
+    await loadBankFromAssetsFile(assetsManifest.default, { statusPrefix: "Banco por defecto cargado" });
+    return true;
+  } catch (error) {
+    refs.configStatus.textContent = buildAssetFailureMessage(error);
+    return false;
   }
 }
 
-function handleStartGame() {
+function hasSavedConfig() {
+  return !!loadJSON(CONFIG_KEY, null);
+}
+
+function refreshLandingStartState() {
+  const configOk = hasSavedConfig();
+  const bankOk = !!state.questionBank?.questions?.length;
+  refs.btnLandingStart.disabled = !(configOk && bankOk);
+
+  if (!configOk) {
+    refs.landingStartHint.textContent = "Iniciar partida deshabilitado: guarda configuracion primero.";
+    return;
+  }
+  if (!bankOk) {
+    refs.landingStartHint.textContent = window.location.protocol === "file:"
+      ? "Iniciar partida deshabilitado: no hay banco cargado. En file:// usa Importar archivo o ejecuta un servidor local para /assets."
+      : "Iniciar partida deshabilitado: no hay banco cargado.";
+    return;
+  }
+  refs.landingStartHint.textContent = "Listo para iniciar.";
+}
+
+function startGame() {
   if (!state.questionBank?.questions?.length) {
-    refs.loadStatus.textContent = "No hay banco cargado. Carga preguntas antes de empezar.";
+    refs.configStatus.textContent = "No hay banco disponible para iniciar.";
+    switchView("config");
     return;
   }
 
   persistConfigFromForm();
 
-  const filteredQuestions = getFilteredQuestions(state.questionBank.questions);
-  if (filteredQuestions.length === 0) {
-    refs.loadStatus.textContent = "Los filtros dejan 0 preguntas. Ajusta ciclo/modulo/dificultad.";
+  const filtered = getFilteredQuestions(state.questionBank.questions);
+  if (filtered.length === 0) {
+    refs.configStatus.textContent = "Los filtros dejan 0 preguntas. Ajusta ciclo/modulo/dificultad.";
+    switchView("config");
     return;
   }
 
-  const { letters, selectedByLetter, poolByLetter } = buildGameSetByLetter(filteredQuestions, state.config.shuffle);
-  const firstPendingIndex = letters.findIndex((item) => item.status === "pending");
-
-  if (firstPendingIndex === -1) {
-    refs.loadStatus.textContent = "No hay letras jugables con los filtros actuales.";
+  const letterOrder = Array.isArray(state.questionBank.letras_incluidas) ? state.questionBank.letras_incluidas : [];
+  const { letters, selectedByLetter, poolByLetter } = buildGameSetByLetter(letterOrder, filtered, state.config.shuffle);
+  const firstPending = letters.findIndex((x) => x.status === "pending");
+  if (firstPending === -1) {
+    refs.configStatus.textContent = "No hay letras jugables con este banco/filtros.";
+    switchView("config");
     return;
   }
 
   state.game.letters = letters;
   state.game.selectedByLetter = selectedByLetter;
   state.game.poolByLetter = poolByLetter;
-  state.game.activeIndex = firstPendingIndex;
-  state.game.activeLetter = letters[firstPendingIndex].letra;
-  state.game.score = 0;
-  state.game.pointsPerCorrect = state.config.pointsCorrect;
-  state.game.timeLeft = getConfiguredTotalSeconds();
-  state.game.running = true;
+  state.game.activeIndex = firstPending;
+  state.game.activeLetter = letters[firstPending].letra;
   state.game.answerRevealed = false;
+  state.game.running = true;
   state.game.blockedByTime = false;
   state.game.timerPaused = false;
+  state.game.score = 0;
+  state.game.pointsPerCorrect = state.config.pointsCorrect;
+  state.game.penaltyWrong = state.config.penaltyWrong;
+  state.game.timeLeft = getConfiguredTotalSeconds();
+  lastCountdownTickSecond = null;
 
-  hideTimeOverlay();
+  hideSummaryOverlay();
   hideAnswerAndJudgeButtons();
-  syncActionButtons();
-
+  switchView("game");
   renderRosco();
   renderHUD();
-  enterLetter(firstPendingIndex);
-
+  enterLetter(firstPending);
   startGlobalCountdown(getConfiguredTotalMs());
 }
 
-function getFilteredQuestions(allQuestions) {
-  const cycle = normalizeFilterValue(refs.filterCycle.value);
-  const moduleValue = normalizeFilterValue(refs.filterModule.value);
-  const difficulty = normalizeFilterValue(refs.filterDifficulty.value);
+function getFilteredQuestions(all) {
+  const cycle = normalizeFilterValue(state.config.filters.cycle);
+  const moduleValue = normalizeFilterValue(state.config.filters.module);
+  const difficulty = normalizeFilterValue(state.config.filters.difficulty);
 
-  return allQuestions.filter((item) => {
-    const byCycle = !cycle || normalizeFilterValue(item.ciclo) === cycle;
-    const byModule = !moduleValue || normalizeFilterValue(item.modulo) === moduleValue;
-    const byDifficulty = !difficulty || normalizeFilterValue(item.dificultad) === difficulty;
-    return byCycle && byModule && byDifficulty;
+  return all.filter((item) => {
+    const c = !cycle || normalizeFilterValue(item.ciclo) === cycle;
+    const m = !moduleValue || normalizeFilterValue(item.modulo) === moduleValue;
+    const d = !difficulty || normalizeFilterValue(item.dificultad) === difficulty;
+    return c && m && d;
   });
 }
 
 function normalizeFilterValue(value) {
   const clean = String(value || "").trim();
-  return clean === "" ? "" : clean.toLocaleLowerCase("es");
-}
-
-function buildGameSetByLetter(filteredQuestions, shuffleEnabled) {
-  const poolByLetter = Object.fromEntries(LETTERS.map((letra) => [letra, []]));
-  filteredQuestions.forEach((question) => {
-    poolByLetter[question.letra].push(question);
-  });
-
-  const selectedByLetter = {};
-  const letters = LETTERS.map((letra) => {
-    const pool = poolByLetter[letra];
-    if (!pool || pool.length === 0) {
-      return {
-        letra,
-        status: "disabled",
-        questionData: null
-      };
-    }
-
-    const picked = shuffleEnabled ? pool[Math.floor(Math.random() * pool.length)] : pool[0];
-    selectedByLetter[letra] = picked;
-    return {
-      letra,
-      status: "pending",
-      questionData: picked
-    };
-  });
-
-  return {
-    letters,
-    selectedByLetter,
-    poolByLetter
-  };
+  return clean ? clean.toLocaleLowerCase("es") : "";
 }
 
 function getActiveLetterState() {
@@ -544,77 +651,72 @@ function getActiveLetterState() {
   return state.game.letters[state.game.activeIndex] || null;
 }
 
+function enterLetter(index) {
+  state.game.activeIndex = index;
+  state.game.activeLetter = state.game.letters[index]?.letra || null;
+  state.game.answerRevealed = false;
+
+  hideAnswerAndJudgeButtons();
+  renderRosco();
+  renderActiveQuestionPanel();
+  syncActionButtons();
+  speakCurrentQuestion();
+}
+
 function renderActiveQuestionPanel() {
   const active = getActiveLetterState();
-
   if (!active || active.status !== "pending" || !active.questionData) {
     refs.activeLetter.textContent = "-";
     refs.questionText.textContent = "No hay letra activa jugable.";
-    refs.answerBlock.classList.add("hidden");
     refs.answerText.textContent = "";
+    refs.answerBlock.classList.add("hidden");
+    renderTeacherPanel();
     return;
   }
 
   refs.activeLetter.textContent = active.letra;
-  refs.questionText.textContent = active.questionData.pregunta;
+  refs.questionText.textContent = String(active.questionData.pregunta || "").trim();
   refs.answerText.textContent = active.questionData.respuesta;
+  renderTeacherPanel();
 }
 
 function renderRosco() {
-  refs.rosco.innerHTML = "";
-  const step = 360 / LETTERS.length;
-
-  LETTERS.forEach((letter, index) => {
-    const node = document.createElement("li");
-    const letterState = state.game.letters[index] || { status: "disabled" };
-
-    node.textContent = letter;
-    node.style.setProperty("--angle", `${step * index}deg`);
-    node.classList.add(letterState.status || "disabled");
-
-    if (state.game.activeIndex === index && letterState.status === "pending") {
-      node.classList.add("active");
-    }
-
-    refs.rosco.appendChild(node);
-  });
+  renderRoscoCircle(refs.rosco, state.game.letters, state.game.activeIndex);
+  renderTeacherPanel();
 }
 
 function renderHUD() {
   refs.timerDisplay.textContent = formatMMSS(state.game.timeLeft);
   refs.scoreDisplay.textContent = String(state.game.score);
+  renderTeacherPanel();
 }
 
-function renderVoices() {
-  const voices = listVoices();
-  refs.ttsVoice.innerHTML = "";
-
-  const defaultOption = document.createElement("option");
-  defaultOption.value = "";
-  defaultOption.textContent = "Predeterminada";
-  refs.ttsVoice.appendChild(defaultOption);
-
-  voices.forEach((voice) => {
-    const opt = document.createElement("option");
-    opt.value = voice.name;
-    opt.textContent = `${voice.name} (${voice.lang})`;
-    refs.ttsVoice.appendChild(opt);
-  });
-
-  refs.ttsVoice.value = state.config.tts.voice;
+function hideAnswerAndJudgeButtons() {
+  refs.answerBlock.classList.add("hidden");
+  refs.btnReadAnswer.classList.add("hidden");
+  refs.btnCorrect.classList.add("hidden");
+  refs.btnWrong.classList.add("hidden");
 }
 
-function speakCurrentQuestion() {
+function handleReveal() {
   const active = getActiveLetterState();
-  if (!active?.questionData) {
+  const allowed = state.game.running
+    && !state.game.blockedByTime
+    && active
+    && active.status === "pending"
+    && active.questionData;
+
+  if (!allowed) {
     return;
   }
 
-  speak(`Letra ${active.letra}. ${active.questionData.pregunta}`, {
-    voice: refs.ttsVoice.value,
-    rate: Number(refs.ttsRate.value) || 1,
-    pitch: Number(refs.ttsPitch.value) || 1
-  });
+  state.game.answerRevealed = true;
+  refs.answerBlock.classList.remove("hidden");
+  refs.btnReadAnswer.classList.remove("hidden");
+  refs.btnCorrect.classList.remove("hidden");
+  refs.btnWrong.classList.remove("hidden");
+  syncActionButtons();
+  renderTeacherPanel();
 }
 
 function onPass() {
@@ -629,9 +731,10 @@ function onPass() {
 }
 
 function onMarkCorrect() {
-  if (!state.game.running || !state.game.answerRevealed || state.game.blockedByTime) {
+  if (!state.game.running || state.game.blockedByTime || !state.game.answerRevealed) {
     return;
   }
+
   const active = getActiveLetterState();
   if (!active || active.status !== "pending") {
     return;
@@ -639,34 +742,49 @@ function onMarkCorrect() {
 
   active.status = "correct";
   state.game.score += state.game.pointsPerCorrect;
-  renderHUD();
-  renderRosco();
+  playCorrectSfx(state.config.audioEnabled);
   hideAnswerAndJudgeButtons();
+  renderRosco();
+  renderHUD();
   moveToNextPending();
 }
 
 function onMarkWrong() {
-  if (!state.game.running || !state.game.answerRevealed || state.game.blockedByTime) {
+  if (!state.game.running || state.game.blockedByTime || !state.game.answerRevealed) {
     return;
   }
+
   const active = getActiveLetterState();
   if (!active || active.status !== "pending") {
     return;
   }
 
   active.status = "wrong";
-  renderRosco();
+  if (state.game.penaltyWrong > 0) {
+    state.game.score = Math.max(0, state.game.score - state.game.penaltyWrong);
+  }
+  playWrongSfx(state.config.audioEnabled);
   hideAnswerAndJudgeButtons();
+  renderRosco();
+  renderHUD();
   moveToNextPending();
 }
 
 function moveToNextPending() {
-  const nextIndex = findNextPendingIndex(state.game.activeIndex);
-  if (nextIndex === -1) {
+  const next = findNextPendingIndex(state.game.activeIndex);
+  if (next === -1) {
     endGame("No quedan letras pendientes.");
     return;
   }
-  enterLetter(nextIndex);
+  enterLetter(next);
+}
+
+function moveToPreviousPending() {
+  const prev = findPreviousPendingIndex(state.game.activeIndex);
+  if (prev === -1) {
+    return;
+  }
+  enterLetter(prev);
 }
 
 function findNextPendingIndex(fromIndex) {
@@ -682,47 +800,49 @@ function findNextPendingIndex(fromIndex) {
   return -1;
 }
 
-function enterLetter(index) {
-  state.game.activeIndex = index;
-  state.game.activeLetter = state.game.letters[index]?.letra || null;
-  state.game.answerRevealed = false;
+function findPreviousPendingIndex(fromIndex) {
+  if (!state.game.letters.length) {
+    return -1;
+  }
 
-  hideAnswerAndJudgeButtons();
-  renderRosco();
-  renderActiveQuestionPanel();
-  syncActionButtons();
-  speakCurrentQuestion();
-}
-
-function hideAnswerAndJudgeButtons() {
-  refs.answerBlock.classList.add("hidden");
-  refs.btnReadAnswer.classList.add("hidden");
-  refs.btnCorrect.classList.add("hidden");
-  refs.btnWrong.classList.add("hidden");
+  for (let offset = 1; offset <= state.game.letters.length; offset += 1) {
+    const idx = (fromIndex - offset + state.game.letters.length) % state.game.letters.length;
+    if (state.game.letters[idx].status === "pending") {
+      return idx;
+    }
+  }
+  return -1;
 }
 
 function endGame(reason) {
   state.game.running = false;
-  state.game.answerRevealed = false;
-  state.game.activeIndex = -1;
-  state.game.activeLetter = null;
   state.game.timerPaused = false;
+  state.game.answerRevealed = false;
   stopTimer();
+  stopSpeak();
+
   hideAnswerAndJudgeButtons();
   syncActionButtons();
   syncTimerButtons();
   renderRosco();
+  renderHUD();
   refs.activeLetter.textContent = "-";
   refs.questionText.textContent = reason;
+
+  showSummaryOverlay(reason);
 }
 
 function syncActionButtons() {
   const active = getActiveLetterState();
-  const canPlay = state.game.running && !state.game.blockedByTime && !!active && active.status === "pending";
-  const canReadAnswer = canPlay && state.game.answerRevealed;
+  const canPlay = state.game.running
+    && !state.game.blockedByTime
+    && active
+    && active.status === "pending";
+
   refs.btnReveal.disabled = !canPlay;
   refs.btnPass.disabled = !canPlay;
-  refs.btnReadAnswer.disabled = !canReadAnswer;
+  refs.btnReadQuestion.disabled = !canPlay || !state.config.audioEnabled;
+  refs.btnReadAnswer.disabled = !canPlay || !state.game.answerRevealed || !state.config.audioEnabled;
   refs.btnCorrect.disabled = !canPlay || !state.game.answerRevealed;
   refs.btnWrong.disabled = !canPlay || !state.game.answerRevealed;
 }
@@ -734,17 +854,39 @@ function syncTimerButtons() {
   refs.btnTimerReset.disabled = false;
 }
 
-function speakCurrentAnswer() {
-  const active = getActiveLetterState();
-  if (!active?.questionData || !state.game.answerRevealed) {
-    return;
+function startGlobalCountdown(totalMs) {
+  startTimer(
+    totalMs,
+    (remainingMs) => {
+      updateTimeFromMs(remainingMs);
+    },
+    () => {
+      handleTimeElapsed();
+    }
+  );
+  state.game.timerPaused = false;
+  syncTimerButtons();
+}
+
+function updateTimeFromMs(remainingMs) {
+  const seconds = Math.max(0, Math.ceil((Number(remainingMs) || 0) / 1000));
+  state.game.timeLeft = seconds;
+
+  if (
+    state.game.running
+    && !state.game.blockedByTime
+    && state.config.audioEnabled
+    && seconds > 0
+    && seconds <= 10
+    && seconds !== lastCountdownTickSecond
+  ) {
+    lastCountdownTickSecond = seconds;
+    playCountdownTickSfx(true);
+  } else if (seconds > 10 || seconds === 0) {
+    lastCountdownTickSecond = null;
   }
 
-  speak(active.questionData.respuesta, {
-    voice: refs.ttsVoice.value,
-    rate: Number(refs.ttsRate.value) || 1,
-    pitch: Number(refs.ttsPitch.value) || 1
-  });
+  renderHUD();
 }
 
 function handlePauseTimer() {
@@ -766,87 +908,187 @@ function handleResumeTimer() {
   syncTimerButtons();
 }
 
-function handleResetTimerButton() {
+function handleResetTimer() {
   const totalMs = getConfiguredTotalMs();
+  hideSummaryOverlay();
 
-  hideTimeOverlay();
-  state.game.blockedByTime = false;
-
-  if (state.game.letters.length > 0 && state.game.activeIndex >= 0) {
-    state.game.running = true;
-    state.game.timerPaused = false;
+  if (state.game.letters.length > 0) {
+    state.game.blockedByTime = false;
+    lastCountdownTickSecond = null;
+    if (!state.game.running) {
+      const firstPending = state.game.letters.findIndex((x) => x.status === "pending");
+      if (firstPending >= 0) {
+        state.game.running = true;
+        enterLetter(firstPending);
+      }
+    }
     startGlobalCountdown(totalMs);
-    syncActionButtons();
     return;
   }
 
   stopTimer();
   resetTimer(totalMs);
-  updateTimeFromMs(totalMs);
-  state.game.running = false;
-  state.game.timerPaused = false;
-  syncActionButtons();
-  syncTimerButtons();
-}
-
-function handleNewGame() {
-  stopTimer();
-  initializeGameLetters();
-  state.game.running = false;
-  state.game.score = 0;
-  state.game.answerRevealed = false;
-  state.game.blockedByTime = false;
-  state.game.timerPaused = false;
-  state.game.timeLeft = getConfiguredTotalSeconds();
-
-  hideTimeOverlay();
-  hideAnswerAndJudgeButtons();
-  renderRosco();
+  state.game.timeLeft = Math.ceil(totalMs / 1000);
   renderHUD();
-  refs.activeLetter.textContent = "-";
-  refs.questionText.textContent = 'Pulsa "Empezar partida" para iniciar.';
-  refs.answerText.textContent = "";
-  syncActionButtons();
   syncTimerButtons();
-}
-
-function startGlobalCountdown(totalMs) {
-  startTimer(
-    totalMs,
-    (remainingMs) => {
-      updateTimeFromMs(remainingMs);
-    },
-    () => {
-      handleTimeElapsed();
-    }
-  );
-  state.game.timerPaused = false;
-  syncTimerButtons();
-}
-
-function updateTimeFromMs(remainingMs) {
-  state.game.timeLeft = Math.max(0, Math.ceil((Number(remainingMs) || 0) / 1000));
-  renderHUD();
 }
 
 function handleTimeElapsed() {
   state.game.timeLeft = 0;
   state.game.blockedByTime = true;
-  state.game.running = false;
-  state.game.timerPaused = false;
-  stopSpeak();
+  playTimeUpSfx(state.config.audioEnabled);
   renderHUD();
-  showTimeOverlay();
+  endGame("TIEMPO");
+}
+
+function handleNewGame() {
+  if (!window.confirm("Se iniciara una nueva partida y se perdera el estado actual. ¿Continuar?")) {
+    return;
+  }
+  hideSummaryOverlay();
+  startGame();
+}
+
+function handleExitToLanding() {
+  if (!window.confirm("Se cerrara la partida actual. ¿Salir a inicio?")) {
+    return;
+  }
+  stopTimer();
+  stopSpeak();
+  state.game.running = false;
+  state.game.blockedByTime = false;
+  state.game.answerRevealed = false;
+  lastCountdownTickSecond = null;
+  hideSummaryOverlay();
+  initializeGameLetters(Array.isArray(state.questionBank?.letras_incluidas) ? state.questionBank.letras_incluidas : []);
+  renderRosco();
+  renderHUD();
   syncActionButtons();
   syncTimerButtons();
+  switchView("landing");
+  refreshLandingStartState();
 }
 
-function showTimeOverlay() {
-  refs.timeOverlay.classList.remove("hidden");
+async function handleFullscreen() {
+  const node = refs.gameContainer;
+  if (!node) {
+    return;
+  }
+
+  try {
+    if (document.fullscreenElement) {
+      await document.exitFullscreen();
+      return;
+    }
+
+    if (node.requestFullscreen) {
+      await node.requestFullscreen();
+      return;
+    }
+
+    refs.configStatus.textContent = "Fullscreen API no disponible. Se mantiene layout 100vh.";
+    addDiagnostic("Fullscreen API no disponible en este navegador.", "warn");
+  } catch (error) {
+    refs.configStatus.textContent = `No se pudo activar pantalla completa: ${error.message}`;
+    addDiagnostic(`Error en requestFullscreen: ${error.message}`, "error", error);
+  }
 }
 
-function hideTimeOverlay() {
-  refs.timeOverlay.classList.add("hidden");
+function renderSummary(summary) {
+  refs.summaryTitle.textContent = "RESUMEN PARTIDA";
+  refs.summaryReason.textContent = summary.reason === "TIEMPO" ? "Finalizada por tiempo" : "Partida completada";
+  refs.summaryScore.textContent = String(summary.puntuacion);
+  refs.summaryPercent.textContent = `${summary.porcentaje}%`;
+  refs.summaryCorrect.textContent = String(summary.correctas);
+  refs.summaryWrong.textContent = String(summary.erroneas);
+  refs.summaryPassed.textContent = String(summary.pasadas);
+  refs.summaryTimeLeft.textContent = summary.tiempoRestante;
+  refs.summaryTimeUsed.textContent = summary.tiempoConsumido;
+}
+
+function showSummaryOverlay(reason) {
+  latestSummary = buildSummary(reason);
+  renderSummary(latestSummary);
+  refs.summaryOverlay.classList.remove("hidden");
+}
+
+function hideSummaryOverlay() {
+  refs.summaryOverlay.classList.add("hidden");
+}
+
+function buildSummary(reason) {
+  const byLetter = state.game.letters.map((entry) => ({
+    letra: entry.letra,
+    pregunta: entry.questionData?.pregunta || "",
+    respuesta: entry.questionData?.respuesta || "",
+    estado: entry.status
+  }));
+
+  const playable = byLetter.filter((x) => x.estado !== "disabled");
+  const correctas = playable.filter((x) => x.estado === "correct").length;
+  const erroneas = playable.filter((x) => x.estado === "wrong").length;
+  const pasadas = playable.filter((x) => x.estado === "pending").length;
+  const porcentaje = playable.length > 0 ? Math.round((correctas / playable.length) * 100) : 0;
+  const totalConfiguredSeconds = getConfiguredTotalSeconds();
+  const remainingSeconds = Math.max(0, Number(state.game.timeLeft) || 0);
+  const usedSeconds = Math.max(0, totalConfiguredSeconds - remainingSeconds);
+
+  return {
+    timestamp: new Date().toISOString(),
+    reason,
+    puntuacion: state.game.score,
+    correctas,
+    erroneas,
+    pasadas,
+    porcentaje,
+    tiempoRestante: formatMMSS(remainingSeconds),
+    tiempoConsumido: formatMMSS(usedSeconds),
+    byLetter
+  };
+}
+
+function exportResultsJson() {
+  if (!latestSummary) {
+    return;
+  }
+
+  const payload = {
+    timestamp: new Date().toISOString(),
+    configuracion: {
+      tiempo: {
+        valor: state.config.totalTime,
+        unidad: state.config.timeUnit,
+        totalSeconds: getConfiguredTotalSeconds()
+      },
+      filtros: {
+        ciclo: state.config.filters.cycle,
+        modulo: state.config.filters.module,
+        dificultad: state.config.filters.difficulty
+      },
+      shuffle: !!state.config.shuffle,
+      audioEnabled: !!state.config.audioEnabled,
+      tts: state.config.tts,
+      fuenteBanco: state.bankMeta
+    },
+    resultados: {
+      puntuacion: latestSummary.puntuacion,
+      correctas: latestSummary.correctas,
+      erroneas: latestSummary.erroneas,
+      pasadas: latestSummary.pasadas,
+      porcentaje: latestSummary.porcentaje,
+      tiempoRestante: latestSummary.tiempoRestante,
+      tiempoConsumido: latestSummary.tiempoConsumido,
+      porLetra: latestSummary.byLetter
+    }
+  };
+
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `roscointegra_resultados_${Date.now()}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
 }
 
 function getConfiguredTotalSeconds() {
@@ -864,12 +1106,28 @@ function persistConfigFromForm() {
   state.config.totalTime = Math.max(1, Number.parseInt(refs.cfgTime.value, 10) || 1);
   state.config.timeUnit = refs.cfgTimeUnit.value === "minutes" ? "minutes" : "seconds";
   state.config.pointsCorrect = Number(refs.cfgPoints.value) || 0;
-  state.config.penaltyWrong = Number(refs.cfgPenalty.value) || 0;
-  state.config.tts.auto = refs.ttsAuto.checked;
-  state.config.tts.voice = refs.ttsVoice.value;
+  state.config.penaltyWrong = Math.max(0, Number(refs.cfgPenalty.value) || 0);
+  state.config.audioEnabled = refs.cfgAudioEnabled.checked;
+
+  state.config.filters.cycle = refs.filterCycle.value || "";
+  state.config.filters.module = refs.filterModule.value || "";
+  state.config.filters.difficulty = refs.filterDifficulty.value || "";
+
+  state.config.tts.voice = refs.ttsVoice.value || "";
   state.config.tts.rate = Number(refs.ttsRate.value) || 1;
   state.config.tts.pitch = Number(refs.ttsPitch.value) || 1;
-  saveJSON(STORAGE_KEY, state.config);
+  state.config.ui.teacherMode = !!refs.cfgTeacherMode.checked;
+
+  saveJSON(CONFIG_KEY, state.config);
+
+  if (!state.config.audioEnabled) {
+    stopSpeak();
+  }
+
+  syncAudioUi();
+  syncTeacherModeUi();
+  updateTtsStatus();
+  refreshLandingStartState();
 
   if (!state.game.running && !timerIsRunning()) {
     state.game.timeLeft = getConfiguredTotalSeconds();
@@ -878,27 +1136,299 @@ function persistConfigFromForm() {
 }
 
 function hydrateConfig() {
-  const saved = loadJSON(STORAGE_KEY, state.config);
+  const saved = loadJSON(CONFIG_KEY, null);
   state.config = {
-    ...state.config,
-    ...saved,
+    ...DEFAULT_CONFIG,
+    ...(saved || {}),
+    filters: {
+      ...DEFAULT_CONFIG.filters,
+      ...(saved?.filters || {})
+    },
+    ui: {
+      ...DEFAULT_CONFIG.ui,
+      ...(saved?.ui || {})
+    },
     tts: {
-      ...state.config.tts,
+      ...DEFAULT_CONFIG.tts,
       ...(saved?.tts || {})
     }
   };
 
-  refs.cfgShuffle.checked = state.config.shuffle;
+  refs.cfgShuffle.checked = !!state.config.shuffle;
   refs.cfgTime.value = String(state.config.totalTime);
   refs.cfgTimeUnit.value = state.config.timeUnit === "minutes" ? "minutes" : "seconds";
   refs.cfgPoints.value = String(state.config.pointsCorrect);
   refs.cfgPenalty.value = String(state.config.penaltyWrong);
-  refs.ttsAuto.checked = state.config.tts.auto;
-  refs.ttsRate.value = String(state.config.tts.rate);
-  refs.ttsPitch.value = String(state.config.tts.pitch);
+  refs.cfgAudioEnabled.checked = !!state.config.audioEnabled;
+
+  refs.ttsVoice.value = state.config.tts.voice || "";
+  refs.ttsRate.value = String(state.config.tts.rate || 1);
+  refs.ttsPitch.value = String(state.config.tts.pitch || 1);
+
+  refs.cfgTeacherMode.checked = !!state.config.ui.teacherMode;
   state.game.timeLeft = getConfiguredTotalSeconds();
 }
 
+function handleResetConfig() {
+  if (!window.confirm("Se restableceran los parametros guardados. ¿Continuar?")) {
+    return;
+  }
+
+  removeItem(CONFIG_KEY);
+  state.config = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
+  hydrateConfig();
+  persistConfigFromForm();
+  refs.configStatus.textContent = "Configuracion restablecida.";
+}
+
+function renderVoices() {
+  const voices = listVoices();
+  refs.ttsVoice.innerHTML = "";
+
+  const defaultOption = document.createElement("option");
+  defaultOption.value = "";
+  defaultOption.textContent = "Preferida (espanol)";
+  refs.ttsVoice.appendChild(defaultOption);
+
+  voices.forEach((voice) => {
+    const opt = document.createElement("option");
+    opt.value = voice.name;
+    opt.textContent = `${voice.name} (${voice.lang})`;
+    refs.ttsVoice.appendChild(opt);
+  });
+
+  refs.ttsVoice.value = state.config.tts.voice || "";
+}
+
+function updateTtsStatus() {
+  if (!refs.ttsStatus) {
+    return;
+  }
+
+  if (!state.config.audioEnabled) {
+    refs.ttsStatus.textContent = "Audio desactivado. El juego funciona en modo silencioso.";
+    return;
+  }
+
+  const status = getTtsStatus();
+  if (status.mode === "web") {
+    refs.ttsStatus.textContent = status.message || "TTS del navegador activo.";
+    return;
+  }
+
+  if (status.mode === "audio") {
+    refs.ttsStatus.textContent = "Usando audio local (fallback offline).";
+    return;
+  }
+
+  refs.ttsStatus.textContent = "TTS no disponible en este navegador. Se intentara audio local si existe.";
+}
+
+function syncAudioUi() {
+  const disabled = !state.config.audioEnabled;
+  refs.btnReadQuestion.disabled = disabled || refs.btnReadQuestion.disabled;
+  refs.btnReadAnswer.disabled = disabled || refs.btnReadAnswer.disabled;
+  refs.btnTtsStop.disabled = disabled;
+  refs.btnTtsPause.disabled = disabled;
+  refs.btnTtsResume.disabled = disabled;
+}
+
+function speakCurrentQuestion() {
+  if (!state.config.audioEnabled) {
+    return;
+  }
+
+  const active = getActiveLetterState();
+  if (!active?.questionData) {
+    return;
+  }
+
+  const typeLabel = String(active.questionData.tipo || "").trim();
+  const questionText = String(active.questionData.pregunta || "").trim();
+  const startsWithConLa = new RegExp(`^con\\s+la\\s+${active.letra}\\b`, "i").test(questionText);
+
+  const text = startsWithConLa
+    ? questionText
+    : (typeLabel
+      ? `Con la ${active.letra}. ${typeLabel}. ${questionText}`
+      : `Con la ${active.letra}. ${questionText}`);
+
+  speak(text, {
+    voice: refs.ttsVoice.value,
+    rate: Number(refs.ttsRate.value) || 1,
+    pitch: Number(refs.ttsPitch.value) || 1,
+    letter: active.letra,
+    questionId: active.questionData.id || "",
+    questionIndex: active.questionData.audioIndex || active.questionData.idx || "",
+    audioCandidates: buildQuestionAudioCandidates(active)
+  }).catch((error) => {
+    addDiagnostic(`Fallo de audio al leer pregunta: ${error.message}`, "warn", error);
+  });
+
+  updateTtsStatus();
+}
+
+function speakCurrentAnswer() {
+  if (!state.config.audioEnabled || !state.game.answerRevealed) {
+    return;
+  }
+
+  const active = getActiveLetterState();
+  if (!active?.questionData) {
+    return;
+  }
+
+  speak(active.questionData.respuesta, {
+    voice: refs.ttsVoice.value,
+    rate: Number(refs.ttsRate.value) || 1,
+    pitch: Number(refs.ttsPitch.value) || 1,
+    letter: active.letra,
+    questionId: active.questionData.id || "",
+    questionIndex: active.questionData.audioIndex || active.questionData.idx || "",
+    audioCandidates: buildAnswerAudioCandidates(active)
+  }).catch((error) => {
+    addDiagnostic(`Fallo de audio al leer respuesta: ${error.message}`, "warn", error);
+  });
+
+  updateTtsStatus();
+}
+
+function buildQuestionAudioCandidates(active) {
+  const q = active.questionData || {};
+  const candidates = [];
+  if (q.audioQuestion) candidates.push(q.audioQuestion);
+  if (q.audio) candidates.push(q.audio);
+  if (q.audioFile) candidates.push(q.audioFile);
+  if (active.letra && q.idx) candidates.push(`${active.letra}_${q.idx}.mp3`);
+  if (active.letra && q.audioIndex) candidates.push(`${active.letra}_${q.audioIndex}.mp3`);
+  return candidates;
+}
+
+function buildAnswerAudioCandidates(active) {
+  const q = active.questionData || {};
+  const candidates = [];
+  if (q.audioAnswer) candidates.push(q.audioAnswer);
+  if (q.answerAudio) candidates.push(q.answerAudio);
+  if (active.letra && q.idx) candidates.push(`${active.letra}_${q.idx}_r.mp3`);
+  return candidates;
+}
+
+function syncTeacherModeUi() {
+  const enabled = !!state.config.ui.teacherMode;
+  refs.teacherPanel.classList.toggle("hidden", !enabled);
+  renderTeacherPanel();
+}
+
+function renderTeacherPanel() {
+  if (!state.config.ui.teacherMode) {
+    refs.teacherStateText.textContent = "";
+    return;
+  }
+
+  refs.teacherStateText.textContent = JSON.stringify(getTeacherSnapshot(), null, 2);
+}
+
+function getTeacherSnapshot() {
+  const counters = state.game.letters.reduce((acc, row) => {
+    acc[row.status] = (acc[row.status] || 0) + 1;
+    return acc;
+  }, { pending: 0, correct: 0, wrong: 0, disabled: 0 });
+
+  return {
+    view: state.ui.view,
+    running: state.game.running,
+    blockedByTime: state.game.blockedByTime,
+    timerPaused: state.game.timerPaused,
+    activeIndex: state.game.activeIndex,
+    activeLetter: state.game.activeLetter,
+    answerRevealed: state.game.answerRevealed,
+    score: state.game.score,
+    timeLeft: state.game.timeLeft,
+    letters: counters,
+    bankMeta: state.bankMeta,
+    config: {
+      shuffle: state.config.shuffle,
+      filters: state.config.filters,
+      audioEnabled: state.config.audioEnabled,
+      tts: state.config.tts
+    }
+  };
+}
+function handleShortcuts(event) {
+  if (isTypingTarget(event.target)) {
+    return;
+  }
+
+  const key = event.key;
+
+  if (key === " ") {
+    event.preventDefault();
+    if (state.ui.view !== "game") {
+      return;
+    }
+    if (!state.game.running) {
+      startGame();
+      return;
+    }
+    if (timerIsPaused()) {
+      handleResumeTimer();
+    } else {
+      handlePauseTimer();
+    }
+    return;
+  }
+
+  if (state.ui.view !== "game" || !state.game.running || state.game.blockedByTime) {
+    return;
+  }
+
+  switch (key.toLowerCase()) {
+    case "r":
+      if (!refs.btnReveal.disabled) refs.btnReveal.click();
+      break;
+    case "p":
+      if (!refs.btnPass.disabled) refs.btnPass.click();
+      break;
+    case "a":
+    case "c":
+      if (state.game.answerRevealed && !refs.btnCorrect.disabled) refs.btnCorrect.click();
+      break;
+    case "f":
+    case "e":
+      if (state.game.answerRevealed && !refs.btnWrong.disabled) refs.btnWrong.click();
+      break;
+    default:
+      if (key === "ArrowRight") {
+        event.preventDefault();
+        moveToNextPending();
+      }
+      if (key === "ArrowLeft") {
+        event.preventDefault();
+        moveToPreviousPending();
+      }
+      break;
+  }
+}
+
+function isTypingTarget(target) {
+  if (!(target instanceof HTMLElement)) {
+    return false;
+  }
+  const tag = target.tagName.toLowerCase();
+  return tag === "input" || tag === "textarea" || tag === "select" || target.isContentEditable;
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll("\"", "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
 init().catch((error) => {
+  console.error("[RoscoIntegra] Error fatal de inicializacion", error);
   refs.loadStatus.textContent = `Error de inicializacion: ${error.message}`;
+  addDiagnostic(`Error fatal de inicializacion: ${error.message}`, "error", error);
 });
