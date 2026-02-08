@@ -1,0 +1,174 @@
+﻿<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RoscoIntegra</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <h1>RoscoIntegra</h1>
+  </header>
+
+  <main class="layout">
+    <aside class="panel config-panel">
+      <h2>Configuracion</h2>
+
+      <label for="assetBankSelect">Banco en assets</label>
+      <select id="assetBankSelect">
+        <option value="">Cargando bancos...</option>
+      </select>
+      <button id="btnLoadAssetBank" class="btn">Cargar banco</button>
+
+      <label for="jsonInput">Banco JSON</label>
+      <textarea id="jsonInput" rows="8" placeholder='Pega aqui el JSON de preguntas'></textarea>
+
+      <label for="jsonFile">Cargar archivo JSON</label>
+      <input id="jsonFile" type="file" accept="application/json,.json" />
+
+      <button id="btnLoadJson" class="btn">Validar y cargar</button>
+
+      <div class="select-grid">
+        <div>
+          <label for="filterCycle">Ciclo</label>
+          <select id="filterCycle">
+            <option value="">Seleccionar...</option>
+          </select>
+        </div>
+        <div>
+          <label for="filterModule">Modulo</label>
+          <select id="filterModule">
+            <option value="">Seleccionar...</option>
+          </select>
+        </div>
+        <div>
+          <label for="filterDifficulty">Dificultad</label>
+          <select id="filterDifficulty">
+            <option value="">Seleccionar...</option>
+          </select>
+        </div>
+      </div>
+
+      <label class="inline-control" for="cfgShuffle">
+        <input id="cfgShuffle" type="checkbox" checked />
+        Shuffle (elige 1 al azar por letra al iniciar)
+      </label>
+
+      <div class="two-cols">
+        <div>
+          <label for="cfgTime">Tiempo total</label>
+          <input id="cfgTime" type="number" min="1" step="1" value="180" />
+        </div>
+        <div>
+          <label for="cfgTimeUnit">Unidad</label>
+          <select id="cfgTimeUnit">
+            <option value="seconds">Segundos</option>
+            <option value="minutes">Minutos</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="two-cols">
+        <div>
+          <label for="cfgPoints">Puntos por acierto</label>
+          <input id="cfgPoints" type="number" min="0" value="10" />
+        </div>
+      </div>
+
+      <div>
+        <label for="cfgPenalty">Penalizacion por fallo (opcional)</label>
+        <input id="cfgPenalty" type="number" min="0" value="0" />
+      </div>
+
+      <button id="btnStart" class="btn btn-primary" disabled>Empezar partida</button>
+
+      <div class="load-state">
+        <p id="loadStatus" class="status">Carga un banco de preguntas valido para habilitar la partida.</p>
+        <p class="status"><strong>Total:</strong> <span id="loadTotal">0</span></p>
+        <p class="status"><strong>Duplicadas:</strong> <span id="loadDuplicates">-</span></p>
+        <p class="status"><strong>Ausentes:</strong> <span id="loadMissing">-</span></p>
+        <p class="status"><strong>Origen:</strong> <span id="loadSource">-</span></p>
+      </div>
+    </aside>
+
+    <section class="panel game-panel">
+      <div class="hud">
+        <div class="hud-item">
+          <span>Temporizador</span>
+          <strong id="timerDisplay" class="timer-big">00:00</strong>
+        </div>
+        <div class="hud-item">
+          <span>Puntos</span>
+          <strong id="scoreDisplay">0</strong>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="btnTimerPause" class="btn">Pausar</button>
+        <button id="btnTimerResume" class="btn">Reanudar</button>
+        <button id="btnTimerReset" class="btn">Reiniciar tiempo</button>
+        <button id="btnNewGame" class="btn">Nueva partida</button>
+      </div>
+
+      <div class="rosco-wrap">
+        <ul id="rosco" class="rosco" aria-label="Rosco"></ul>
+      </div>
+
+      <article class="center-panel" aria-live="polite" aria-atomic="true">
+        <h2>Letra activa: <span id="activeLetter">-</span></h2>
+        <p id="questionText">Pulsa "Empezar partida" para iniciar.</p>
+
+        <div id="answerBlock" class="answer hidden">
+          <strong>Respuesta:</strong>
+          <span id="answerText"></span>
+        </div>
+
+        <div class="actions">
+          <button id="btnReveal" class="btn btn-big">Mostrar respuesta</button>
+          <button id="btnPass" class="btn btn-big btn-warn">PASA</button>
+          <button id="btnReadAnswer" class="btn hidden">Leer respuesta</button>
+          <button id="btnCorrect" class="btn btn-success hidden">Acertada</button>
+          <button id="btnWrong" class="btn btn-danger hidden">Fallada</button>
+        </div>
+      </article>
+    </section>
+
+    <aside class="panel tts-panel">
+      <h2>TTS</h2>
+      <div class="actions-column">
+        <button id="btnTtsRead" class="btn">Leer pregunta</button>
+        <label class="inline-control" for="ttsAuto">
+          <input id="ttsAuto" type="checkbox" checked />
+          Auto lectura
+        </label>
+        <label for="ttsVoice">Voz</label>
+        <select id="ttsVoice">
+          <option value="">Cargando voces...</option>
+        </select>
+        <label for="ttsRate">Rate</label>
+        <input id="ttsRate" type="number" step="0.1" min="0.5" max="2" value="1" />
+        <label for="ttsPitch">Pitch</label>
+        <input id="ttsPitch" type="number" step="0.1" min="0" max="2" value="1" />
+        <div class="actions">
+          <button id="btnTtsStop" class="btn">Stop</button>
+          <button id="btnTtsPause" class="btn">Pause</button>
+          <button id="btnTtsResume" class="btn">Resume</button>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <div id="timeOverlay" class="time-overlay hidden" role="dialog" aria-modal="true" aria-label="Tiempo agotado">
+    <div class="time-overlay-card">
+      <h2>TIEMPO</h2>
+      <div class="actions">
+        <button id="btnOverlayNewGame" class="btn btn-primary">Nueva partida</button>
+        <button id="btnOverlayResetTime" class="btn">Reiniciar tiempo</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
