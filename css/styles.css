@@ -294,7 +294,7 @@ body.in-game .game-container {
 
 .game-container {
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr) auto;
+  grid-template-rows: auto auto minmax(0, 1fr);
   gap: 0.55rem;
   overflow: hidden;
 }
@@ -315,6 +315,7 @@ body.in-game .game-container {
   border-radius: 10px;
   background: #0f1c3f;
   padding: 0.55rem;
+  text-align: center;
 }
 
 .hud-box span {
@@ -556,10 +557,14 @@ body.in-game .game-container {
 .center-panel {
   border: 1px solid #3556a2;
   border-radius: var(--radius);
-  background: linear-gradient(180deg, #142346, #1d3160);
-  padding: 0.6rem 0.75rem;
+  background: var(--panel-2);
+  padding: 0.6rem 0.75rem 1.2rem;
   overflow: auto;
   max-height: 34vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
 }
 
 .center-panel h2 { margin-top: 0; }
@@ -656,6 +661,8 @@ body.in-game .game-container {
 .left-pass-btn {
   min-height: 46px;
   font-weight: 800;
+  margin-top:30px;
+  margin-bottom:25vh;
 }
 
 .secondary-controls {
