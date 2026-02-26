@@ -1,8 +1,8 @@
 {
-  "titulo": "RoscoIntegra – Modo Reto Cultura Dixital (Feira Educación Lalín)",
-  "version": "2.0-reto-galicia",
-  "fecha_generacion": "2026-02-25",
-  "descripcion": "Banco avanzado con referencias a tecnoloxía, videoxogos, cine, música e guiños a Galicia e Lalín. Público 4º ESO – 2º Bach. Respostas dunha soa palabra.",
+  "titulo": "RoscoIntegra – Cultura Xeral e Galicia (4º ESO – Bacharelato)",
+  "version": "1.2-galicia",
+  "fecha_generacion": "2026-02-26",
+  "descripcion": "Banco revisado e máis concreto para alumnado de 4º ESO a Bacharelato. Cultura xeral, tecnoloxía, cine, música e referencias a Galicia, Lalín e comarca do Deza. 8 preguntas por letra (4 'empieza' + 4 'contiene'). Sen números nin palabras con sufixos raros.",
   "letras_incluidas": [
     "A",
     "B",
@@ -31,1523 +31,1514 @@
     {
       "letra": "A",
       "tipo": "empieza",
-      "pregunta": "Con A: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "ATech0",
+      "pregunta": "Con A: sistema operativo moi usado en móbiles.",
+      "respuesta": "Android",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
       "letra": "A",
       "tipo": "empieza",
-      "pregunta": "Con A: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "ATech1",
+      "pregunta": "Con A: tenda en liña moi coñecida a nivel mundial.",
+      "respuesta": "Amazon",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
       "letra": "A",
       "tipo": "empieza",
-      "pregunta": "Con A: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "ATech2",
+      "pregunta": "Con A: película de James Cameron sobre Pandora.",
+      "respuesta": "Avatar",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
       "letra": "A",
       "tipo": "empieza",
-      "pregunta": "Con A: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "ATech3",
+      "pregunta": "Con A: comunidade autónoma veciña de Galicia polo leste.",
+      "respuesta": "Asturias",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
       "letra": "A",
       "tipo": "contiene",
-      "pregunta": "Contén A: marca ou plataforma coñecida no ámbito tecnolóxico ou cultural.",
-      "respuesta": "PlayStation",
+      "pregunta": "Contén A: etapa educativa posterior á ESO.",
+      "respuesta": "Bacharelato",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
       "letra": "A",
       "tipo": "contiene",
-      "pregunta": "Contén A: marca ou plataforma coñecida no ámbito tecnolóxico ou cultural.",
+      "pregunta": "Contén A: aplicación de mensaxería con canles e grupos.",
       "respuesta": "Telegram",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
       "letra": "A",
       "tipo": "contiene",
-      "pregunta": "Contén A: marca ou plataforma coñecida no ámbito tecnolóxico ou cultural.",
-      "respuesta": "GaliciaTech",
+      "pregunta": "Contén A: consola de Sony moi coñecida.",
+      "respuesta": "PlayStation",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
       "letra": "A",
       "tipo": "contiene",
-      "pregunta": "Contén A: marca ou plataforma coñecida no ámbito tecnolóxico ou cultural.",
-      "respuesta": "LalinGame",
+      "pregunta": "Contén A: comunidade autónoma do noroeste.",
+      "respuesta": "Galicia",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
       "letra": "B",
       "tipo": "empieza",
-      "pregunta": "Con B: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "BTech0",
+      "pregunta": "Con B: tecnoloxía sen fíos para conectar auriculares ao móbil.",
+      "respuesta": "Bluetooth",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
       "letra": "B",
       "tipo": "empieza",
-      "pregunta": "Con B: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "BTech1",
+      "pregunta": "Con B: cidade onde está o Camp Nou.",
+      "respuesta": "Barcelona",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
       "letra": "B",
       "tipo": "empieza",
-      "pregunta": "Con B: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "BTech2",
+      "pregunta": "Con B: superheroe de Gotham City.",
+      "respuesta": "Batman",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
       "letra": "B",
       "tipo": "empieza",
-      "pregunta": "Con B: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "BTech3",
+      "pregunta": "Con B: arquipélago español no Mediterráneo.",
+      "respuesta": "Baleares",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
       "letra": "B",
       "tipo": "contiene",
-      "pregunta": "Contén B: marca ou plataforma coñecida no ámbito tecnolóxico ou cultural.",
+      "pregunta": "Contén B: palabra que describe o nivel de estudos tras a ESO.",
+      "respuesta": "Bacharelato",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "B",
+      "tipo": "contiene",
+      "pregunta": "Contén B: tecnoloxía sen fíos para accesorios.",
+      "respuesta": "Bluetooth",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "B",
+      "tipo": "contiene",
+      "pregunta": "Contén B: cidade catalá onde está a SagradaFamilia.",
+      "respuesta": "Barcelona",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "B",
+      "tipo": "contiene",
+      "pregunta": "Contén B: plataforma de vídeos en liña.",
       "respuesta": "YouTube",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "B",
-      "tipo": "contiene",
-      "pregunta": "Contén B: termo dixital usado en Galicia ou no ámbito tecnolóxico.",
-      "respuesta": "DixitalB1",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "B",
-      "tipo": "contiene",
-      "pregunta": "Contén B: termo dixital usado en Galicia ou no ámbito tecnolóxico.",
-      "respuesta": "DixitalB2",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "B",
-      "tipo": "contiene",
-      "pregunta": "Contén B: termo dixital usado en Galicia ou no ámbito tecnolóxico.",
-      "respuesta": "DixitalB3",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
       "letra": "C",
       "tipo": "empieza",
-      "pregunta": "Con C: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "CTech0",
+      "pregunta": "Con C: prato típico de Lalín con festa gastronómica.",
+      "respuesta": "Cocido",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
       "letra": "C",
       "tipo": "empieza",
-      "pregunta": "Con C: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "CTech1",
+      "pregunta": "Con C: navegador web de Google moi usado.",
+      "respuesta": "Chrome",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
       "letra": "C",
       "tipo": "empieza",
-      "pregunta": "Con C: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "CTech2",
+      "pregunta": "Con C: arte das películas.",
+      "respuesta": "Cinema",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
       "letra": "C",
       "tipo": "empieza",
-      "pregunta": "Con C: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "CTech3",
+      "pregunta": "Con C: club de fútbol galego de Vigo.",
+      "respuesta": "Celta",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
       "letra": "C",
       "tipo": "contiene",
-      "pregunta": "Contén C: marca ou plataforma coñecida no ámbito tecnolóxico ou cultural.",
-      "respuesta": "GaliciaTech",
+      "pregunta": "Contén C: conxunto de concellos dun territorio.",
+      "respuesta": "Comarca",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
       "letra": "C",
       "tipo": "contiene",
-      "pregunta": "Contén C: termo dixital usado en Galicia ou no ámbito tecnolóxico.",
-      "respuesta": "DixitalC1",
+      "pregunta": "Contén C: festa gastronómica de Lalín.",
+      "respuesta": "Cocido",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
       "letra": "C",
       "tipo": "contiene",
-      "pregunta": "Contén C: termo dixital usado en Galicia ou no ámbito tecnolóxico.",
-      "respuesta": "DixitalC2",
+      "pregunta": "Contén C: arte das películas.",
+      "respuesta": "Cinema",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
       "letra": "C",
       "tipo": "contiene",
-      "pregunta": "Contén C: termo dixital usado en Galicia ou no ámbito tecnolóxico.",
-      "respuesta": "DixitalC3",
+      "pregunta": "Contén C: comunidade autónoma do noroeste.",
+      "respuesta": "Galicia",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
       "letra": "D",
       "tipo": "empieza",
-      "pregunta": "Con D: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "DTech0",
+      "pregunta": "Con D: comarca galega onde está Lalín.",
+      "respuesta": "Deza",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
       "letra": "D",
       "tipo": "empieza",
-      "pregunta": "Con D: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "DTech1",
+      "pregunta": "Con D: app de chat por servidores moi usada en gaming.",
+      "respuesta": "Discord",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
       "letra": "D",
       "tipo": "empieza",
-      "pregunta": "Con D: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "DTech2",
+      "pregunta": "Con D: compañía de animación e personaxes como Mickey.",
+      "respuesta": "Disney",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
       "letra": "D",
       "tipo": "empieza",
-      "pregunta": "Con D: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "DTech3",
+      "pregunta": "Con D: capital de Irlanda.",
+      "respuesta": "Dublin",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
       "letra": "D",
       "tipo": "contiene",
-      "pregunta": "Contén D: termo dixital usado en Galicia ou no ámbito tecnolóxico.",
-      "respuesta": "DixitalD0",
+      "pregunta": "Contén D: palabra para falar de actividade física.",
+      "respuesta": "Deporte",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
       "letra": "D",
       "tipo": "contiene",
-      "pregunta": "Contén D: termo dixital usado en Galicia ou no ámbito tecnolóxico.",
-      "respuesta": "DixitalD1",
+      "pregunta": "Contén D: festa gastronómica de Lalín.",
+      "respuesta": "Cocido",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
       "letra": "D",
       "tipo": "contiene",
-      "pregunta": "Contén D: termo dixital usado en Galicia ou no ámbito tecnolóxico.",
-      "respuesta": "DixitalD2",
+      "pregunta": "Contén D: ordenador que ofrece servizos en rede.",
+      "respuesta": "Servidor",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
       "letra": "D",
       "tipo": "contiene",
-      "pregunta": "Contén D: termo dixital usado en Galicia ou no ámbito tecnolóxico.",
-      "respuesta": "DixitalD3",
+      "pregunta": "Contén D: xogo interactivo en consola ou PC.",
+      "respuesta": "Videoxogo",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
       "letra": "E",
       "tipo": "empieza",
-      "pregunta": "Con E: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "ETech0",
+      "pregunta": "Con E: país no que vivimos.",
+      "respuesta": "España",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
       "letra": "E",
       "tipo": "empieza",
-      "pregunta": "Con E: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "ETech1",
+      "pregunta": "Con E: continente no que vivimos.",
+      "respuesta": "Europa",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
       "letra": "E",
       "tipo": "empieza",
-      "pregunta": "Con E: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "ETech2",
+      "pregunta": "Con E: folla de cálculo moi coñecida.",
+      "respuesta": "Excel",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
       "letra": "E",
       "tipo": "empieza",
-      "pregunta": "Con E: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "ETech3",
+      "pregunta": "Con E: fenómeno astronómico cando se oculta o Sol ou a Lúa.",
+      "respuesta": "Eclipse",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
       "letra": "E",
       "tipo": "contiene",
-      "pregunta": "Contén E: marca ou plataforma coñecida no ámbito tecnolóxico ou cultural.",
+      "pregunta": "Contén E: rede mundial de ordenadores.",
+      "respuesta": "Internet",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "E",
+      "tipo": "contiene",
+      "pregunta": "Contén E: plataforma de vídeos en liña.",
       "respuesta": "YouTube",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
       "letra": "E",
       "tipo": "contiene",
-      "pregunta": "Contén E: marca ou plataforma coñecida no ámbito tecnolóxico ou cultural.",
-      "respuesta": "Telegram",
+      "pregunta": "Contén E: cidade galega coñecida polas termas.",
+      "respuesta": "Ourense",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
       "letra": "E",
       "tipo": "contiene",
-      "pregunta": "Contén E: marca ou plataforma coñecida no ámbito tecnolóxico ou cultural.",
-      "respuesta": "GaliciaTech",
+      "pregunta": "Contén E: etapa educativa posterior á ESO.",
+      "respuesta": "Bacharelato",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "E",
-      "tipo": "contiene",
-      "pregunta": "Contén E: marca ou plataforma coñecida no ámbito tecnolóxico ou cultural.",
-      "respuesta": "LalinGame",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
       "letra": "F",
       "tipo": "empieza",
-      "pregunta": "Con F: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "FTech0",
+      "pregunta": "Con F: videoxogo battle royale moi popular.",
+      "respuesta": "Fortnite",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
       "letra": "F",
       "tipo": "empieza",
-      "pregunta": "Con F: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "FTech1",
+      "pregunta": "Con F: rede social creada por Zuckerberg.",
+      "respuesta": "Facebook",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
       "letra": "F",
       "tipo": "empieza",
-      "pregunta": "Con F: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "FTech2",
+      "pregunta": "Con F: saga de videoxogos de fútbol da EA.",
+      "respuesta": "FIFA",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
       "letra": "F",
       "tipo": "empieza",
-      "pregunta": "Con F: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "FTech3",
+      "pregunta": "Con F: país europeo cuxa capital é París.",
+      "respuesta": "Francia",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
       "letra": "F",
       "tipo": "contiene",
-      "pregunta": "Contén F: marca ou plataforma coñecida no ámbito tecnolóxico ou cultural.",
+      "pregunta": "Contén F: deporte con balón moi seguido.",
+      "respuesta": "Futbol",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "F",
+      "tipo": "contiene",
+      "pregunta": "Contén F: plataforma de series e películas.",
+      "respuesta": "Netflix",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "F",
+      "tipo": "contiene",
+      "pregunta": "Contén F: programas dun ordenador.",
+      "respuesta": "Software",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "F",
+      "tipo": "contiene",
+      "pregunta": "Contén F: evento cultural.",
+      "respuesta": "Festival",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "G",
+      "tipo": "empieza",
+      "pregunta": "Con G: comunidade autónoma do noroeste da Península.",
+      "respuesta": "Galicia",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "G",
+      "tipo": "empieza",
+      "pregunta": "Con G: buscador máis coñecido de Internet.",
+      "respuesta": "Google",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "G",
+      "tipo": "empieza",
+      "pregunta": "Con G: persoa afeccionada aos videoxogos.",
+      "respuesta": "Gamer",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "G",
+      "tipo": "empieza",
+      "pregunta": "Con G: cidade andaluza coa Alhambra.",
+      "respuesta": "Granada",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "G",
+      "tipo": "contiene",
+      "pregunta": "Contén G: acción de explorar páxinas web.",
+      "respuesta": "Navegar",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "G",
+      "tipo": "contiene",
+      "pregunta": "Contén G: capital de Galicia.",
+      "respuesta": "Santiago",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "G",
+      "tipo": "contiene",
+      "pregunta": "Contén G: aplicación de mensaxería con canles e grupos.",
+      "respuesta": "Telegram",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "G",
+      "tipo": "contiene",
+      "pregunta": "Contén G: comunidade autónoma do noroeste.",
+      "respuesta": "Galicia",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "H",
+      "tipo": "empieza",
+      "pregunta": "Con H: parte física dun ordenador (en inglés).",
+      "respuesta": "Hardware",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "H",
+      "tipo": "empieza",
+      "pregunta": "Con H: persoa que tenta entrar nun sistema sen permiso.",
+      "respuesta": "Hacker",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "H",
+      "tipo": "empieza",
+      "pregunta": "Con H: marca chinesa de móbiles.",
+      "respuesta": "Huawei",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "H",
+      "tipo": "empieza",
+      "pregunta": "Con H: saga dun mago mozo con lentes.",
+      "respuesta": "HarryPotter",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "H",
+      "tipo": "contiene",
+      "pregunta": "Contén H: saga dun mago mozo con lentes.",
+      "respuesta": "HarryPotter",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "H",
+      "tipo": "contiene",
+      "pregunta": "Contén H: parte física dun ordenador (en inglés).",
+      "respuesta": "Hardware",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "H",
+      "tipo": "contiene",
+      "pregunta": "Contén H: persoa que tenta entrar nun sistema.",
+      "respuesta": "Hacker",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "H",
+      "tipo": "contiene",
+      "pregunta": "Contén H: marca chinesa de móbiles.",
+      "respuesta": "Huawei",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "I",
+      "tipo": "empieza",
+      "pregunta": "Con I: rede social de fotos e vídeos curtos.",
+      "respuesta": "Instagram",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "I",
+      "tipo": "empieza",
+      "pregunta": "Con I: marca coñecida de procesadores.",
+      "respuesta": "Intel",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "I",
+      "tipo": "empieza",
+      "pregunta": "Con I: rede mundial que conecta ordenadores.",
+      "respuesta": "Internet",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "I",
+      "tipo": "empieza",
+      "pregunta": "Con I: país europeo con forma de bota.",
+      "respuesta": "Italia",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "I",
+      "tipo": "contiene",
+      "pregunta": "Contén I: comunidade autónoma do noroeste.",
+      "respuesta": "Galicia",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "I",
+      "tipo": "contiene",
+      "pregunta": "Contén I: consola de Sony.",
+      "respuesta": "PlayStation",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "I",
+      "tipo": "contiene",
+      "pregunta": "Contén I: cidade galega máis poboada.",
+      "respuesta": "Vigo",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "I",
+      "tipo": "contiene",
+      "pregunta": "Contén I: festa gastronómica de Lalín.",
+      "respuesta": "Cocido",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "J",
+      "tipo": "empieza",
+      "pregunta": "Con J: linguaxe de programación moi usada.",
+      "respuesta": "Java",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "J",
+      "tipo": "empieza",
+      "pregunta": "Con J: vilán de Batman coa cara pintada.",
+      "respuesta": "Joker",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "J",
+      "tipo": "empieza",
+      "pregunta": "Con J: personaxe de StarWars que usa a Forza.",
+      "respuesta": "Jedi",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "J",
+      "tipo": "empieza",
+      "pregunta": "Con J: mando clásico para xogar en PC.",
+      "respuesta": "Joystick",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "J",
+      "tipo": "contiene",
+      "pregunta": "Contén J: linguaxe de programación moi usada.",
+      "respuesta": "Java",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "J",
+      "tipo": "contiene",
+      "pregunta": "Contén J: vilán de Batman.",
+      "respuesta": "Joker",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "J",
+      "tipo": "contiene",
+      "pregunta": "Contén J: personaxe de StarWars.",
+      "respuesta": "Jedi",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "J",
+      "tipo": "contiene",
+      "pregunta": "Contén J: mando clásico para xogar.",
+      "respuesta": "Joystick",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "L",
+      "tipo": "empieza",
+      "pregunta": "Con L: vila galega coñecida polo Cocido.",
+      "respuesta": "Lalin",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "L",
+      "tipo": "empieza",
+      "pregunta": "Con L: sistema operativo libre moi usado en servidores.",
+      "respuesta": "Linux",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "L",
+      "tipo": "empieza",
+      "pregunta": "Con L: provincia galega interior coa Muralla romana.",
+      "respuesta": "Lugo",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "L",
+      "tipo": "empieza",
+      "pregunta": "Con L: cidade inglesa coñecida polo seu equipo de fútbol.",
+      "respuesta": "Liverpool",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "L",
+      "tipo": "contiene",
+      "pregunta": "Contén L: vila do Deza coñecida polo Cocido.",
+      "respuesta": "Lalin",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "L",
+      "tipo": "contiene",
+      "pregunta": "Contén L: plataforma de series e películas.",
+      "respuesta": "Netflix",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "L",
+      "tipo": "contiene",
+      "pregunta": "Contén L: comunidade autónoma do noroeste.",
+      "respuesta": "Galicia",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "L",
+      "tipo": "contiene",
+      "pregunta": "Contén L: etapa educativa posterior á ESO.",
+      "respuesta": "Bacharelato",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "M",
+      "tipo": "empieza",
+      "pregunta": "Con M: videoxogo de bloques para construír mundos.",
+      "respuesta": "Minecraft",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "M",
+      "tipo": "empieza",
+      "pregunta": "Con M: universo de superheroes como IronMan.",
+      "respuesta": "Marvel",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "M",
+      "tipo": "empieza",
+      "pregunta": "Con M: capital de España.",
+      "respuesta": "Madrid",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "M",
+      "tipo": "empieza",
+      "pregunta": "Con M: filme sobre unha realidade simulada.",
+      "respuesta": "Matrix",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "M",
+      "tipo": "contiene",
+      "pregunta": "Contén M: aplicación de mensaxería con canles e grupos.",
+      "respuesta": "Telegram",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "M",
+      "tipo": "contiene",
+      "pregunta": "Contén M: conxunto de concellos dun territorio.",
+      "respuesta": "Comarca",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "M",
+      "tipo": "contiene",
+      "pregunta": "Contén M: arte das películas.",
+      "respuesta": "Cinema",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "M",
+      "tipo": "contiene",
+      "pregunta": "Contén M: operador de telefonía en España.",
+      "respuesta": "Movistar",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "N",
+      "tipo": "empieza",
+      "pregunta": "Con N: plataforma de series e películas en streaming.",
+      "respuesta": "Netflix",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "N",
+      "tipo": "empieza",
+      "pregunta": "Con N: compañía xaponesa de consolas como Switch.",
+      "respuesta": "Nintendo",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "N",
+      "tipo": "empieza",
+      "pregunta": "Con N: apelido dun tenista español moi famoso.",
+      "respuesta": "Nadal",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "N",
+      "tipo": "empieza",
+      "pregunta": "Con N: país europeo coñecido polos fiordos.",
+      "respuesta": "Noruega",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "N",
+      "tipo": "contiene",
+      "pregunta": "Contén N: acción de explorar páxinas web.",
+      "respuesta": "Navegar",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "N",
+      "tipo": "contiene",
+      "pregunta": "Contén N: plataforma de series e películas.",
+      "respuesta": "Netflix",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "N",
+      "tipo": "contiene",
+      "pregunta": "Contén N: rede mundial.",
+      "respuesta": "Internet",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "N",
+      "tipo": "contiene",
+      "pregunta": "Contén N: consola de Sony moi coñecida.",
+      "respuesta": "PlayStation",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "O",
+      "tipo": "empieza",
+      "pregunta": "Con O: cidade galega famosa polas termas.",
+      "respuesta": "Ourense",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "O",
+      "tipo": "empieza",
+      "pregunta": "Con O: empresa coñecida por unha base de datos e Java.",
+      "respuesta": "Oracle",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "O",
+      "tipo": "empieza",
+      "pregunta": "Con O: banda británica da canción Wonderwall.",
+      "respuesta": "Oasis",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "O",
+      "tipo": "empieza",
+      "pregunta": "Con O: tecnoloxía de pantallas usada en móbiles e TV.",
+      "respuesta": "OLED",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "O",
+      "tipo": "contiene",
+      "pregunta": "Contén O: operador de telefonía en España.",
+      "respuesta": "Movistar",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "O",
+      "tipo": "contiene",
+      "pregunta": "Contén O: plataforma de música en streaming.",
       "respuesta": "Spotify",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
-      "letra": "F",
+      "letra": "O",
       "tipo": "contiene",
-      "pregunta": "Contén F: termo dixital usado en Galicia ou no ámbito tecnolóxico.",
-      "respuesta": "DixitalF1",
+      "pregunta": "Contén O: cidade galega coñecida polas termas.",
+      "respuesta": "Ourense",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
-      "letra": "F",
+      "letra": "O",
       "tipo": "contiene",
-      "pregunta": "Contén F: termo dixital usado en Galicia ou no ámbito tecnolóxico.",
-      "respuesta": "DixitalF2",
+      "pregunta": "Contén O: etapa educativa posterior á ESO.",
+      "respuesta": "Bacharelato",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
-      "letra": "F",
+      "letra": "P",
+      "tipo": "empieza",
+      "pregunta": "Con P: estudo de animación de ToyStory.",
+      "respuesta": "Pixar",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "P",
+      "tipo": "empieza",
+      "pregunta": "Con P: linguaxe de programación moi usada no ensino.",
+      "respuesta": "Python",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "P",
+      "tipo": "empieza",
+      "pregunta": "Con P: consola moi coñecida de Sony.",
+      "respuesta": "PlayStation",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "P",
+      "tipo": "empieza",
+      "pregunta": "Con P: país veciño de Galicia polo sur.",
+      "respuesta": "Portugal",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "P",
       "tipo": "contiene",
-      "pregunta": "Contén F: termo dixital usado en Galicia ou no ámbito tecnolóxico.",
-      "respuesta": "DixitalF3",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "G",
-      "tipo": "empieza",
-      "pregunta": "Con G: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "GTech0",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "G",
-      "tipo": "empieza",
-      "pregunta": "Con G: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "GTech1",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "G",
-      "tipo": "empieza",
-      "pregunta": "Con G: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "GTech2",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "G",
-      "tipo": "empieza",
-      "pregunta": "Con G: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "GTech3",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "G",
-      "tipo": "contiene",
-      "pregunta": "Contén G: marca ou plataforma coñecida no ámbito tecnolóxico ou cultural.",
-      "respuesta": "Telegram",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "G",
-      "tipo": "contiene",
-      "pregunta": "Contén G: marca ou plataforma coñecida no ámbito tecnolóxico ou cultural.",
-      "respuesta": "GaliciaTech",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "G",
-      "tipo": "contiene",
-      "pregunta": "Contén G: marca ou plataforma coñecida no ámbito tecnolóxico ou cultural.",
-      "respuesta": "LalinGame",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "G",
-      "tipo": "contiene",
-      "pregunta": "Contén G: termo dixital usado en Galicia ou no ámbito tecnolóxico.",
-      "respuesta": "DixitalG3",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "H",
-      "tipo": "empieza",
-      "pregunta": "Con H: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "HTech0",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "H",
-      "tipo": "empieza",
-      "pregunta": "Con H: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "HTech1",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "H",
-      "tipo": "empieza",
-      "pregunta": "Con H: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "HTech2",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "H",
-      "tipo": "empieza",
-      "pregunta": "Con H: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "HTech3",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "H",
-      "tipo": "contiene",
-      "pregunta": "Contén H: marca ou plataforma coñecida no ámbito tecnolóxico ou cultural.",
-      "respuesta": "GaliciaTech",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "H",
-      "tipo": "contiene",
-      "pregunta": "Contén H: termo dixital usado en Galicia ou no ámbito tecnolóxico.",
-      "respuesta": "DixitalH1",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "H",
-      "tipo": "contiene",
-      "pregunta": "Contén H: termo dixital usado en Galicia ou no ámbito tecnolóxico.",
-      "respuesta": "DixitalH2",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "H",
-      "tipo": "contiene",
-      "pregunta": "Contén H: termo dixital usado en Galicia ou no ámbito tecnolóxico.",
-      "respuesta": "DixitalH3",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "I",
-      "tipo": "empieza",
-      "pregunta": "Con I: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "ITech0",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "I",
-      "tipo": "empieza",
-      "pregunta": "Con I: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "ITech1",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "I",
-      "tipo": "empieza",
-      "pregunta": "Con I: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "ITech2",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "I",
-      "tipo": "empieza",
-      "pregunta": "Con I: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "ITech3",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "I",
-      "tipo": "contiene",
-      "pregunta": "Contén I: marca ou plataforma coñecida no ámbito tecnolóxico ou cultural.",
+      "pregunta": "Contén P: plataforma de música en streaming.",
       "respuesta": "Spotify",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
-      "letra": "I",
+      "letra": "P",
       "tipo": "contiene",
-      "pregunta": "Contén I: marca ou plataforma coñecida no ámbito tecnolóxico ou cultural.",
+      "pregunta": "Contén P: consola de Sony moi coñecida.",
       "respuesta": "PlayStation",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
-      "letra": "I",
+      "letra": "P",
       "tipo": "contiene",
-      "pregunta": "Contén I: marca ou plataforma coñecida no ámbito tecnolóxico ou cultural.",
-      "respuesta": "GaliciaTech",
+      "pregunta": "Contén P: actividade física e competición.",
+      "respuesta": "Deporte",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
-      "letra": "I",
+      "letra": "P",
       "tipo": "contiene",
-      "pregunta": "Contén I: marca ou plataforma coñecida no ámbito tecnolóxico ou cultural.",
-      "respuesta": "LalinGame",
+      "pregunta": "Contén P:  estudo de animación de ToyStory.",
+      "respuesta": "Pixar",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
-      "letra": "J",
+      "letra": "Q",
       "tipo": "empieza",
-      "pregunta": "Con J: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "JTech0",
+      "pregunta": "Con Q: país do Golfo coñecido polo fútbol.",
+      "respuesta": "Qatar",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
-      "letra": "J",
+      "letra": "Q",
       "tipo": "empieza",
-      "pregunta": "Con J: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "JTech1",
+      "pregunta": "Con Q: videoxogo clásico de disparos en primeira persoa.",
+      "respuesta": "Quake",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
-      "letra": "J",
+      "letra": "Q",
       "tipo": "empieza",
-      "pregunta": "Con J: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "JTech2",
+      "pregunta": "Con Q: personaxe da literatura: Don ___.",
+      "respuesta": "Quijote",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
-      "letra": "J",
+      "letra": "Q",
       "tipo": "empieza",
-      "pregunta": "Con J: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "JTech3",
+      "pregunta": "Con Q: alimento lácteo moi común.",
+      "respuesta": "Queso",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
-      "letra": "J",
+      "letra": "Q",
       "tipo": "contiene",
-      "pregunta": "Contén J: termo dixital usado en Galicia ou no ámbito tecnolóxico.",
-      "respuesta": "DixitalJ0",
+      "pregunta": "Contén Q: novela máis famosa de Cervantes.",
+      "respuesta": "Quijote",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
-      "letra": "J",
+      "letra": "Q",
       "tipo": "contiene",
-      "pregunta": "Contén J: termo dixital usado en Galicia ou no ámbito tecnolóxico.",
-      "respuesta": "DixitalJ1",
+      "pregunta": "Contén Q: alimento lácteo moi común.",
+      "respuesta": "Queso",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
-      "letra": "J",
+      "letra": "Q",
       "tipo": "contiene",
-      "pregunta": "Contén J: termo dixital usado en Galicia ou no ámbito tecnolóxico.",
-      "respuesta": "DixitalJ2",
+      "pregunta": "Contén Q: país do Golfo.",
+      "respuesta": "Qatar",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
-      "letra": "J",
+      "letra": "Q",
       "tipo": "contiene",
-      "pregunta": "Contén J: termo dixital usado en Galicia ou no ámbito tecnolóxico.",
-      "respuesta": "DixitalJ3",
+      "pregunta": "Contén Q: videoxogo clásico.",
+      "respuesta": "Quake",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
-      "letra": "L",
+      "letra": "R",
       "tipo": "empieza",
-      "pregunta": "Con L: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "LTech0",
+      "pregunta": "Con R: plataforma de xogos moi popular entre adolescentes.",
+      "respuesta": "Roblox",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
-      "letra": "L",
+      "letra": "R",
       "tipo": "empieza",
-      "pregunta": "Con L: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "LTech1",
+      "pregunta": "Con R: dispositivo que conecta a casa a Internet.",
+      "respuesta": "Router",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
-      "letra": "L",
+      "letra": "R",
       "tipo": "empieza",
-      "pregunta": "Con L: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "LTech2",
+      "pregunta": "Con R: cidade italiana moi visitada.",
+      "respuesta": "Roma",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
-      "letra": "L",
+      "letra": "R",
       "tipo": "empieza",
-      "pregunta": "Con L: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "LTech3",
+      "pregunta": "Con R: proceso de recuperar datos dunha copia.",
+      "respuesta": "Restauracion",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
-      "letra": "L",
+      "letra": "R",
       "tipo": "contiene",
-      "pregunta": "Contén L: marca ou plataforma coñecida no ámbito tecnolóxico ou cultural.",
+      "pregunta": "Contén R: continente no que vivimos.",
+      "respuesta": "Europa",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "R",
+      "tipo": "contiene",
+      "pregunta": "Contén R: conxunto de concellos dun territorio.",
+      "respuesta": "Comarca",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "R",
+      "tipo": "contiene",
+      "pregunta": "Contén R: operador de telefonía en España.",
+      "respuesta": "Movistar",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "R",
+      "tipo": "contiene",
+      "pregunta": "Contén R: etapa educativa posterior á ESO.",
+      "respuesta": "Bacharelato",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "S",
+      "tipo": "empieza",
+      "pregunta": "Con S: música en streaming moi usada.",
+      "respuesta": "Spotify",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "S",
+      "tipo": "empieza",
+      "pregunta": "Con S: marca coreana de móbiles e TV.",
+      "respuesta": "Samsung",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "S",
+      "tipo": "empieza",
+      "pregunta": "Con S: capital de Andalucía.",
+      "respuesta": "Sevilla",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "S",
+      "tipo": "empieza",
+      "pregunta": "Con S: heroe de DC con capa vermella.",
+      "respuesta": "Superman",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "S",
+      "tipo": "contiene",
+      "pregunta": "Contén S: consola de Sony moi coñecida.",
       "respuesta": "PlayStation",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
-      "letra": "L",
+      "letra": "S",
       "tipo": "contiene",
-      "pregunta": "Contén L: marca ou plataforma coñecida no ámbito tecnolóxico ou cultural.",
+      "pregunta": "Contén S: capital de Galicia.",
+      "respuesta": "Santiago",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "S",
+      "tipo": "contiene",
+      "pregunta": "Contén S: música en streaming.",
+      "respuesta": "Spotify",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "S",
+      "tipo": "contiene",
+      "pregunta": "Contén S: cidade galega coñecida polas termas.",
+      "respuesta": "Ourense",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "T",
+      "tipo": "empieza",
+      "pregunta": "Con T: rede social de vídeos curtos.",
+      "respuesta": "TikTok",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "T",
+      "tipo": "empieza",
+      "pregunta": "Con T: plataforma de directos moi usada por gamers.",
+      "respuesta": "Twitch",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "T",
+      "tipo": "empieza",
+      "pregunta": "Con T: marca de coches eléctricos moi coñecida.",
+      "respuesta": "Tesla",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "T",
+      "tipo": "empieza",
+      "pregunta": "Con T: lugar para escribir comandos nun sistema.",
+      "respuesta": "Terminal",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "T",
+      "tipo": "contiene",
+      "pregunta": "Contén T: aplicación de mensaxería con canles.",
       "respuesta": "Telegram",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
-      "letra": "L",
+      "letra": "T",
       "tipo": "contiene",
-      "pregunta": "Contén L: marca ou plataforma coñecida no ámbito tecnolóxico ou cultural.",
-      "respuesta": "GaliciaTech",
+      "pregunta": "Contén T: rede mundial de ordenadores.",
+      "respuesta": "Internet",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
-      "letra": "L",
+      "letra": "T",
       "tipo": "contiene",
-      "pregunta": "Contén L: marca ou plataforma coñecida no ámbito tecnolóxico ou cultural.",
-      "respuesta": "LalinGame",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "M",
-      "tipo": "empieza",
-      "pregunta": "Con M: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "MTech0",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "M",
-      "tipo": "empieza",
-      "pregunta": "Con M: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "MTech1",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "M",
-      "tipo": "empieza",
-      "pregunta": "Con M: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "MTech2",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "M",
-      "tipo": "empieza",
-      "pregunta": "Con M: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "MTech3",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "M",
-      "tipo": "contiene",
-      "pregunta": "Contén M: marca ou plataforma coñecida no ámbito tecnolóxico ou cultural.",
-      "respuesta": "Telegram",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "M",
-      "tipo": "contiene",
-      "pregunta": "Contén M: marca ou plataforma coñecida no ámbito tecnolóxico ou cultural.",
-      "respuesta": "LalinGame",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "M",
-      "tipo": "contiene",
-      "pregunta": "Contén M: termo dixital usado en Galicia ou no ámbito tecnolóxico.",
-      "respuesta": "DixitalM2",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "M",
-      "tipo": "contiene",
-      "pregunta": "Contén M: termo dixital usado en Galicia ou no ámbito tecnolóxico.",
-      "respuesta": "DixitalM3",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "N",
-      "tipo": "empieza",
-      "pregunta": "Con N: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "NTech0",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "N",
-      "tipo": "empieza",
-      "pregunta": "Con N: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "NTech1",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "N",
-      "tipo": "empieza",
-      "pregunta": "Con N: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "NTech2",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "N",
-      "tipo": "empieza",
-      "pregunta": "Con N: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "NTech3",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "N",
-      "tipo": "contiene",
-      "pregunta": "Contén N: marca ou plataforma coñecida no ámbito tecnolóxico ou cultural.",
-      "respuesta": "PlayStation",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "N",
-      "tipo": "contiene",
-      "pregunta": "Contén N: marca ou plataforma coñecida no ámbito tecnolóxico ou cultural.",
-      "respuesta": "LalinGame",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "N",
-      "tipo": "contiene",
-      "pregunta": "Contén N: termo dixital usado en Galicia ou no ámbito tecnolóxico.",
-      "respuesta": "DixitalN2",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "N",
-      "tipo": "contiene",
-      "pregunta": "Contén N: termo dixital usado en Galicia ou no ámbito tecnolóxico.",
-      "respuesta": "DixitalN3",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "O",
-      "tipo": "empieza",
-      "pregunta": "Con O: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "OTech0",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "O",
-      "tipo": "empieza",
-      "pregunta": "Con O: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "OTech1",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "O",
-      "tipo": "empieza",
-      "pregunta": "Con O: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "OTech2",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "O",
-      "tipo": "empieza",
-      "pregunta": "Con O: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "OTech3",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "O",
-      "tipo": "contiene",
-      "pregunta": "Contén O: marca ou plataforma coñecida no ámbito tecnolóxico ou cultural.",
+      "pregunta": "Contén T: canle para ver vídeos.",
       "respuesta": "YouTube",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
-      "letra": "O",
+      "letra": "T",
       "tipo": "contiene",
-      "pregunta": "Contén O: marca ou plataforma coñecida no ámbito tecnolóxico ou cultural.",
-      "respuesta": "Spotify",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "O",
-      "tipo": "contiene",
-      "pregunta": "Contén O: marca ou plataforma coñecida no ámbito tecnolóxico ou cultural.",
+      "pregunta": "Contén T: consola de Sony.",
       "respuesta": "PlayStation",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
-      "letra": "O",
+      "letra": "U",
+      "tipo": "empieza",
+      "pregunta": "Con U: distribución de Linux moi coñecida.",
+      "respuesta": "Ubuntu",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "U",
+      "tipo": "empieza",
+      "pregunta": "Con U: motor de videoxogos moi usado en indies.",
+      "respuesta": "Unity",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "U",
+      "tipo": "empieza",
+      "pregunta": "Con U: conector universal para periféricos, siglas.",
+      "respuesta": "USB",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "U",
+      "tipo": "empieza",
+      "pregunta": "Con U: país suramericano cuxa capital é Montevideo.",
+      "respuesta": "Uruguay",
+      "ciclo": "TRANSVERSAL",
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
+    },
+    {
+      "letra": "U",
       "tipo": "contiene",
-      "pregunta": "Contén O: termo dixital usado en Galicia ou no ámbito tecnolóxico.",
-      "respuesta": "DixitalO3",
+      "pregunta": "Contén U: palabra para falar de coñecementos xerais.",
+      "respuesta": "Cultura",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
-      "letra": "P",
-      "tipo": "empieza",
-      "pregunta": "Con P: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "PTech0",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "P",
-      "tipo": "empieza",
-      "pregunta": "Con P: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "PTech1",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "P",
-      "tipo": "empieza",
-      "pregunta": "Con P: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "PTech2",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "P",
-      "tipo": "empieza",
-      "pregunta": "Con P: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "PTech3",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "P",
+      "letra": "U",
       "tipo": "contiene",
-      "pregunta": "Contén P: marca ou plataforma coñecida no ámbito tecnolóxico ou cultural.",
-      "respuesta": "Spotify",
+      "pregunta": "Contén U: deporte con balón moi seguido.",
+      "respuesta": "Futbol",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
-      "letra": "P",
+      "letra": "U",
       "tipo": "contiene",
-      "pregunta": "Contén P: marca ou plataforma coñecida no ámbito tecnolóxico ou cultural.",
-      "respuesta": "PlayStation",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "P",
-      "tipo": "contiene",
-      "pregunta": "Contén P: termo dixital usado en Galicia ou no ámbito tecnolóxico.",
-      "respuesta": "DixitalP2",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "P",
-      "tipo": "contiene",
-      "pregunta": "Contén P: termo dixital usado en Galicia ou no ámbito tecnolóxico.",
-      "respuesta": "DixitalP3",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "Q",
-      "tipo": "empieza",
-      "pregunta": "Con Q: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "QTech0",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "Q",
-      "tipo": "empieza",
-      "pregunta": "Con Q: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "QTech1",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "Q",
-      "tipo": "empieza",
-      "pregunta": "Con Q: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "QTech2",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "Q",
-      "tipo": "empieza",
-      "pregunta": "Con Q: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "QTech3",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "Q",
-      "tipo": "contiene",
-      "pregunta": "Contén Q: termo dixital usado en Galicia ou no ámbito tecnolóxico.",
-      "respuesta": "DixitalQ0",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "Q",
-      "tipo": "contiene",
-      "pregunta": "Contén Q: termo dixital usado en Galicia ou no ámbito tecnolóxico.",
-      "respuesta": "DixitalQ1",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "Q",
-      "tipo": "contiene",
-      "pregunta": "Contén Q: termo dixital usado en Galicia ou no ámbito tecnolóxico.",
-      "respuesta": "DixitalQ2",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "Q",
-      "tipo": "contiene",
-      "pregunta": "Contén Q: termo dixital usado en Galicia ou no ámbito tecnolóxico.",
-      "respuesta": "DixitalQ3",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "R",
-      "tipo": "empieza",
-      "pregunta": "Con R: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "RTech0",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "R",
-      "tipo": "empieza",
-      "pregunta": "Con R: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "RTech1",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "R",
-      "tipo": "empieza",
-      "pregunta": "Con R: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "RTech2",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "R",
-      "tipo": "empieza",
-      "pregunta": "Con R: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "RTech3",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "R",
-      "tipo": "contiene",
-      "pregunta": "Contén R: marca ou plataforma coñecida no ámbito tecnolóxico ou cultural.",
-      "respuesta": "Telegram",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "R",
-      "tipo": "contiene",
-      "pregunta": "Contén R: termo dixital usado en Galicia ou no ámbito tecnolóxico.",
-      "respuesta": "DixitalR1",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "R",
-      "tipo": "contiene",
-      "pregunta": "Contén R: termo dixital usado en Galicia ou no ámbito tecnolóxico.",
-      "respuesta": "DixitalR2",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "R",
-      "tipo": "contiene",
-      "pregunta": "Contén R: termo dixital usado en Galicia ou no ámbito tecnolóxico.",
-      "respuesta": "DixitalR3",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "S",
-      "tipo": "empieza",
-      "pregunta": "Con S: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "STech0",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "S",
-      "tipo": "empieza",
-      "pregunta": "Con S: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "STech1",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "S",
-      "tipo": "empieza",
-      "pregunta": "Con S: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "STech2",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "S",
-      "tipo": "empieza",
-      "pregunta": "Con S: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "STech3",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "S",
-      "tipo": "contiene",
-      "pregunta": "Contén S: marca ou plataforma coñecida no ámbito tecnolóxico ou cultural.",
-      "respuesta": "Spotify",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "S",
-      "tipo": "contiene",
-      "pregunta": "Contén S: marca ou plataforma coñecida no ámbito tecnolóxico ou cultural.",
-      "respuesta": "PlayStation",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "S",
-      "tipo": "contiene",
-      "pregunta": "Contén S: termo dixital usado en Galicia ou no ámbito tecnolóxico.",
-      "respuesta": "DixitalS2",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "S",
-      "tipo": "contiene",
-      "pregunta": "Contén S: termo dixital usado en Galicia ou no ámbito tecnolóxico.",
-      "respuesta": "DixitalS3",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "T",
-      "tipo": "empieza",
-      "pregunta": "Con T: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "TTech0",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "T",
-      "tipo": "empieza",
-      "pregunta": "Con T: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "TTech1",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "T",
-      "tipo": "empieza",
-      "pregunta": "Con T: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "TTech2",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "T",
-      "tipo": "empieza",
-      "pregunta": "Con T: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "TTech3",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "T",
-      "tipo": "contiene",
-      "pregunta": "Contén T: marca ou plataforma coñecida no ámbito tecnolóxico ou cultural.",
+      "pregunta": "Contén U: plataforma de vídeos en liña.",
       "respuesta": "YouTube",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "T",
-      "tipo": "contiene",
-      "pregunta": "Contén T: marca ou plataforma coñecida no ámbito tecnolóxico ou cultural.",
-      "respuesta": "Spotify",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "T",
-      "tipo": "contiene",
-      "pregunta": "Contén T: marca ou plataforma coñecida no ámbito tecnolóxico ou cultural.",
-      "respuesta": "PlayStation",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "T",
-      "tipo": "contiene",
-      "pregunta": "Contén T: marca ou plataforma coñecida no ámbito tecnolóxico ou cultural.",
-      "respuesta": "Telegram",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "T",
-      "tipo": "contiene",
-      "pregunta": "Contén T: marca ou plataforma coñecida no ámbito tecnolóxico ou cultural.",
-      "respuesta": "GaliciaTech",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "U",
-      "tipo": "empieza",
-      "pregunta": "Con U: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "UTech0",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "U",
-      "tipo": "empieza",
-      "pregunta": "Con U: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "UTech1",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "U",
-      "tipo": "empieza",
-      "pregunta": "Con U: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "UTech2",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "U",
-      "tipo": "empieza",
-      "pregunta": "Con U: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "UTech3",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
       "letra": "U",
       "tipo": "contiene",
-      "pregunta": "Contén U: marca ou plataforma coñecida no ámbito tecnolóxico ou cultural.",
-      "respuesta": "YouTube",
+      "pregunta": "Contén U: cidade galega coñecida polas termas.",
+      "respuesta": "Ourense",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "U",
-      "tipo": "contiene",
-      "pregunta": "Contén U: termo dixital usado en Galicia ou no ámbito tecnolóxico.",
-      "respuesta": "DixitalU1",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "U",
-      "tipo": "contiene",
-      "pregunta": "Contén U: termo dixital usado en Galicia ou no ámbito tecnolóxico.",
-      "respuesta": "DixitalU2",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
-    },
-    {
-      "letra": "U",
-      "tipo": "contiene",
-      "pregunta": "Contén U: termo dixital usado en Galicia ou no ámbito tecnolóxico.",
-      "respuesta": "DixitalU3",
-      "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
       "letra": "V",
       "tipo": "empieza",
-      "pregunta": "Con V: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "VTech0",
+      "pregunta": "Con V: cidade galega máis poboada.",
+      "respuesta": "Vigo",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
       "letra": "V",
       "tipo": "empieza",
-      "pregunta": "Con V: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "VTech1",
+      "pregunta": "Con V: reprodutor multimedia moi coñecido.",
+      "respuesta": "VLC",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
       "letra": "V",
       "tipo": "empieza",
-      "pregunta": "Con V: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "VTech2",
+      "pregunta": "Con V: rede privada virtual, siglas.",
+      "respuesta": "VPN",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
       "letra": "V",
       "tipo": "empieza",
-      "pregunta": "Con V: termo avanzado relacionado coa tecnoloxía ou cultura dixital (nivel reto).",
-      "respuesta": "VTech3",
+      "pregunta": "Con V: debilidade explotable nun sistema.",
+      "respuesta": "Vulnerabilidade",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
       "letra": "V",
       "tipo": "contiene",
-      "pregunta": "Contén V: termo dixital usado en Galicia ou no ámbito tecnolóxico.",
-      "respuesta": "DixitalV0",
+      "pregunta": "Contén V: acción de explorar páxinas web.",
+      "respuesta": "Navegar",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
       "letra": "V",
       "tipo": "contiene",
-      "pregunta": "Contén V: termo dixital usado en Galicia ou no ámbito tecnolóxico.",
-      "respuesta": "DixitalV1",
+      "pregunta": "Contén V: operador de telefonía en España.",
+      "respuesta": "Movistar",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
       "letra": "V",
       "tipo": "contiene",
-      "pregunta": "Contén V: termo dixital usado en Galicia ou no ámbito tecnolóxico.",
-      "respuesta": "DixitalV2",
+      "pregunta": "Contén V: palabra para referirse a cine e series.",
+      "respuesta": "Television",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     },
     {
       "letra": "V",
       "tipo": "contiene",
-      "pregunta": "Contén V: termo dixital usado en Galicia ou no ámbito tecnolóxico.",
-      "respuesta": "DixitalV3",
+      "pregunta": "Contén V: palabra relacionada con xogos.",
+      "respuesta": "Videoxogo",
       "ciclo": "TRANSVERSAL",
-      "modulo": "CulturaDixital",
-      "dificultad": "alta"
+      "modulo": "CulturaXeral",
+      "dificultad": "media"
     }
   ]
 }
