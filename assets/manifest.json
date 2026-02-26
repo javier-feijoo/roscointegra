@@ -5,6 +5,11 @@
       "id": "base",
       "label": "Banco base",
       "file": "preguntas_base_roscointegra.json"
+    },
+    {
+      "id": "lalin",
+      "label": "Banco Preguntas Lalín",
+      "file": "lalin.json"
     }
   ]
 }
