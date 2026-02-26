@@ -15,6 +15,12 @@ La aplicacion esta organizada en tres vistas sin frameworks:
 
 El flujo completo ya esta implementado y funcional en HTML, CSS y JavaScript modular.
 
+Funcionalidades destacadas actuales:
+- Multiidioma en interfaz: castellano, galego e ingles.
+- Nombre personalizable de persona/equipo.
+- Ranking Top 10 persistente (solo puntuaciones), visible en modal desde inicio.
+- Accion para borrar Top 10 desde Configuracion.
+
 ## Estructura del repositorio
 ```text
 /roscointegra
@@ -24,6 +30,7 @@ El flujo completo ya esta implementado y funcional en HTML, CSS y JavaScript mod
     styles.css
   /js
     app.js
+    i18n.js
     state.js
     bank.js
     rosco.js
@@ -31,9 +38,14 @@ El flujo completo ya esta implementado y funcional en HTML, CSS y JavaScript mod
     sfx.js
     timer.js
     storage.js
+  /lang
+    es.json
+    gl.json
+    en.json
   /assets
     manifest.json
     preguntas_base_roscointegra.json
+    lalin.json
     /img
       logo.png
       centro_rosco.png
@@ -50,6 +62,7 @@ El flujo completo ya esta implementado y funcional en HTML, CSS y JavaScript mod
 - `js/sfx.js`: efectos sonoros de juego (acierto, fallo, tic-tac ultimos segundos, fin de tiempo).
 - `js/timer.js`: temporizador global preciso basado en timestamps (mm:ss, pausa/reanudar/reinicio).
 - `js/storage.js`: wrapper de localStorage para guardado/lectura de configuracion y cache.
+- `js/i18n.js`: carga de traducciones por idioma y actualizacion de textos UI (`data-i18n`).
 
 ## Como ejecutar
 ### Opcion recomendada
@@ -76,8 +89,9 @@ La app soporta tres vias:
 
 ### Validaciones aplicadas
 - Debe existir array de preguntas.
-- Campos obligatorios por pregunta: `letra`, `tipo`, `pregunta`, `respuesta`.
+- Campos obligatorios por pregunta: `letra`, `pregunta`, `respuesta`.
 - Letra normalizada a mayusculas.
+- `tipo` es opcional: si existe se normaliza (`empieza/comienza/starts` vs `contiene/contains`).
 - Deteccion de duplicados (bloqueante segun el criterio implementado del banco actual).
 - Deteccion de letras ausentes (warning no bloqueante).
 - Normalizacion de metadatos (`ciclo`, `modulo`, `dificultad`) cuando faltan.
@@ -115,6 +129,7 @@ Siempre se muestra en UI:
 - Auto-lectura de pregunta al entrar en cada letra (si audio habilitado).
 - Lectura manual de pregunta y respuesta.
 - Ajustes de voz, rate y pitch persistidos.
+- Prefijo hablado adaptado al tipo de pregunta (`Comienza por...` o `Contiene...`).
 
 ### Efectos sonoros (SFX)
 - Sonido al acertar.
@@ -124,6 +139,7 @@ Siempre se muestra en UI:
 
 ## Persistencia (localStorage)
 Se guardan y restauran automaticamente:
+- nombre de persona/equipo,
 - tiempo total y unidad,
 - puntos por acierto y penalizacion,
 - filtros (`ciclo`, `modulo`, `dificultad`),
@@ -133,8 +149,12 @@ Se guardan y restauran automaticamente:
 - modo docente,
 - ultimo banco cargado (cache local).
 
+Ademas se guarda el ranking:
+- Top 10 de puntuaciones en localStorage (solo score, ordenado desc).
+
 ## Resumen final
 El cierre muestra un dashboard visual con:
+- jugador/equipo,
 - puntuacion,
 - correctas,
 - falladas,
@@ -144,6 +164,11 @@ El cierre muestra un dashboard visual con:
 - tiempo consumido.
 
 Incluye boton `Exportar resultados` para descargar JSON con timestamp, configuracion y resultados.
+
+## Top 10 puntuaciones
+- En Inicio: boton `Ver Top 10` abre modal con ranking.
+- En Configuracion: boton `Borrar Top 10` limpia el ranking (con confirmacion).
+- El ranking guarda solo puntuaciones (sin desglose por letra en el listado).
 
 ## Atajos de teclado
 - Espacio: start/pause
@@ -162,7 +187,8 @@ Incluye boton `Exportar resultados` para descargar JSON con timestamp, configura
 5. Flujo docente completo: Ver respuesta, Acertada/Fallada, PASA y vueltas.
 6. Temporizador: pausa/reanuda/reinicia y fin por tiempo.
 7. Audio: auto-lectura por letra, lectura manual y SFX de acierto/fallo/tic-tac.
-8. Exportacion: verificar que el JSON descargado contiene configuracion y resultados.
+8. Top 10: jugar varias partidas, comprobar orden en modal y borrado desde configuracion.
+9. Exportacion: verificar que el JSON descargado contiene configuracion y resultados.
 
 ## Notas
 - Proyecto sin dependencias externas de runtime.
