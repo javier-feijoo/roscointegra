@@ -75,7 +75,18 @@ body.in-game .app-root {
   border-radius: var(--radius);
   background: linear-gradient(180deg, var(--panel), var(--panel-2));
   padding: 1rem 1.2rem 1.2rem;
+  position: relative;
 }
+
+.lang-selector {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 
 .landing-logo {
   display: block;

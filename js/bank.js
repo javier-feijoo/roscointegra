@@ -1,5 +1,39 @@
 ﻿export const EXPECTED_LETTER_ORDER = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V"];
 
+function normalizeText(value) {
+  return String(value || "")
+    .toLocaleLowerCase("es")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim();
+}
+
+function normalizeQuestionType(rawType, rawQuestion) {
+  const type = normalizeText(rawType);
+  const question = normalizeText(rawQuestion);
+
+  if (
+    type.includes("cont")
+    || question.startsWith("contiene")
+    || question.startsWith("conten")
+    || question.startsWith("contains")
+    || question.startsWith("with")
+  ) {
+    return "contains";
+  }
+
+  if (
+    type.includes("emp")
+    || type.includes("comienz")
+    || type.includes("start")
+    || type.includes("begin")
+  ) {
+    return "starts";
+  }
+
+  return "starts";
+}
+
 function uniqueUpper(values) {
   const out = [];
   const seen = new Set();
@@ -67,15 +101,17 @@ export function validateAndNormalizeBank(rawBank) {
     }
 
     const letra = String(item.letra || "").trim().toUpperCase();
-    const tipo = String(item.tipo || "").trim();
+    const tipoRaw = String(item.tipo ?? item.tipo_pregunta ?? "").trim();
     const pregunta = String(item.pregunta || "").trim();
     const respuesta = String(item.respuesta || "").trim();
+    const tipoKey = normalizeQuestionType(tipoRaw, pregunta);
+    const tipo = tipoRaw || (tipoKey === "contains" ? "contiene" : "empieza");
 
     if (!expectedSet.has(letra)) {
       throw new Error(`preguntas[${index}].letra invalida: ${letra || "(vacia)"}`);
     }
-    if (!tipo || !pregunta || !respuesta) {
-      throw new Error(`preguntas[${index}] requiere letra, tipo, pregunta y respuesta`);
+    if (!pregunta || !respuesta) {
+      throw new Error(`preguntas[${index}] requiere letra, pregunta y respuesta`);
     }
 
     if (!validSet.has(letra)) {
@@ -95,6 +131,7 @@ export function validateAndNormalizeBank(rawBank) {
       idx: index + 1,
       letra,
       tipo,
+      tipoKey,
       pregunta,
       respuesta,
       ciclo: String(item.ciclo || ""),

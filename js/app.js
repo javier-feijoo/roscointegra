@@ -16,14 +16,17 @@ import { saveJSON, loadJSON, removeItem } from "./storage.js";
 import { validateAndNormalizeBank, buildGameSetByLetter } from "./bank.js";
 import { renderRoscoCircle } from "./rosco.js";
 import { playCorrectSfx, playWrongSfx, playCountdownTickSfx, playTimeUpSfx } from "./sfx.js";
+import { t, setLanguage, getLanguage } from "./i18n.js";
 
 const CONFIG_KEY = "roscointegra.config.v2";
 const BANK_CACHE_KEY = "roscointegra.bank.cache.v2";
 const MANIFEST_KEY = "roscointegra.assets.manifest.v1";
+const SCORES_KEY = "roscointegra.scores.v1";
 const DEFAULT_BANK_FILE = "preguntas_base_roscointegra.json";
 const MANIFEST_CANDIDATES = ["./assets/manifest.json", "assets/manifest.json", "/assets/manifest.json"];
 
 const DEFAULT_CONFIG = {
+  playerName: "",
   shuffle: true,
   totalTime: 180,
   timeUnit: "seconds",
@@ -39,6 +42,13 @@ const refs = {
   viewLanding: document.getElementById("viewLanding"),
   viewConfig: document.getElementById("viewConfig"),
   viewGame: document.getElementById("viewGame"),
+  langSelect: document.getElementById("lang-select"),
+  playerNameInput: document.getElementById("playerNameInput"),
+  currentPlayerName: document.getElementById("currentPlayerName"),
+  btnViewTopScores: document.getElementById("btnViewTopScores"),
+  topScoresList: document.getElementById("topScoresList"),
+  btnClearTopScores: document.getElementById("btnClearTopScores"),
+  topScoresEmpty: document.getElementById("topScoresEmpty"),
   btnGoConfig: document.getElementById("btnGoConfig"),
   btnLandingStart: document.getElementById("btnLandingStart"),
   landingStartHint: document.getElementById("landingStartHint"),
@@ -104,6 +114,7 @@ const refs = {
   summaryOverlay: document.getElementById("summaryOverlay"),
   summaryTitle: document.getElementById("summaryTitle"),
   summaryReason: document.getElementById("summaryReason"),
+  summaryPlayerName: document.getElementById("summaryPlayerName"),
   summaryScore: document.getElementById("summaryScore"),
   summaryPercent: document.getElementById("summaryPercent"),
   summaryCorrect: document.getElementById("summaryCorrect"),
@@ -113,7 +124,9 @@ const refs = {
   summaryTimeUsed: document.getElementById("summaryTimeUsed"),
   btnExportResults: document.getElementById("btnExportResults"),
   btnOverlayNewGame: document.getElementById("btnOverlayNewGame"),
-  btnOverlayExit: document.getElementById("btnOverlayExit")
+  btnOverlayExit: document.getElementById("btnOverlayExit"),
+  topScoresOverlay: document.getElementById("topScoresOverlay"),
+  btnCloseTopScores: document.getElementById("btnCloseTopScores")
 };
 
 let assetsManifest = { default: DEFAULT_BANK_FILE, banks: [{ id: "base", label: "Banco base", file: DEFAULT_BANK_FILE }] };
@@ -122,8 +135,10 @@ let diagnosticLines = [];
 let lastCountdownTickSecond = null;
 
 async function init() {
+  await setLanguage(getLanguage());
   bindEvents();
   hydrateConfig();
+  refs.langSelect.value = getLanguage();
   initializeGameLetters([]);
   renderRosco();
   renderHUD();
@@ -134,12 +149,44 @@ async function init() {
   syncTeacherModeUi();
   updateTtsStatus();
   await bootstrapAssetsAndBank();
+  renderCurrentPlayer();
+  renderTopScores();
   updateBankInfoUI();
   refreshLandingStartState();
   switchView("landing");
 }
 
 function bindEvents() {
+  refs.langSelect.addEventListener("change", async (event) => {
+    await setLanguage(event.target.value || "es");
+    renderVoices();
+    if (state.questionBank?.questions?.length) {
+      fillFilterSelects(state.questionBank.questions);
+    }
+    renderTopScores();
+    renderCurrentPlayer();
+    refreshLandingStartState();
+    updateTtsStatus();
+    if (latestSummary) {
+      renderSummary(latestSummary);
+    }
+  });
+
+  refs.playerNameInput.addEventListener("input", persistConfigFromForm);
+  refs.btnViewTopScores.addEventListener("click", showTopScoresOverlay);
+  refs.btnClearTopScores.addEventListener("click", handleClearTopScores);
+  refs.btnCloseTopScores.addEventListener("click", hideTopScoresOverlay);
+  refs.topScoresOverlay.addEventListener("click", (event) => {
+    if (event.target === refs.topScoresOverlay) {
+      hideTopScoresOverlay();
+    }
+  });
+  document.addEventListener("roscointegra:language-changed", () => {
+    if (!state.game.running && state.ui.view === "game") {
+      refs.questionText.textContent = t("questionIdle");
+    }
+  });
+
   refs.btnGoConfig.addEventListener("click", () => switchView("config"));
   refs.btnBackToLanding.addEventListener("click", () => {
     persistConfigFromForm();
@@ -160,7 +207,7 @@ function bindEvents() {
 
   refs.btnSaveConfig.addEventListener("click", () => {
     persistConfigFromForm();
-    refs.configStatus.textContent = "Configuracion guardada.";
+    refs.configStatus.textContent = t("configSaved");
     refreshLandingStartState();
     switchView("landing");
   });
@@ -263,7 +310,7 @@ async function bootstrapAssetsAndBank() {
         source: cached.meta?.source || "cache",
         file: cached.meta?.file || "(cache)",
         totalQuestions: cached.meta?.totalQuestions || cached.bank.preguntas?.length || 0
-      }, { persist: false, statusMessage: "Banco restaurado desde cache local." });
+      }, { persist: false, statusMessage: t("bankRestoredFromCache") });
       refs.jsonInput.value = JSON.stringify(cached.bank, null, 2);
       addDiagnostic("Banco restaurado desde localStorage.");
       return;
@@ -274,14 +321,14 @@ async function bootstrapAssetsAndBank() {
 
   addDiagnostic("Paso 3/5: Intentar cargar banco por defecto desde /assets");
   try {
-    await loadBankFromAssetsFile(assetsManifest.default, { statusPrefix: "Banco por defecto cargado" });
+    await loadBankFromAssetsFile(assetsManifest.default, { statusPrefix: t("defaultBankLoaded") });
     addDiagnostic(`Banco por defecto cargado: ${assetsManifest.default}`);
   } catch (error) {
     const protocolHint = window.location.protocol === "file:"
-      ? "Para cargar desde /assets usa un servidor local (por ejemplo Live Server). Mientras tanto, usa Importar archivo."
-      : "Revisa rutas, manifest y formato JSON.";
+      ? t("assetsNeedServerHint")
+      : t("assetsCheckPathsHint");
 
-    refs.loadStatus.textContent = `No se pudo cargar banco por defecto. ${protocolHint}\nDetalle: ${error.message}`;
+    refs.loadStatus.textContent = `${t("defaultBankLoadFailed")} ${protocolHint}\n${t("detailLabel")}: ${error.message}`;
     addDiagnostic(`Fallo al cargar banco por defecto: ${error.message}`, "error", error);
   }
 }
@@ -364,7 +411,7 @@ async function fetchJSONWithCandidates(urls, contextLabel) {
 async function handleLoadAssetBank() {
   const file = refs.assetBankSelect.value;
   if (!file) {
-    refs.loadStatus.textContent = "Selecciona un banco del selector de assets.";
+    refs.loadStatus.textContent = t("selectAssetBank");
     return;
   }
 
@@ -383,16 +430,16 @@ async function loadBankFromAssetsFile(file, opts = {}) {
 }
 
 function buildAssetFailureMessage(error) {
-  const base = `No se pudo cargar banco desde /assets. ${error.message}`;
+  const base = `${t("assetBankLoadFailed")} ${error.message}`;
   if (window.location.protocol === "file:") {
-    return `${base}\nPara cargar desde /assets usa un servidor local (por ejemplo Live Server). Mientras tanto, usa Importar archivo.`;
+    return `${base}\n${t("assetsNeedServerHint")}`;
   }
-  return `${base}\nRevisa rutas, manifest y JSON.`;
+  return `${base}\n${t("assetsCheckPathsHint")}`;
 }
 function handleValidateAndLoadFromTextarea() {
   const text = refs.jsonInput.value.trim();
   if (!text) {
-    refs.loadStatus.textContent = "Pega JSON antes de validar.";
+    refs.loadStatus.textContent = t("pasteJsonBeforeValidate");
     return;
   }
 
@@ -400,8 +447,8 @@ function handleValidateAndLoadFromTextarea() {
     const parsed = JSON.parse(text);
     applyLoadedBank(parsed, { source: "pegado", file: "(textarea)" }, { statusMessage: "Banco cargado desde texto pegado." });
   } catch (error) {
-    refs.loadStatus.textContent = `JSON pegado invalido: ${error.message}`;
-    addDiagnostic(`JSON pegado invalido: ${error.message}`, "error", error);
+    refs.loadStatus.textContent = t("invalidPastedJson", { error: error.message });
+    addDiagnostic(t("invalidPastedJson", { error: error.message }), "error", error);
   }
 }
 
@@ -417,7 +464,7 @@ async function handleFileLoad(event) {
     const parsed = JSON.parse(text);
     applyLoadedBank(parsed, { source: "archivo", file: file.name }, { statusMessage: `Banco cargado desde archivo: ${file.name}` });
   } catch (error) {
-    refs.loadStatus.textContent = `Error al importar archivo: ${error.message}`;
+    refs.loadStatus.textContent = t("importFileError", { error: error.message });
     addDiagnostic(`Fallo importando archivo: ${error.message}`, "error", error);
   } finally {
     event.target.value = "";
@@ -428,7 +475,7 @@ function readFileAsText(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = () => resolve(String(reader.result || ""));
-    reader.onerror = () => reject(new Error("No se pudo leer el archivo"));
+    reader.onerror = () => reject(new Error(t("fileReadError")));
     reader.readAsText(file);
   });
 }
@@ -458,8 +505,8 @@ function applyLoadedBank(rawBank, sourceMeta, options = {}) {
 
   refs.loadStatus.textContent = options.statusMessage
     || (summary.missingLetters.length > 0
-      ? `Banco valido con advertencias. Faltan letras: ${summary.missingLetters.join(", ")}`
-      : "Banco valido y listo para jugar.");
+      ? t("bankValidWarnings", { letters: summary.missingLetters.join(", ") })
+      : t("bankValidReady"));
 
   if (Array.isArray(summary.logs) && summary.logs.length > 0) {
     summary.logs.forEach((msg) => addDiagnostic(msg, summary.usedFallback ? "warn" : "info"));
@@ -473,8 +520,10 @@ function updateLoadPanel(summary, sourceMeta) {
   refs.loadSource.textContent = sourceMeta.source || "-";
   refs.loadFile.textContent = sourceMeta.file || "-";
   refs.loadTotal.textContent = String(summary.total);
-  refs.loadDuplicates.textContent = summary.duplicateCount > 0 ? `SI (${summary.duplicateCount})` : "No";
-  refs.loadMissing.textContent = summary.missingLetters.length > 0 ? summary.missingLetters.join(", ") : "No";
+  refs.loadDuplicates.textContent = summary.duplicateCount > 0
+    ? t("duplicatesYes", { count: summary.duplicateCount })
+    : t("noValue");
+  refs.loadMissing.textContent = summary.missingLetters.length > 0 ? summary.missingLetters.join(", ") : t("noValue");
 }
 
 function updateBankInfoUI() {
@@ -484,9 +533,9 @@ function updateBankInfoUI() {
 }
 
 function fillFilterSelects(questions) {
-  fillSelect(refs.filterCycle, uniqueSorted(questions.map((q) => q.ciclo)), "Todos");
-  fillSelect(refs.filterModule, uniqueSorted(questions.map((q) => q.modulo)), "Todos");
-  fillSelect(refs.filterDifficulty, uniqueSorted(questions.map((q) => q.dificultad)), "Todos");
+  fillSelect(refs.filterCycle, uniqueSorted(questions.map((q) => q.ciclo)), t("allOption"));
+  fillSelect(refs.filterModule, uniqueSorted(questions.map((q) => q.modulo)), t("allOption"));
+  fillSelect(refs.filterDifficulty, uniqueSorted(questions.map((q) => q.dificultad)), t("allOption"));
   restoreFilterSelections();
 }
 
@@ -507,7 +556,7 @@ function fillSelect(select, values, defaultLabel) {
 
 function uniqueSorted(values) {
   return Array.from(new Set(values.map((v) => String(v || "").trim()).filter(Boolean)))
-    .sort((a, b) => a.localeCompare(b, "es", { sensitivity: "base" }));
+    .sort((a, b) => a.localeCompare(b, getLanguage(), { sensitivity: "base" }));
 }
 
 function restoreFilterSelections() {
@@ -525,7 +574,7 @@ function hasOption(select, value) {
 
 async function ensureReadyForStart() {
   if (!hasSavedConfig()) {
-    refs.configStatus.textContent = "Guarda configuracion antes de iniciar.";
+    refs.configStatus.textContent = t("saveConfigBeforeStart");
     return false;
   }
 
@@ -539,7 +588,7 @@ async function ensureReadyForStart() {
       applyLoadedBank(cached.bank, {
         source: cached.meta?.source || "cache",
         file: cached.meta?.file || "(cache)"
-      }, { persist: false, statusMessage: "Banco recuperado desde cache." });
+      }, { persist: false, statusMessage: t("bankRecoveredFromCache") });
       return true;
     } catch (error) {
       addDiagnostic(`Cache de banco invalida: ${error.message}`, "error", error);
@@ -547,7 +596,7 @@ async function ensureReadyForStart() {
   }
 
   try {
-    await loadBankFromAssetsFile(assetsManifest.default, { statusPrefix: "Banco por defecto cargado" });
+    await loadBankFromAssetsFile(assetsManifest.default, { statusPrefix: t("defaultBankLoaded") });
     return true;
   } catch (error) {
     refs.configStatus.textContent = buildAssetFailureMessage(error);
@@ -565,21 +614,21 @@ function refreshLandingStartState() {
   refs.btnLandingStart.disabled = !(configOk && bankOk);
 
   if (!configOk) {
-    refs.landingStartHint.textContent = "Iniciar partida deshabilitado: guarda configuracion primero.";
+    refs.landingStartHint.textContent = t("startDisabledConfig");
     return;
   }
   if (!bankOk) {
     refs.landingStartHint.textContent = window.location.protocol === "file:"
-      ? "Iniciar partida deshabilitado: no hay banco cargado. En file:// usa Importar archivo o ejecuta un servidor local para /assets."
-      : "Iniciar partida deshabilitado: no hay banco cargado.";
+      ? t("startDisabledNoBankFile")
+      : t("startDisabledNoBank");
     return;
   }
-  refs.landingStartHint.textContent = "Listo para iniciar.";
+  refs.landingStartHint.textContent = t("readyToStart");
 }
 
 function startGame() {
   if (!state.questionBank?.questions?.length) {
-    refs.configStatus.textContent = "No hay banco disponible para iniciar.";
+    refs.configStatus.textContent = t("noBankToStart");
     switchView("config");
     return;
   }
@@ -588,7 +637,7 @@ function startGame() {
 
   const filtered = getFilteredQuestions(state.questionBank.questions);
   if (filtered.length === 0) {
-    refs.configStatus.textContent = "Los filtros dejan 0 preguntas. Ajusta ciclo/modulo/dificultad.";
+    refs.configStatus.textContent = t("filtersNoQuestions");
     switchView("config");
     return;
   }
@@ -597,7 +646,7 @@ function startGame() {
   const { letters, selectedByLetter, poolByLetter } = buildGameSetByLetter(letterOrder, filtered, state.config.shuffle);
   const firstPending = letters.findIndex((x) => x.status === "pending");
   if (firstPending === -1) {
-    refs.configStatus.textContent = "No hay letras jugables con este banco/filtros.";
+    refs.configStatus.textContent = t("noPlayableLetters");
     switchView("config");
     return;
   }
@@ -667,7 +716,7 @@ function renderActiveQuestionPanel() {
   const active = getActiveLetterState();
   if (!active || active.status !== "pending" || !active.questionData) {
     refs.activeLetter.textContent = "-";
-    refs.questionText.textContent = "No hay letra activa jugable.";
+    refs.questionText.textContent = t("noActivePlayableLetter");
     refs.answerText.textContent = "";
     refs.answerBlock.classList.add("hidden");
     renderTeacherPanel();
@@ -773,7 +822,7 @@ function onMarkWrong() {
 function moveToNextPending() {
   const next = findNextPendingIndex(state.game.activeIndex);
   if (next === -1) {
-    endGame("No quedan letras pendientes.");
+    endGame("ALL_DONE");
     return;
   }
   enterLetter(next);
@@ -827,7 +876,7 @@ function endGame(reason) {
   renderRosco();
   renderHUD();
   refs.activeLetter.textContent = "-";
-  refs.questionText.textContent = reason;
+  refs.questionText.textContent = reason === "TIME_UP" ? t("summaryReasonTime") : t("summaryReasonDone");
 
   showSummaryOverlay(reason);
 }
@@ -938,11 +987,11 @@ function handleTimeElapsed() {
   state.game.blockedByTime = true;
   playTimeUpSfx(state.config.audioEnabled);
   renderHUD();
-  endGame("TIEMPO");
+  endGame("TIME_UP");
 }
 
 function handleNewGame() {
-  if (!window.confirm("Se iniciara una nueva partida y se perdera el estado actual. ¿Continuar?")) {
+  if (!window.confirm(t("confirmNewGame"))) {
     return;
   }
   hideSummaryOverlay();
@@ -950,7 +999,7 @@ function handleNewGame() {
 }
 
 function handleExitToLanding() {
-  if (!window.confirm("Se cerrara la partida actual. ¿Salir a inicio?")) {
+  if (!window.confirm(t("confirmExit"))) {
     return;
   }
   stopTimer();
@@ -986,17 +1035,18 @@ async function handleFullscreen() {
       return;
     }
 
-    refs.configStatus.textContent = "Fullscreen API no disponible. Se mantiene layout 100vh.";
-    addDiagnostic("Fullscreen API no disponible en este navegador.", "warn");
+    refs.configStatus.textContent = t("fullscreenUnavailable");
+    addDiagnostic(t("fullscreenUnavailable"), "warn");
   } catch (error) {
-    refs.configStatus.textContent = `No se pudo activar pantalla completa: ${error.message}`;
+    refs.configStatus.textContent = t("fullscreenError", { error: error.message });
     addDiagnostic(`Error en requestFullscreen: ${error.message}`, "error", error);
   }
 }
 
 function renderSummary(summary) {
-  refs.summaryTitle.textContent = "RESUMEN PARTIDA";
-  refs.summaryReason.textContent = summary.reason === "TIEMPO" ? "Finalizada por tiempo" : "Partida completada";
+  refs.summaryTitle.textContent = t("summaryTitle");
+  refs.summaryReason.textContent = summary.reason === "TIME_UP" ? t("summaryReasonTime") : t("summaryReasonDone");
+  refs.summaryPlayerName.textContent = summary.playerName || "-";
   refs.summaryScore.textContent = String(summary.puntuacion);
   refs.summaryPercent.textContent = `${summary.porcentaje}%`;
   refs.summaryCorrect.textContent = String(summary.correctas);
@@ -1008,12 +1058,23 @@ function renderSummary(summary) {
 
 function showSummaryOverlay(reason) {
   latestSummary = buildSummary(reason);
+  persistScore(latestSummary);
+  renderTopScores();
   renderSummary(latestSummary);
   refs.summaryOverlay.classList.remove("hidden");
 }
 
 function hideSummaryOverlay() {
   refs.summaryOverlay.classList.add("hidden");
+}
+
+function showTopScoresOverlay() {
+  renderTopScores();
+  refs.topScoresOverlay.classList.remove("hidden");
+}
+
+function hideTopScoresOverlay() {
+  refs.topScoresOverlay.classList.add("hidden");
 }
 
 function buildSummary(reason) {
@@ -1036,6 +1097,7 @@ function buildSummary(reason) {
   return {
     timestamp: new Date().toISOString(),
     reason,
+    playerName: state.config.playerName || "",
     puntuacion: state.game.score,
     correctas,
     erroneas,
@@ -1055,6 +1117,7 @@ function exportResultsJson() {
   const payload = {
     timestamp: new Date().toISOString(),
     configuracion: {
+      playerName: state.config.playerName || "",
       tiempo: {
         valor: state.config.totalTime,
         unidad: state.config.timeUnit,
@@ -1102,6 +1165,7 @@ function getConfiguredTotalMs() {
 }
 
 function persistConfigFromForm() {
+  state.config.playerName = String(refs.playerNameInput.value || "").trim();
   state.config.shuffle = refs.cfgShuffle.checked;
   state.config.totalTime = Math.max(1, Number.parseInt(refs.cfgTime.value, 10) || 1);
   state.config.timeUnit = refs.cfgTimeUnit.value === "minutes" ? "minutes" : "seconds";
@@ -1128,6 +1192,7 @@ function persistConfigFromForm() {
   syncTeacherModeUi();
   updateTtsStatus();
   refreshLandingStartState();
+  renderCurrentPlayer();
 
   if (!state.game.running && !timerIsRunning()) {
     state.game.timeLeft = getConfiguredTotalSeconds();
@@ -1155,6 +1220,7 @@ function hydrateConfig() {
   };
 
   refs.cfgShuffle.checked = !!state.config.shuffle;
+  refs.playerNameInput.value = state.config.playerName || "";
   refs.cfgTime.value = String(state.config.totalTime);
   refs.cfgTimeUnit.value = state.config.timeUnit === "minutes" ? "minutes" : "seconds";
   refs.cfgPoints.value = String(state.config.pointsCorrect);
@@ -1170,7 +1236,7 @@ function hydrateConfig() {
 }
 
 function handleResetConfig() {
-  if (!window.confirm("Se restableceran los parametros guardados. ¿Continuar?")) {
+  if (!window.confirm(t("confirmResetConfig"))) {
     return;
   }
 
@@ -1178,7 +1244,7 @@ function handleResetConfig() {
   state.config = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
   hydrateConfig();
   persistConfigFromForm();
-  refs.configStatus.textContent = "Configuracion restablecida.";
+  refs.configStatus.textContent = t("configReset");
 }
 
 function renderVoices() {
@@ -1187,7 +1253,7 @@ function renderVoices() {
 
   const defaultOption = document.createElement("option");
   defaultOption.value = "";
-  defaultOption.textContent = "Preferida (espanol)";
+  defaultOption.textContent = t("voicePreferred");
   refs.ttsVoice.appendChild(defaultOption);
 
   voices.forEach((voice) => {
@@ -1206,22 +1272,22 @@ function updateTtsStatus() {
   }
 
   if (!state.config.audioEnabled) {
-    refs.ttsStatus.textContent = "Audio desactivado. El juego funciona en modo silencioso.";
+    refs.ttsStatus.textContent = t("ttsDisabled");
     return;
   }
 
   const status = getTtsStatus();
   if (status.mode === "web") {
-    refs.ttsStatus.textContent = status.message || "TTS del navegador activo.";
+    refs.ttsStatus.textContent = status.message || t("ttsBrowserActive");
     return;
   }
 
   if (status.mode === "audio") {
-    refs.ttsStatus.textContent = "Usando audio local (fallback offline).";
+    refs.ttsStatus.textContent = t("ttsLocalFallback");
     return;
   }
 
-  refs.ttsStatus.textContent = "TTS no disponible en este navegador. Se intentara audio local si existe.";
+  refs.ttsStatus.textContent = t("ttsUnavailable");
 }
 
 function syncAudioUi() {
@@ -1243,15 +1309,16 @@ function speakCurrentQuestion() {
     return;
   }
 
-  const typeLabel = String(active.questionData.tipo || "").trim();
+  const typeKey = String(active.questionData.tipoKey || "").trim() || normalizeQuestionTypeForSpeech(active.questionData.tipo);
   const questionText = String(active.questionData.pregunta || "").trim();
-  const startsWithConLa = new RegExp(`^con\\s+la\\s+${active.letra}\\b`, "i").test(questionText);
+  const alreadyPrefixed = /^(con|contiene|cont[ée]n|contains|with)\b/i.test(questionText);
+  const prefix = typeKey === "contains"
+    ? t("questionPrefixContains", { letter: active.letra })
+    : t("questionPrefixStarts", { letter: active.letra });
 
-  const text = startsWithConLa
+  const text = alreadyPrefixed
     ? questionText
-    : (typeLabel
-      ? `Con la ${active.letra}. ${typeLabel}. ${questionText}`
-      : `Con la ${active.letra}. ${questionText}`);
+    : `${prefix}. ${questionText}`;
 
   speak(text, {
     voice: refs.ttsVoice.value,
@@ -1262,7 +1329,7 @@ function speakCurrentQuestion() {
     questionIndex: active.questionData.audioIndex || active.questionData.idx || "",
     audioCandidates: buildQuestionAudioCandidates(active)
   }).catch((error) => {
-    addDiagnostic(`Fallo de audio al leer pregunta: ${error.message}`, "warn", error);
+    addDiagnostic(t("audioQuestionError", { error: error.message }), "warn", error);
   });
 
   updateTtsStatus();
@@ -1287,7 +1354,7 @@ function speakCurrentAnswer() {
     questionIndex: active.questionData.audioIndex || active.questionData.idx || "",
     audioCandidates: buildAnswerAudioCandidates(active)
   }).catch((error) => {
-    addDiagnostic(`Fallo de audio al leer respuesta: ${error.message}`, "warn", error);
+    addDiagnostic(t("audioAnswerError", { error: error.message }), "warn", error);
   });
 
   updateTtsStatus();
@@ -1311,6 +1378,87 @@ function buildAnswerAudioCandidates(active) {
   if (q.answerAudio) candidates.push(q.answerAudio);
   if (active.letra && q.idx) candidates.push(`${active.letra}_${q.idx}_r.mp3`);
   return candidates;
+}
+
+function normalizeQuestionTypeForSpeech(rawType) {
+  const value = String(rawType || "")
+    .toLocaleLowerCase("es")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim();
+
+  if (value.includes("cont")) {
+    return "contains";
+  }
+  return "starts";
+}
+
+function renderCurrentPlayer() {
+  const fallback = t("anonymousPlayer");
+  const playerName = String(state.config.playerName || "").trim();
+  refs.currentPlayerName.textContent = playerName || fallback;
+}
+
+function getSavedScores() {
+  const rows = loadJSON(SCORES_KEY, []);
+  if (!Array.isArray(rows)) {
+    return [];
+  }
+  return rows
+    .map((row) => ({
+      playerName: String(row?.playerName || "").trim(),
+      score: Number(row?.score) || 0,
+      timestamp: String(row?.timestamp || "")
+    }))
+    .filter((row) => Number.isFinite(row.score) && row.score >= 0);
+}
+
+function persistScore(summary) {
+  const all = getSavedScores();
+  all.push({
+    playerName: summary.playerName || "",
+    score: Number(summary.puntuacion) || 0,
+    timestamp: summary.timestamp || new Date().toISOString()
+  });
+
+  all.sort((a, b) => {
+    if (b.score !== a.score) {
+      return b.score - a.score;
+    }
+    return String(a.timestamp).localeCompare(String(b.timestamp));
+  });
+
+  saveJSON(SCORES_KEY, all.slice(0, 10));
+}
+
+function renderTopScores() {
+  const rows = getSavedScores()
+    .sort((a, b) => {
+      if (b.score !== a.score) {
+        return b.score - a.score;
+      }
+      return String(a.timestamp).localeCompare(String(b.timestamp));
+    })
+    .slice(0, 10);
+
+  refs.topScoresList.innerHTML = "";
+
+  rows.forEach((entry, index) => {
+    const item = document.createElement("li");
+    item.textContent = t("top10ScoreItem", { rank: index + 1, score: entry.score });
+    refs.topScoresList.appendChild(item);
+  });
+
+  refs.topScoresEmpty.classList.toggle("hidden", rows.length > 0);
+}
+
+function handleClearTopScores() {
+  if (!window.confirm(t("confirmClearTop10"))) {
+    return;
+  }
+  removeItem(SCORES_KEY);
+  renderTopScores();
+  hideTopScoresOverlay();
 }
 
 function syncTeacherModeUi() {
@@ -1355,6 +1503,11 @@ function getTeacherSnapshot() {
   };
 }
 function handleShortcuts(event) {
+  if (event.key === "Escape" && !refs.topScoresOverlay.classList.contains("hidden")) {
+    hideTopScoresOverlay();
+    return;
+  }
+
   if (isTypingTarget(event.target)) {
     return;
   }
@@ -1429,6 +1582,6 @@ function escapeHtml(value) {
 
 init().catch((error) => {
   console.error("[RoscoIntegra] Error fatal de inicializacion", error);
-  refs.loadStatus.textContent = `Error de inicializacion: ${error.message}`;
+  refs.loadStatus.textContent = t("initError", { error: error.message });
   addDiagnostic(`Error fatal de inicializacion: ${error.message}`, "error", error);
 });

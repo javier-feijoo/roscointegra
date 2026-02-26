@@ -18,6 +18,7 @@
     penaltyWrong: 0
   },
   config: {
+    playerName: "",
     shuffle: true,
     totalTime: 180,
     timeUnit: "seconds",
